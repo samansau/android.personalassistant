@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_KEYS;
+import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_MAX_KEY;
 import static android.dev.personalassistant.Constants.EXPENSE_TAG_KEYS;
 import static android.dev.personalassistant.Constants.EXPENSE_TAG_MAX_KEY;
 import static android.dev.personalassistant.Constants.SELECTED_TAG_KEY;
@@ -50,6 +52,25 @@ public class TaggingUtility {
         editor.putStringSet(EXPENSE_TAG_KEYS,mySet);
 
         editor.putInt(EXPENSE_TAG_MAX_KEY,5);
+        editor.commit();
+    }
+
+    public static void populateDocumentTagSharedPrefs(SharedPreferences mSharedPrefExpenses){
+
+        SharedPreferences.Editor editor = mSharedPrefExpenses.edit();
+
+        String [] keys={"1","2","3","4","5"};
+        Set<String> mySet = new HashSet<String>(Arrays.asList(keys));
+
+        editor.putString("1","Maintenance");
+        editor.putString("2","Health");
+        editor.putString("3","Bills");
+        editor.putString("4","Kids");
+        editor.putString("5","Wife");
+
+        editor.putStringSet(DOCUMENTS_TAG_KEYS,mySet);
+
+        editor.putInt(DOCUMENTS_TAG_MAX_KEY,5);
         editor.commit();
     }
 
@@ -96,7 +117,7 @@ public class TaggingUtility {
 
 
 
-    public void populateExpensesTagView(SharedPreferences mSharedPref,String tagKey,TextInputEditText inputTag){
+    public void populateTagView(SharedPreferences mSharedPref,String tagKey,TextInputEditText inputTag){
         Set<String> tagKeys= mSharedPref.getStringSet(tagKey,null);
         for(String key:tagKeys){
             String tag=mSharedPref.getString(key,null);

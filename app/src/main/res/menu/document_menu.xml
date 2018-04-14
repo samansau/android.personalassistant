@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-        <item android:id="@+id/expenseTag"
+        <item android:id="@+id/documentTag"
             android:title="@string/tag"
             android:icon="@drawable/expenses_tag"
             app:showAsAction="always"
             />
-        <item android:id="@+id/expenseFilter"
+        <item android:id="@+id/documentFilter"
             android:title="@string/filter"
             android:icon="@drawable/ic_filter"
             app:showAsAction="never"

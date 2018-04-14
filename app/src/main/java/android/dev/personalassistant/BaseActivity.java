@@ -79,7 +79,7 @@ public class BaseActivity  extends AppCompatActivity {
     }
 
     protected void createExpenseToolBar(){
-        Toolbar toolbar=(Toolbar) findViewById(R.id.expenseToolBar);
+        Toolbar toolbar=(Toolbar) findViewById(R.id.toolBar);
         toolbar.setTitle(R.string.manage_expenses);
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
@@ -99,7 +99,7 @@ public class BaseActivity  extends AppCompatActivity {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
-            case R.id.tag:
+            case R.id.expenseTag:
                 //Toast.makeText(this, "You Clicked on Add", Toast.LENGTH_LONG).show();
                 openManageExpenseTags();
                 return true;

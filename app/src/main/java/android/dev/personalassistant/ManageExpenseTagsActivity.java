@@ -23,6 +23,6 @@ public class ManageExpenseTagsActivity extends BaseActivity implements Constants
         }
         TableLayout mtableLayout=(TableLayout)findViewById(R.id.listExpenseTags);
         TaggingUtility taggingUtility=new TaggingUtility(this,mtableLayout);
-        taggingUtility.populateExpensesTagView(mSharedPref,EXPENSE_TAG_KEYS,editExpenseTag);
+        taggingUtility.populateTagView(mSharedPref,EXPENSE_TAG_KEYS,editExpenseTag);
     }
 }

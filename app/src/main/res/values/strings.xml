@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Personal Assistant</string>
     <string name="manage_expenses">Manage Expenses</string>
+    <string name="manage_documents">Manage Documents</string>
     <string name="savings">Savings</string>
     <string name="add">Add Expense Item</string>
     <string name="filter">Filter Item</string>

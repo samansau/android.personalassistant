@@ -5,9 +5,13 @@ package android.dev.personalassistant;
  */
 
 public interface Constants {
-    public String  EXPENSE_TAG_MAX_KEY ="EXPENSE_TAG_MAX_KEY";
+    public String EXPENSE_TAG_MAX_KEY ="EXPENSE_TAG_MAX_KEY";
     public String EXPENSE_TAG_KEYS="EXPENSE_TAG_KEYS";
     public String EXPENSE_TAG_SHARED_PREFERENCE="EXPENSE_TAG_SHARED_PREFERENCE";
+    public String DOCUMENTS_TAG_SHARED_PREFERENCE="DOCUMENTS_TAG_SHARED_PREFERENCE";
+    public String DOCUMENTS_TAG_MAX_KEY ="DOCUMENTS_TAG_MAX_KEY";
+    public String DOCUMENTS_TAG_KEYS="DOCUMENTS_TAG_KEYS";
+
     public String SELECTED_TAG_KEY="SELECTED_TAG_KEY";
 
 }
