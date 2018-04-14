@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import java.util.Set;
 
-import static android.dev.personalassistant.Constants.EXPENSE_TAG_KEYS;
-import static android.dev.personalassistant.Constants.EXPENSE_TAG_MAX_KEY;
 import static android.dev.personalassistant.Constants.SELECTED_TAG_KEY;
 import static java.security.AccessController.getContext;
 
@@ -25,20 +23,16 @@ public class TaggingView implements View.OnClickListener,View.OnLongClickListene
     TableLayout mtableLayout;
     SharedPreferences mSharedPref;
     TextInputEditText editTag;
+    String tagKey;
 
-    public void setMtableLayout(TableLayout mtableLayout) {
-        this.mtableLayout = mtableLayout;
+    public TaggingView(TableLayout mtableLayout,SharedPreferences mSharedPref,TextInputEditText editTag,String tagKey){
+        this.mtableLayout=mtableLayout;
+        this.mSharedPref=mSharedPref;
+        this.editTag=editTag;
+        this.tagKey=tagKey;
     }
 
 
-
-    public void setEditTag(TextInputEditText editTag) {
-        this.editTag = editTag;
-    }
-
-    public void setmSharedPref(SharedPreferences mSharedPref) {
-        this.mSharedPref = mSharedPref;
-    }
 
     public void onClick(View view) {
         int mSelectedTagKey= mSharedPref.getInt(SELECTED_TAG_KEY, -1);
@@ -68,15 +62,17 @@ public class TaggingView implements View.OnClickListener,View.OnLongClickListene
         if(mSelectedTagKey!=-1) {
             SharedPreferences.Editor editor = mSharedPref.edit();
             editor.remove(mSelectedTagKey + "").commit();
-            Set<String> tagKeys = mSharedPref.getStringSet(EXPENSE_TAG_KEYS, null);
+            Set<String> tagKeys = mSharedPref.getStringSet(tagKey, null);
             try {
                 tagKeys.remove(mSelectedTagKey + "");
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            editor.putStringSet(EXPENSE_TAG_KEYS, tagKeys);
+            editor.putStringSet(tagKey, tagKeys);
             BaseActivity myActivity = (BaseActivity)view.getContext();
             myActivity.recreate();
+            editor.putInt(SELECTED_TAG_KEY,-1);
+            editor.commit();
             return true;
         }else{
             return false;

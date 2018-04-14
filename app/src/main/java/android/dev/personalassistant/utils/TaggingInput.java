@@ -1,12 +1,7 @@
 package android.dev.personalassistant.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.dev.personalassistant.BaseActivity;
-import android.dev.personalassistant.MainActivity;
-import android.dev.personalassistant.ManageExpenseTagsActivity;
-import android.dev.personalassistant.R;
 import android.support.design.widget.TextInputEditText;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,18 +16,20 @@ public class TaggingInput implements View.OnKeyListener {
     SharedPreferences mSharedPref;
     TextInputEditText inputTag;
     Activity parentActivity;
+    String tagKey;
+    String tagMaxKey;
     public TaggingInput(Activity parentActivity,
                         SharedPreferences mSharedPref,
-                        TextInputEditText inputTag){
+                        TextInputEditText inputTag,String tagKey,String tagMaxKey){
         this.parentActivity=parentActivity;
         this.mSharedPref=mSharedPref;
         this.inputTag=inputTag;
+        this.tagKey=tagKey;
+        this.tagMaxKey=tagMaxKey;
     }
 
     public boolean onKey(View view, int i, KeyEvent keyEvent) {
         int mSelectedTagKey= mSharedPref.getInt(SELECTED_TAG_KEY, -1);
-
-
         if(keyEvent.getAction()==KeyEvent.ACTION_DOWN) {
             switch (keyEvent.getKeyCode()) {
                 case KeyEvent.KEYCODE_ENTER:
@@ -40,7 +37,7 @@ public class TaggingInput implements View.OnKeyListener {
                     if(tag.length()>0) {
                         //persistTagChanges(tag);
                         mSelectedTagKey=mSharedPref.getInt(SELECTED_TAG_KEY, -1);
-                        TaggingUtility.persistTagChanges(tag,mSharedPref,mSelectedTagKey);
+                        TaggingUtility.persistTagChanges(tag,mSharedPref,mSelectedTagKey,tagKey,tagMaxKey);
                         parentActivity.recreate();
 
                         SharedPreferences.Editor editor=mSharedPref.edit();
