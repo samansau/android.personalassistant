@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Personal Assistant</string>
+    <string name="manage_expenses">Manage Expenses</string>
+    <string name="savings">Savings</string>
+    <string name="add">Add Expense Item</string>
+    <string name="filter">Filter Item</string>
+    <string name="tag">Manage Tags</string>
+    <string name="expense_amount">Expense Amount</string>
+    <string name="expense_tags">Expense Tags</string>
+
+    <string name="my_information">My Information</string>
+    <string name="title_activity_show_bank_details">ShowBankDetails</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+</resources>

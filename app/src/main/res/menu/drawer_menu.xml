@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:id="@+id/financial_transactions"
+            android:title="Financial Transactions"
+            android:icon="@drawable/expenses" />
+
+        <item android:id="@+id/my_information"
+            android:title="@string/my_information"
+            android:icon="@drawable/savings" />
+
+        <item android:id="@+id/track_electronic_expenses"
+            android:title="Track Electronic Expenses"
+            android:icon="@drawable/savings" />
+
+        <item android:id="@+id/manage_documents"
+            android:title="Manage Documents"
+            android:icon="@drawable/savings" />
+
+</menu>
