@@ -38,32 +38,9 @@ public class ManageExpenseTagsActivity extends BaseActivity implements Constants
 
         final TextInputEditText editExpenseTag=(TextInputEditText)findViewById(R.id.editExpenseTags);
         mSharedPref = this.getSharedPreferences(EXPENSE_TAG_SHARED_PREFERENCE,Context.MODE_PRIVATE);
-        TaggingInput taggingInput=new TaggingInput();
+        TaggingInput taggingInput=new TaggingInput(this,mSharedPref,editExpenseTag);
         editExpenseTag.setOnKeyListener(taggingInput);
-        taggingInput.setmSharedPref(mSharedPref);
-        taggingInput.setInputTag(editExpenseTag);
-//        editExpenseTag.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-//                if(keyEvent.getAction()==KeyEvent.ACTION_DOWN) {
-//                    switch (keyEvent.getKeyCode()) {
-//                        case KeyEvent.KEYCODE_ENTER:
-//                            String tag=editExpenseTag.getText().toString().trim();
-//                            if(tag.length()>0) {
-//                                //persistTagChanges(tag);
-//                                mSelectedTagKey=mSharedPref.getInt(SELECTED_TAG_KEY, -1);
-//                                TaggingUtility.persistTagChanges(tag,mSharedPref,mSelectedTagKey);
-//                                recreate();
-//                                SharedPreferences.Editor editor=mSharedPref.edit();
-//                                editor.putInt(SELECTED_TAG_KEY,-1);
-//                                editor.commit();
-//                            }
-//                            return true;
-//                    }
-//                }
-//                return false;
-//            }
-//        });
+
         mExpensesTagMaxKey= mSharedPref.getInt(EXPENSE_TAG_MAX_KEY, 0);
         if(mExpensesTagMaxKey==0){
             TaggingUtility.populateExpensesTagSharedPrefs(mSharedPref);
@@ -91,72 +68,6 @@ public class ManageExpenseTagsActivity extends BaseActivity implements Constants
     }
 
 
-
-    private void addTagRows(String tag,String key){
-
-        TableRow tagRow=new TableRow(this);
-        tagRow.setId(Integer.parseInt(key));
-        tagRow.setGravity(center);
-        TextView textView=new TextView(this);
-        textView.setTextSize(20);
-        textView.setText(tag);
-        tagRow.addView(textView);
-        mtableLayout.addView(tagRow);
-//        tagRow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                for(int i=0;i<mtableLayout.getChildCount();i++){
-//                    mtableLayout.getChildAt(i).setBackgroundColor(mtableLayout.getSolidColor());
-//                }
-//                final TextInputEditText editExpenseTage=(TextInputEditText)findViewById(R.id.editExpenseTags);
-//                TableRow tagClicked=(TableRow)view;
-//                tagClicked.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_bright));
-//
-//                if(mSelectedTagKey==tagClicked.getId()){
-//                    tagClicked.setBackgroundColor(mtableLayout.getSolidColor());
-//                    mSelectedTagKey=-1;
-//                }else{
-//                    mSelectedTagKey=tagClicked.getId();
-//                    editExpenseTage.setText(((TextView)tagClicked.getChildAt(0)).getText());
-//                }
-//
-//
-//            }
-//        });
-        TaggingView tView=new TaggingView();
-        TextInputEditText editExpenseTag=(TextInputEditText)findViewById(R.id.editExpenseTags);
-        tView.setEditTag(editExpenseTag);
-        tView.setMtableLayout(mtableLayout);
-        tView.setmSharedPref(mSharedPref);
-        tagRow.setOnClickListener(tView);
-        tagRow.setOnLongClickListener(tView);
-
-
-//        tagRow.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                mSelectedTagKey=mSharedPref.getInt(SELECTED_TAG_KEY, -1);
-//                if(mSelectedTagKey!=-1) {
-//                    SharedPreferences.Editor editor = mSharedPref.edit();
-//                    editor.remove(mSelectedTagKey + "").commit();
-//                    Set<String> tagKeys = mSharedPref.getStringSet(EXPENSE_TAG_KEYS, null);
-//                    try {
-//                        tagKeys.remove(mSelectedTagKey + "");
-//                    } catch (Exception ex) {
-//                        ex.printStackTrace();
-//                    }
-//                    editor.putStringSet(EXPENSE_TAG_KEYS, tagKeys);
-//                    populateExpensesTagView();
-//                    recreate();
-//                    return true;
-//                }else{
-//                    return false;
-//                }
-//            }
-//        });
-
-
-    }
 
 
 }

@@ -20,12 +20,15 @@ import static android.dev.personalassistant.Constants.SELECTED_TAG_KEY;
 public class TaggingInput implements View.OnKeyListener {
     SharedPreferences mSharedPref;
     TextInputEditText inputTag;
-    public void setmSharedPref(SharedPreferences mSharedPref) {
-        this.mSharedPref = mSharedPref;
-    }
-    public void setInputTag(TextInputEditText inputTag){
+    Activity parentActivity;
+    public TaggingInput(Activity parentActivity,
+                        SharedPreferences mSharedPref,
+                        TextInputEditText inputTag){
+        this.parentActivity=parentActivity;
+        this.mSharedPref=mSharedPref;
         this.inputTag=inputTag;
     }
+
     public boolean onKey(View view, int i, KeyEvent keyEvent) {
         int mSelectedTagKey= mSharedPref.getInt(SELECTED_TAG_KEY, -1);
 
@@ -38,7 +41,7 @@ public class TaggingInput implements View.OnKeyListener {
                         //persistTagChanges(tag);
                         mSelectedTagKey=mSharedPref.getInt(SELECTED_TAG_KEY, -1);
                         TaggingUtility.persistTagChanges(tag,mSharedPref,mSelectedTagKey);
-
+                        parentActivity.recreate();
 
                         SharedPreferences.Editor editor=mSharedPref.edit();
                         editor.putInt(SELECTED_TAG_KEY,-1);
