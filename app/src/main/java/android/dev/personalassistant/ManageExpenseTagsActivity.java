@@ -6,6 +6,8 @@ import android.dev.personalassistant.utils.TaggingInput;
 import android.dev.personalassistant.utils.TaggingUtility;
 import android.support.design.widget.TextInputEditText;
 import android.os.Bundle;
+import android.widget.GridLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 
 public class ManageExpenseTagsActivity extends BaseActivity implements Constants{
@@ -21,7 +23,7 @@ public class ManageExpenseTagsActivity extends BaseActivity implements Constants
         if(mExpensesTagMaxKey==0){
             TaggingUtility.populateExpensesTagSharedPrefs(mSharedPref);
         }
-        TableLayout mtableLayout=(TableLayout)findViewById(R.id.listExpenseTags);
+        GridLayout mtableLayout=(GridLayout)findViewById(R.id.listExpenseTags);
         TaggingUtility taggingUtility=new TaggingUtility(this,mtableLayout);
         taggingUtility.populateTagView(mSharedPref,EXPENSE_TAG_KEYS,editExpenseTag);
     }

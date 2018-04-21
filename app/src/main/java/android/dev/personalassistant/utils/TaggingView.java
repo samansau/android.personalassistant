@@ -5,6 +5,8 @@ import android.dev.personalassistant.BaseActivity;
 import android.dev.personalassistant.R;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
+import android.widget.GridLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -18,14 +20,15 @@ import static java.security.AccessController.getContext;
  * Created by saurabh on 4/10/18.
  */
 
-public class TaggingView implements View.OnClickListener,View.OnLongClickListener {
+public class
+TaggingView implements View.OnClickListener,View.OnLongClickListener {
 
-    TableLayout mtableLayout;
+    GridLayout mtableLayout;
     SharedPreferences mSharedPref;
     TextInputEditText editTag;
     String tagKey;
 
-    public TaggingView(TableLayout mtableLayout,SharedPreferences mSharedPref,TextInputEditText editTag,String tagKey){
+    public TaggingView(GridLayout mtableLayout, SharedPreferences mSharedPref, TextInputEditText editTag, String tagKey){
         this.mtableLayout=mtableLayout;
         this.mSharedPref=mSharedPref;
         this.editTag=editTag;
@@ -41,7 +44,7 @@ public class TaggingView implements View.OnClickListener,View.OnLongClickListene
             mtableLayout.getChildAt(i).setBackgroundColor(mtableLayout.getSolidColor());
         }
 
-        TableRow tagClicked=(TableRow)view;
+        TextView tagClicked=(TextView)view;
         tagClicked.setBackgroundColor(view.getResources().getColor(android.R.color.holo_blue_bright));
 
         if(mSelectedTagKey==tagClicked.getId()){
@@ -49,7 +52,7 @@ public class TaggingView implements View.OnClickListener,View.OnLongClickListene
             mSelectedTagKey=-1;
         }else{
             mSelectedTagKey=tagClicked.getId();
-            editTag.setText(((TextView)tagClicked.getChildAt(0)).getText());
+            editTag.setText(tagClicked.getText());
         }
         SharedPreferences.Editor editor=mSharedPref.edit();
         editor.putInt(SELECTED_TAG_KEY,mSelectedTagKey);

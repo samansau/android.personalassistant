@@ -7,6 +7,9 @@ import android.dev.personalassistant.utils.TaggingUtility;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.GridLayout;
+import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 
 public class ManageDocumentsTagsActivity extends AppCompatActivity implements Constants{
@@ -22,7 +25,7 @@ public class ManageDocumentsTagsActivity extends AppCompatActivity implements Co
         if(mExpensesTagMaxKey==0){
             TaggingUtility.populateDocumentTagSharedPrefs(mSharedPref);
         }
-        TableLayout mtableLayout=(TableLayout)findViewById(R.id.listDocumentsTags);
+        GridLayout mtableLayout=(GridLayout)findViewById(R.id.listDocumentsTags);
         TaggingUtility taggingUtility=new TaggingUtility(this,mtableLayout);
         taggingUtility.populateTagView(mSharedPref,DOCUMENTS_TAG_KEYS,editDocumentsTag);
     }

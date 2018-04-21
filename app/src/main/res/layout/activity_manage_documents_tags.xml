@@ -21,14 +21,16 @@
         android:layout_height="200dp"
         android:scrollbars="vertical"
         android:layout_weight="1">
-        <TableLayout
+        <GridLayout
+            android:paddingHorizontal="@dimen/activity_horizontal_margin"
             android:id="@+id/listDocumentsTags"
             android:layout_width="match_parent"
+            android:columnCount="1"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
             >
-        </TableLayout>
+        </GridLayout>
     </ScrollView>
 
 </LinearLayout>
