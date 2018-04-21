@@ -195,23 +195,5 @@ public class TaggingUtility {
 
 
         }
-
-//        for(String tag:sortedTags){
-//            rowLength=rowLength+tag.length();
-//            if(rowLength>20){
-//                tagRow=new TableRow(activity);
-//                isNewRow=true;
-//                rowLength=tag.length();
-//                i++;
-//            }else if(i>0){
-//                isNewRow=false;
-//            }
-//            TextView textView=new TextView(activity);
-//            TaggingUtility.addTagRows(tag,keysMap.get(tag),tagRow,textView,mtableLayout,mSharedPref,inputTag,EXPENSE_TAG_KEYS,isNewRow);
-//            i++;
-//        }
-
     }
-
-
 }

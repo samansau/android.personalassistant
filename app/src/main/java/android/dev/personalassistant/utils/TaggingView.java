@@ -11,9 +11,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static android.dev.personalassistant.Constants.SELECTED_TAG_KEY;
+import static android.dev.personalassistant.Constants.SELECTED_TAG_KEYS;
 import static java.security.AccessController.getContext;
 
 /**
@@ -27,8 +29,9 @@ TaggingView implements View.OnClickListener,View.OnLongClickListener {
     SharedPreferences mSharedPref;
     TextInputEditText editTag;
     String tagKey;
+    Set<String> selectedKeys=new HashSet<>();
 
-    public TaggingView(GridLayout mtableLayout, SharedPreferences mSharedPref, TextInputEditText editTag, String tagKey){
+    public TaggingView(GridLayout mtableLayout, SharedPreferences mSharedPref,TextInputEditText editTag, String tagKey){
         this.mtableLayout=mtableLayout;
         this.mSharedPref=mSharedPref;
         this.editTag=editTag;
@@ -45,17 +48,21 @@ TaggingView implements View.OnClickListener,View.OnLongClickListener {
         }
 
         TextView tagClicked=(TextView)view;
-        tagClicked.setBackgroundColor(view.getResources().getColor(android.R.color.holo_blue_bright));
+        //tagClicked.setBackgroundColor(view.getResources().getColor(android.R.color.holo_blue_bright));
+        tagClicked.setBackgroundResource(R.drawable.rounded_border_layout_selected);
 
         if(mSelectedTagKey==tagClicked.getId()){
-            tagClicked.setBackgroundColor(mtableLayout.getSolidColor());
+            //tagClicked.setBackgroundColor(mtableLayout.getSolidColor());
+            tagClicked.setBackgroundResource(R.drawable.rounded_border_layout);
             mSelectedTagKey=-1;
         }else{
             mSelectedTagKey=tagClicked.getId();
             editTag.setText(tagClicked.getText());
+            selectedKeys.add(mSelectedTagKey+"");
         }
         SharedPreferences.Editor editor=mSharedPref.edit();
         editor.putInt(SELECTED_TAG_KEY,mSelectedTagKey);
+        editor.putStringSet(SELECTED_TAG_KEYS,selectedKeys);
         editor.commit();
 
     }
