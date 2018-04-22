@@ -70,8 +70,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
-                android:background="@color/colorAccent"
                 android:onClick="openManageDocumentsTags"
+                android:background="@color/colorAccent"
                 >
                 <ScrollView
                     android:layout_width="fill_parent"

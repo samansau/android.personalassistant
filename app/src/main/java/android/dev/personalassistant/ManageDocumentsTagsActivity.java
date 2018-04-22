@@ -17,6 +17,8 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 
+import static java.security.AccessController.getContext;
+
 public class ManageDocumentsTagsActivity extends AppCompatActivity implements Constants{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,21 +36,15 @@ public class ManageDocumentsTagsActivity extends AppCompatActivity implements Co
         TaggingUtility taggingUtility=new TaggingUtility(this,mtableLayout);
         taggingUtility.populateTagView(mSharedPref,DOCUMENTS_TAG_KEYS,editDocumentsTag);
 
-        final Button populateTagsDoneButton=(Button)findViewById(R.id.populateTagsDone);
-
-        //setContentView(R.layout.activity_manage_documents_tags);
-        //GridLayout mGridLayout=(GridLayout)findViewById(R.id.selectedDocumentsTags);
-        //final TaggingUtility taggingUtilitySelected=new TaggingUtility(this,mGridLayout);
+//        final Button populateTagsDoneButton=(Button)findViewById(R.id.populateTagsDone);
+        //GridLayout mGridLayout=parentActivity.findViewById(R.id.selectedDocumentsTags);
 //        populateTagsDoneButton.setOnClickListener(new View.OnClickListener() {
 //                                                      @Override
 //                                                      public void onClick(View view) {
-//                                                          ComponentName parentActivity=getCallingActivity();
-//                                                          parentActivity.
-//                                                          Activity parentActivity=(Activity)((ContextWrapper)view.getParent()).getBaseContext();
+//                                                          Activity parentActivity=(Activity)((ContextWrapper)view.getContext()).getBaseContext();
 //                                                          GridLayout mGridLayout=parentActivity.findViewById(R.id.selectedDocumentsTags);
 //                                                          TaggingUtility taggingUtilitySelected=new TaggingUtility(parentActivity,mGridLayout);
 //                                                          taggingUtilitySelected.populateTagView(mSharedPref,SELECTED_TAG_KEYS,null);
-//
 //                                                      }
 //                                                  }
 //        );

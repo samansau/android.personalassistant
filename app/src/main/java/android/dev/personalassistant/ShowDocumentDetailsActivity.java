@@ -2,8 +2,11 @@ package android.dev.personalassistant;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.dev.personalassistant.utils.TaggingUtility;
 import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.support.v4.view.GravityCompat;
@@ -15,9 +18,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_SHARED_PREFERENCE;
+import static android.dev.personalassistant.Constants.SELECTED_TAG_KEY;
+import static android.dev.personalassistant.Constants.SELECTED_TAG_KEYS;
 
 public class ShowDocumentDetailsActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
@@ -27,6 +35,19 @@ public class ShowDocumentDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_document_details);
         createDocumentsToolBar();
+        final SharedPreferences mSharedPref = this.getSharedPreferences(DOCUMENTS_TAG_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+        final GridLayout mGridLayout=(GridLayout)findViewById(R.id.selectedDocumentsTags);
+        final TaggingUtility taggingUtilitySelected=new TaggingUtility(this,mGridLayout);
+        taggingUtilitySelected.populateTagView(mSharedPref, SELECTED_TAG_KEYS, null);
+        mSharedPref.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                if(SELECTED_TAG_KEY.equals(key)) {
+                    mGridLayout.removeAllViews();
+                    taggingUtilitySelected.populateTagView(mSharedPref, SELECTED_TAG_KEYS, null);
+                }
+            }
+        });
     }
 
     protected void createDocumentsToolBar(){

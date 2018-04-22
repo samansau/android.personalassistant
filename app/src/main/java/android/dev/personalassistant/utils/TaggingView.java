@@ -29,7 +29,7 @@ TaggingView implements View.OnClickListener,View.OnLongClickListener {
     SharedPreferences mSharedPref;
     TextInputEditText editTag;
     String tagKey;
-    Set<String> selectedKeys=new HashSet<>();
+    Set<String> selectedKeys;
 
     public TaggingView(GridLayout mtableLayout, SharedPreferences mSharedPref,TextInputEditText editTag, String tagKey){
         this.mtableLayout=mtableLayout;
@@ -42,7 +42,7 @@ TaggingView implements View.OnClickListener,View.OnLongClickListener {
 
     public void onClick(View view) {
         int mSelectedTagKey= mSharedPref.getInt(SELECTED_TAG_KEY, -1);
-
+        selectedKeys=mSharedPref.getStringSet(SELECTED_TAG_KEYS,new HashSet<String>());
         for(int i=0;i<mtableLayout.getChildCount();i++){
             mtableLayout.getChildAt(i).setBackgroundColor(mtableLayout.getSolidColor());
         }
@@ -52,9 +52,10 @@ TaggingView implements View.OnClickListener,View.OnLongClickListener {
         tagClicked.setBackgroundResource(R.drawable.rounded_border_layout_selected);
 
         if(mSelectedTagKey==tagClicked.getId()){
-            //tagClicked.setBackgroundColor(mtableLayout.getSolidColor());
+            //tagClicked.setBackgroundColor(mGridLayout.getSolidColor());
             tagClicked.setBackgroundResource(R.drawable.rounded_border_layout);
             mSelectedTagKey=-1;
+            selectedKeys.remove(tagClicked.getId()+"");
         }else{
             mSelectedTagKey=tagClicked.getId();
             editTag.setText(tagClicked.getText());

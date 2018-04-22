@@ -4,24 +4,14 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.dev.personalassistant.R;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.design.widget.TabLayout;
 import android.support.design.widget.TextInputEditText;
-import android.view.View;
 import android.widget.GridLayout;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -33,9 +23,9 @@ import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_KEYS;
 import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_MAX_KEY;
 import static android.dev.personalassistant.Constants.EXPENSE_TAG_KEYS;
 import static android.dev.personalassistant.Constants.EXPENSE_TAG_MAX_KEY;
-import static android.dev.personalassistant.Constants.SELECTED_TAG_KEY;
+import static android.dev.personalassistant.Constants.SELECTED_TAG_KEYS;
 import static android.support.design.R.id.center;
-import android.widget.TableLayout;
+
 /**
  * Created by saurabh on 4/10/18.
  */
@@ -43,11 +33,11 @@ import android.widget.TableLayout;
 public class TaggingUtility {
 
     Activity activity;
-    GridLayout mtableLayout;
+    GridLayout mGridLayout;
 
-    public TaggingUtility(Activity activity, GridLayout mtableLayout){
+    public TaggingUtility(Activity activity, GridLayout mGridLayout){
         this.activity=activity;
-        this.mtableLayout=mtableLayout;
+        this.mGridLayout = mGridLayout;
     }
 
 
@@ -116,33 +106,40 @@ public class TaggingUtility {
                                   String key,
                                   TableRow tagRow,
                                   TextView textView,
-                                  GridLayout mtableLayout,
+                                  GridLayout mGridLayout,
                                   SharedPreferences mSharedPref,
                                   TextInputEditText editTag,String tagKey,boolean isNewRow){
                                         textView.setId(Integer.parseInt(key));
                                         tagRow.setGravity(center);
                                         textView.setTextSize(20);
                                         Random rnd = new Random();
-
+                                        Set<String> selectedTagKeys=mSharedPref.getStringSet(SELECTED_TAG_KEYS,new HashSet<String>());
                                         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
                                         //textView.setBackgroundColor(textView.getResources().getColor(android.R.color.holo_purple));
                                         textView.setTextColor(color);
                                         textView.setPadding(30,10,30,10);
                                         textView.setText(tag);
-                                        textView.setBackgroundResource(R.drawable.rounded_border_layout);
+
+                                        if(selectedTagKeys.contains(key)){
+                                            textView.setBackgroundResource(R.drawable.rounded_border_layout_selected);
+                                        }else {
+                                            textView.setBackgroundResource(R.drawable.rounded_border_layout);
+                                        }
                                         tagRow.addView(textView);
                                         if(isNewRow) {
-                                            mtableLayout.addView(tagRow);
+                                            mGridLayout.addView(tagRow);
                                         }
-                                        TaggingView tView=new TaggingView(mtableLayout,mSharedPref,editTag,tagKey);
-                                        textView.setOnClickListener(tView);
-                                        textView.setOnLongClickListener(tView);
+                                        TaggingView tView=new TaggingView(mGridLayout,mSharedPref,editTag,tagKey);
+                                        if(mGridLayout.getId()==R.id.listDocumentsTags) {
+                                            textView.setOnClickListener(tView);
+                                            textView.setOnLongClickListener(tView);
+                                        }
                                 }
 
 
 
     public void populateTagView(SharedPreferences mSharedPref,String tagKey,TextInputEditText inputTag){
-        Set<String> tagKeys= mSharedPref.getStringSet(tagKey,null);
+        Set<String> tagKeys= mSharedPref.getStringSet(tagKey,new HashSet<String>());
         int i=0;
         boolean isNewRow =true;
         TableRow tagRow=new TableRow(activity);
@@ -180,7 +177,7 @@ public class TaggingUtility {
                 String tag = tagStack.pop();
                 if (tagStack.isEmpty()) tagSizeMap.remove(requiredSize);
                 TextView textView=new TextView(activity);
-                TaggingUtility.addTagRows(tag,keysMap.get(tag),tagRow,textView,mtableLayout,mSharedPref,inputTag,EXPENSE_TAG_KEYS,isNewRow);
+                TaggingUtility.addTagRows(tag,keysMap.get(tag),tagRow,textView, mGridLayout,mSharedPref,inputTag,EXPENSE_TAG_KEYS,isNewRow);
             }
             allocatedSize=allocatedSize+requiredSize;
             requiredSize=21-allocatedSize;
