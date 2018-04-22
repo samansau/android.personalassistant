@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 
@@ -37,6 +38,7 @@ public class ShowDocumentDetailsActivity extends AppCompatActivity {
         createDocumentsToolBar();
         final SharedPreferences mSharedPref = this.getSharedPreferences(DOCUMENTS_TAG_SHARED_PREFERENCE, Context.MODE_PRIVATE);
         final GridLayout mGridLayout=(GridLayout)findViewById(R.id.selectedDocumentsTags);
+        final ScrollView mScrollView=(ScrollView)findViewById(R.id.selectedDocumentsTagsScrollView);
         final TaggingUtility taggingUtilitySelected=new TaggingUtility(this,mGridLayout);
         taggingUtilitySelected.populateTagView(mSharedPref, SELECTED_TAG_KEYS, null);
         mSharedPref.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
@@ -46,6 +48,13 @@ public class ShowDocumentDetailsActivity extends AppCompatActivity {
                     mGridLayout.removeAllViews();
                     taggingUtilitySelected.populateTagView(mSharedPref, SELECTED_TAG_KEYS, null);
                 }
+            }
+        });
+
+        mScrollView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openManageDocumentsTags();
             }
         });
     }

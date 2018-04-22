@@ -114,9 +114,9 @@ public class TaggingUtility {
                                         textView.setTextSize(20);
                                         Random rnd = new Random();
                                         Set<String> selectedTagKeys=mSharedPref.getStringSet(SELECTED_TAG_KEYS,new HashSet<String>());
-                                        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                                        //int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
                                         //textView.setBackgroundColor(textView.getResources().getColor(android.R.color.holo_purple));
-                                        textView.setTextColor(color);
+                                        textView.setTextColor(Color.BLACK);
                                         textView.setPadding(30,10,30,10);
                                         textView.setText(tag);
 
