@@ -47,18 +47,19 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             >
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_layout_name4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <MultiAutoCompleteTextView
-                    android:id="@+id/expenseTagsList"
+            <ScrollView
+                android:id="@+id/selectedExpensesTagsScrollView"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:scrollbars="vertical"
+                >
+                <GridLayout
+                    android:id="@+id/selectedExpensesTags"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Expense Tags" />
-            </android.support.design.widget.TextInputLayout>
-
+                    android:layout_height="match_parent"
+                    android:columnCount="1"
+                    android:paddingHorizontal="@dimen/activity_horizontal_margin"/>
+            </ScrollView>
         </TableRow>
 
 

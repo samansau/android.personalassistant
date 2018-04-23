@@ -37,6 +37,7 @@ public class ShowDocumentDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_document_details);
         createDocumentsToolBar();
         final SharedPreferences mSharedPref = this.getSharedPreferences(DOCUMENTS_TAG_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+
         final GridLayout mGridLayout=(GridLayout)findViewById(R.id.selectedDocumentsTags);
         final ScrollView mScrollView=(ScrollView)findViewById(R.id.selectedDocumentsTagsScrollView);
         final TaggingUtility taggingUtilitySelected=new TaggingUtility(this,mGridLayout);
@@ -102,8 +103,15 @@ public class ShowDocumentDetailsActivity extends AppCompatActivity {
             if (resultData != null) {
                 uri = resultData.getData();
 
-                ImageView imageView=(ImageView)findViewById(R.id.documentImg);
+                GridLayout selectedDocumentsGridLayout =(GridLayout)findViewById(R.id.selectedDocumentsImages);
+
+                ImageView imageView=new ImageView(selectedDocumentsGridLayout.getContext());
+                imageView.setMaxWidth(50);
+                imageView.setMaxHeight(50);
+
                 imageView.setImageURI(uri);
+
+                selectedDocumentsGridLayout.addView(imageView);
                 //Log.i(TAG, "Uri: " + uri.toString());
                 //showImage(uri);
 

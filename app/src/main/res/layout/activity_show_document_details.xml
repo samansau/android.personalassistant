@@ -29,7 +29,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
+            android:gravity="fill_horizontal"
             >
 
             <Button
@@ -43,7 +43,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
+                android:gravity="fill_horizontal"
                 >
             <Button
                 android:layout_width="wrap_content"
@@ -56,23 +56,38 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
+            android:gravity="fill_horizontal"
             >
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:id="@+id/documentImg"
-                android:src="@mipmap/ic_launcher"
-                />
+            <ScrollView
+                android:id="@+id/selectedDocumentsImagesScrollView"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:scrollbars="vertical"
+                >
+                <GridLayout
+                    android:id="@+id/selectedDocumentsImages"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:columnCount="3"
+                    android:paddingHorizontal="@dimen/activity_horizontal_margin">
+                    <!--
+                <ImageView
+                    android:id="@+id/documentImg"
+                    android:src="@mipmap/ic_launcher"
+                    />
+                    -->
+                </GridLayout>
+            </ScrollView>
+
         </TableRow>
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
+                android:gravity="fill_horizontal"
                 >
                 <ScrollView
                     android:id="@+id/selectedDocumentsTagsScrollView"
-                    android:layout_height="200dp"
+                    android:layout_height="100dp"
                     android:layout_weight="1"
                     android:scrollbars="vertical"
                     >
@@ -87,7 +102,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal">
+                android:gravity="fill">
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -130,7 +130,7 @@ public class TaggingUtility {
                                             mGridLayout.addView(tagRow);
                                         }
                                         TaggingView tView=new TaggingView(mGridLayout,mSharedPref,editTag,tagKey);
-                                        if(mGridLayout.getId()==R.id.listDocumentsTags) {
+                                        if((mGridLayout.getId()==R.id.listDocumentsTags )|| (mGridLayout.getId()==R.id.listExpenseTags)) {
                                             textView.setOnClickListener(tView);
                                             textView.setOnLongClickListener(tView);
                                         }
