@@ -6,7 +6,6 @@ import android.dev.personalassistant.R;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +16,14 @@ import android.widget.TextView;
  * Created by saurabh on 4/5/18.
  */
 
-public class ExpenseTabFragment extends TabFragment{
+public class KymTabFragment extends TabFragment{
     int position;
     private TextView textView;
 
     public  Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt("pos", position);
-        ExpenseTabFragment tabFragment = new ExpenseTabFragment();
+        KymTabFragment tabFragment = new KymTabFragment();
         tabFragment.setArguments(bundle);
         return tabFragment;
     }

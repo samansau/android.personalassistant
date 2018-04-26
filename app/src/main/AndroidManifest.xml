@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="android.dev.personalassistant">
 
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,17 +26,20 @@
         <activity
             android:name=".ManageExpenseTagsActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
-
         <activity
-            android:name=".ManageDocumentsTagsActivity"
+            android:name=".ManageDocumentTagsActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
-
+        <activity
+            android:name=".ManageDocumentImagesActivity"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity android:name=".AddEditExpensesActivity" />
         <activity android:name=".MyInformationActivity" />
         <activity android:name=".ShowBankListActivity" />
         <activity android:name=".ShowBankDetailsActivity" />
         <activity android:name=".ShowDocumentsListActivity" />
-        <activity android:name=".ShowDocumentDetailsActivity"></activity>
+        <activity android:name=".ShowDocumentDetailsActivity" />
+        <activity android:name=".TrackElectronicExpensesActivity" />
+        <activity android:name=".kym.KnowYourMasterActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="android.dev.personalassistant.ShowBankDetailsActivity">
+        <include layout="@layout/tool_bar_layout"/>
+
+
+        <TableLayout
+            android:id="@+id/track_electronic_expenses"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            >
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_horizontal"
+                >
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="scanSMS"
+                    android:text="Scan Document" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_horizontal"
+                >
+                <ScrollView
+                    android:id="@+id/smsKeywordTagsScrollView"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"
+                    android:scrollbars="vertical"
+                    >
+                    <GridLayout
+                        android:id="@+id/smsKeywordTagsGridLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:columnCount="3"
+                        android:paddingHorizontal="@dimen/activity_horizontal_margin">
+                    </GridLayout>
+                </ScrollView>
+
+            </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>

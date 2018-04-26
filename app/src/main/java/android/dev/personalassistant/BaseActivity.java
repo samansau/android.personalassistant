@@ -1,7 +1,10 @@
 package android.dev.personalassistant;
 
 import android.content.Intent;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.ExpenseTabAdapters;
+import android.dev.personalassistant.android.dev.personalassistant.adapters.TabAdapter;
+import android.dev.personalassistant.android.dev.personalassistant.adapters.ExpenseTabFragment;
+import android.dev.personalassistant.android.dev.personalassistant.adapters.TabFragment;
+import android.dev.personalassistant.kym.KnowYourMasterActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -56,7 +59,7 @@ public class BaseActivity  extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
                         return true;
                     case R.id.track_electronic_expenses:
-
+                        openTrackElectronicExpenses();
                         mDrawerLayout.closeDrawers();
                         return true;
                     case R.id.my_information:
@@ -66,6 +69,11 @@ public class BaseActivity  extends AppCompatActivity {
 
                     case R.id.manage_documents:
                         openManageDocuments();
+                        mDrawerLayout.closeDrawers();
+                        return true;
+
+                    case R.id.kym:
+                        openKym();
                         mDrawerLayout.closeDrawers();
                         return true;
                 }
@@ -129,9 +137,22 @@ public class BaseActivity  extends AppCompatActivity {
         Intent intent=new Intent(this,ShowDocumentsListActivity.class);
         startActivity(intent);
     }
+
+    protected void openKym(){
+        Intent intent=new Intent(this,KnowYourMasterActivity.class);
+        startActivity(intent);
+    }
+
+    protected void openTrackElectronicExpenses(){
+        Intent intent=new Intent(this,TrackElectronicExpensesActivity.class);
+        startActivity(intent);
+    }
+
     private void populateFinancialTransactionsTabs(){
         viewPager = (ViewPager) findViewById(R.id.expenseViewPager);
-        ExpenseTabAdapters adapter = new ExpenseTabAdapters(getSupportFragmentManager());
+        String expenseTitles[]=new String[]{"All", "Electronic", "Manual"};
+        TabFragment expenseTabFragment=new ExpenseTabFragment();
+        TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),expenseTitles,expenseTabFragment);
         viewPager.setAdapter(adapter);
 
         tabLayout = (TabLayout) findViewById(R.id.expenseTabs);

@@ -8,16 +8,19 @@ import android.support.v4.app.FragmentPagerAdapter;
  * Created by saurabh on 4/5/18.
  */
 
-public class ExpenseTabAdapters extends FragmentPagerAdapter {
+public class TabAdapter extends FragmentPagerAdapter {
 
-    private String title[] = {"All", "Electronic", "Manual"};
-    public ExpenseTabAdapters(FragmentManager fragmentManager){
+    private String title[] = {};
+    private TabFragment tabFragment=null;
+    public TabAdapter(FragmentManager fragmentManager, String title[], TabFragment tabFragment){
         super(fragmentManager);
+        this.title=title;
+        this.tabFragment=tabFragment;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return ExpenseTabFragment.getInstance(position);
+        return tabFragment.getInstance(position);
     }
 
     @Override
@@ -29,5 +32,7 @@ public class ExpenseTabAdapters extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return title[position];
     }
+
+
 
 }

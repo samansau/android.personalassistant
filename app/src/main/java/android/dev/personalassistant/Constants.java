@@ -18,4 +18,6 @@ public interface Constants {
     public String SELECTED_TAG_KEY="SELECTED_TAG_KEY";
     public String SELECTED_TAG_KEYS="SELECTED_TAG_KEYS";
 
+    public String SMS_KEYWORDS="SMS_KEYWORDS";
+    public String SMS_KEYWORDS_SET="SMS_KEYWORDS_SET";
 }

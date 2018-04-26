@@ -19,7 +19,7 @@ import android.widget.TableLayout;
 
 import static java.security.AccessController.getContext;
 
-public class ManageDocumentsTagsActivity extends AppCompatActivity implements Constants{
+public class ManageDocumentTagsActivity extends AppCompatActivity implements Constants{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,28 +1,21 @@
 package android.dev.personalassistant;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.dev.personalassistant.utils.TaggingUtility;
 import android.net.Uri;
-import android.provider.DocumentsContract;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-
-import java.util.ArrayList;
 
 import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_SHARED_PREFERENCE;
 import static android.dev.personalassistant.Constants.SELECTED_TAG_KEY;
@@ -91,7 +84,12 @@ public class ShowDocumentDetailsActivity extends AppCompatActivity {
     }
 
     protected void openManageDocumentsTags(){
-        Intent intent=new Intent(this,ManageDocumentsTagsActivity.class);
+        Intent intent=new Intent(this,ManageDocumentTagsActivity.class);
+        startActivity(intent);
+    }
+
+    protected void openManageDocumentsImages(View view){
+        Intent intent=new Intent(this,ManageDocumentImagesActivity.class);
         startActivity(intent);
     }
 
@@ -110,6 +108,12 @@ public class ShowDocumentDetailsActivity extends AppCompatActivity {
                 imageView.setMaxHeight(50);
 
                 imageView.setImageURI(uri);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        openManageDocumentsImages(view);
+                    }
+                });
 
                 selectedDocumentsGridLayout.addView(imageView);
                 //Log.i(TAG, "Uri: " + uri.toString());

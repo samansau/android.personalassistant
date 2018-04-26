@@ -16,4 +16,8 @@
             android:title="Manage Documents"
             android:icon="@drawable/savings" />
 
+        <item android:id="@+id/kym"
+            android:title="Know your Master"
+            android:icon="@drawable/savings" />
+
 </menu>
