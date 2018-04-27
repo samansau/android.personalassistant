@@ -1,5 +1,7 @@
 package android.dev.personalassistant;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.dev.personalassistant.android.dev.personalassistant.adapters.DocumentImageTabFragment;
 import android.dev.personalassistant.android.dev.personalassistant.adapters.KymTabFragment;
 import android.dev.personalassistant.android.dev.personalassistant.adapters.TabAdapter;
@@ -9,8 +11,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class ManageDocumentImagesActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+import static android.dev.personalassistant.Constants.DOCUMENTS_IMAGES;
+import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_SHARED_PREFERENCE;
+
+public class ManageDocumentImagesActivity extends AppCompatActivity {
+    final SharedPreferences mSharedPref = this.getSharedPreferences(DOCUMENTS_TAG_SHARED_PREFERENCE, Context.MODE_PRIVATE);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,9 +29,12 @@ public class ManageDocumentImagesActivity extends AppCompatActivity {
 
     private void populateDocumentImageTabs(){
         ViewPager viewPager;viewPager = (ViewPager) findViewById(R.id.documentImageViewPager);
-        String imgTitles[]=new String[]{"1", "2"};
+        Set<String> documentImages=mSharedPref.getStringSet(DOCUMENTS_IMAGES,new HashSet<String>());
         TabFragment documentImageTabFragment=new DocumentImageTabFragment();
-        TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),5,documentImageTabFragment);
+        Bundle bundle=new Bundle();
+        bundle.putStringArrayList(DOCUMENTS_IMAGES,new ArrayList<String>(documentImages));
+        documentImageTabFragment.setArguments(bundle);
+        TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),documentImages.size(),documentImageTabFragment);
         viewPager.setAdapter(adapter);
 
         //TabLayout tabLayout = (TabLayout) findViewById(R.id.expenseTabs);

@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 
 public abstract class TabFragment  extends Fragment {
     int position;
+
     public abstract Fragment getInstance(int position);
 
     public void onCreate(Bundle savedInstanceState) {

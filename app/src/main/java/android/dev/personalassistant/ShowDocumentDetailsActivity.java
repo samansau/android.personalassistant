@@ -17,19 +17,23 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import static android.dev.personalassistant.Constants.DOCUMENTS_IMAGES;
 import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_SHARED_PREFERENCE;
 import static android.dev.personalassistant.Constants.SELECTED_TAG_KEY;
 import static android.dev.personalassistant.Constants.SELECTED_TAG_KEYS;
 
 public class ShowDocumentDetailsActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
-
+    final SharedPreferences mSharedPref = this.getSharedPreferences(DOCUMENTS_TAG_SHARED_PREFERENCE, Context.MODE_PRIVATE);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_document_details);
         createDocumentsToolBar();
-        final SharedPreferences mSharedPref = this.getSharedPreferences(DOCUMENTS_TAG_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+
 
         final GridLayout mGridLayout=(GridLayout)findViewById(R.id.selectedDocumentsTags);
         final ScrollView mScrollView=(ScrollView)findViewById(R.id.selectedDocumentsTagsScrollView);
@@ -114,7 +118,11 @@ public class ShowDocumentDetailsActivity extends AppCompatActivity {
                         openManageDocumentsImages(view);
                     }
                 });
-
+                Set<String> documentImages=mSharedPref.getStringSet(DOCUMENTS_IMAGES,new HashSet<String>());
+                documentImages.add(uri.getPath());
+                SharedPreferences.Editor editor=mSharedPref.edit();
+                editor.putStringSet(DOCUMENTS_IMAGES,documentImages);
+                editor.commit();
                 selectedDocumentsGridLayout.addView(imageView);
                 //Log.i(TAG, "Uri: " + uri.toString());
                 //showImage(uri);
