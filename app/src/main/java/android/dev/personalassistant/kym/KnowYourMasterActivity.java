@@ -1,7 +1,6 @@
 package android.dev.personalassistant.kym;
 
 import android.dev.personalassistant.R;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.ExpenseTabFragment;
 import android.dev.personalassistant.android.dev.personalassistant.adapters.KymTabFragment;
 import android.dev.personalassistant.android.dev.personalassistant.adapters.TabAdapter;
 import android.dev.personalassistant.android.dev.personalassistant.adapters.TabFragment;
@@ -16,10 +15,10 @@ public class KnowYourMasterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_know_your_master);
-        populateFinancialTransactionsTabs();
+        populateKymTabs();
     }
 
-    private void populateFinancialTransactionsTabs(){
+    private void populateKymTabs(){
         ViewPager viewPager;viewPager = (ViewPager) findViewById(R.id.kymViewPager);
         String kymTitles[]=new String[]{"Per", "Fin", "Pas","Nos"};
         TabFragment kymTabFragment=new KymTabFragment();

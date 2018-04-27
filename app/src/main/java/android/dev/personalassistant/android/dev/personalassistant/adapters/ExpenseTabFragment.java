@@ -18,7 +18,7 @@ import android.widget.TextView;
  */
 
 public class ExpenseTabFragment extends TabFragment{
-    int position;
+
     private TextView textView;
 
     public  Fragment getInstance(int position) {
@@ -29,11 +29,8 @@ public class ExpenseTabFragment extends TabFragment{
         return tabFragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        position = getArguments().getInt("pos");
-    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

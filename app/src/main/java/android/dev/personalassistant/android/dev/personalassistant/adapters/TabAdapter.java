@@ -12,9 +12,16 @@ public class TabAdapter extends FragmentPagerAdapter {
 
     private String title[] = {};
     private TabFragment tabFragment=null;
+    private int size;
     public TabAdapter(FragmentManager fragmentManager, String title[], TabFragment tabFragment){
         super(fragmentManager);
         this.title=title;
+        this.tabFragment=tabFragment;
+    }
+
+    public TabAdapter(FragmentManager fragmentManager, int size, TabFragment tabFragment){
+        super(fragmentManager);
+        this.size=size;
         this.tabFragment=tabFragment;
     }
 
@@ -25,6 +32,7 @@ public class TabAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
+        if(title.length==0) return size;
         return title.length;
     }
 
