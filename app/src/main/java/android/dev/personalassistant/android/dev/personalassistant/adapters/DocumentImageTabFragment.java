@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,15 +26,17 @@ import static android.dev.personalassistant.Constants.DOCUMENTS_IMAGES;
 
 public class DocumentImageTabFragment extends TabFragment{
 
-    private ImageView imageView;
-
+    private ImageView imageView ;
+    private TextView textView;
+    int pos=0;
     public  Fragment getInstance(int position) {
-        Bundle bundle = this.getArguments();
+        Bundle bundle = new Bundle();
         bundle.putInt("pos", position);
-       //DocumentImageTabFragment tabFragment = new DocumentImageTabFragment();
+        bundle.putStringArrayList(DOCUMENTS_IMAGES,this.getArguments().getStringArrayList(DOCUMENTS_IMAGES));
+       DocumentImageTabFragment tabFragment = new DocumentImageTabFragment();
 
-        this.setArguments(bundle);
-        return this;
+        tabFragment.setArguments(bundle);
+        return tabFragment;
     }
 
 
@@ -49,11 +52,18 @@ public class DocumentImageTabFragment extends TabFragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         imageView = (ImageView) view.findViewById(R.id.documentImageFragment);
+        textView = (TextView)view.findViewById(R.id.documentImageTextIndex);
         Bundle bundle=this.getArguments();
+        Log.i("xx",position+"");
         ArrayList<String> documentImages=bundle.getStringArrayList(DOCUMENTS_IMAGES);
-        String uriStr=documentImages.get(position);
+        textView.setText((position+1)+" of "+documentImages.size());
+
+
+        String uriStr=documentImages.get(documentImages.size()-(position+1));
+
         Uri uri=Uri.parse(uriStr);
         imageView.setImageURI(uri);
+
     }
 
 }

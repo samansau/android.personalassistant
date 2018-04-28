@@ -27,9 +27,13 @@ import static android.dev.personalassistant.Constants.SELECTED_TAG_KEYS;
 
 public class ShowDocumentDetailsActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
-    final SharedPreferences mSharedPref = this.getSharedPreferences(DOCUMENTS_TAG_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+    SharedPreferences mSharedPref = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mSharedPref=this.getSharedPreferences(DOCUMENTS_TAG_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=mSharedPref.edit();
+        editor.putStringSet(DOCUMENTS_IMAGES,new HashSet<String>());
+        editor.commit();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_document_details);
         createDocumentsToolBar();
@@ -119,7 +123,7 @@ public class ShowDocumentDetailsActivity extends AppCompatActivity {
                     }
                 });
                 Set<String> documentImages=mSharedPref.getStringSet(DOCUMENTS_IMAGES,new HashSet<String>());
-                documentImages.add(uri.getPath());
+                documentImages.add(uri.toString());
                 SharedPreferences.Editor editor=mSharedPref.edit();
                 editor.putStringSet(DOCUMENTS_IMAGES,documentImages);
                 editor.commit();

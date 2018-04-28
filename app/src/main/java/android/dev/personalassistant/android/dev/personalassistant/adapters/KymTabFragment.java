@@ -37,34 +37,24 @@ public class KymTabFragment extends TabFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.expense_tabs, container, false);
+        View view =null;
+        switch(position){
+            case 0:
+                view= inflater.inflate(R.layout.kym_personal_fragment, container, false);
+                break;
+            case 1:
+                view= inflater.inflate(R.layout.kym_financial_fragment, container, false);
+                break;
+        }
+        return view;
+
+
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        textView = (TextView) view.findViewById(R.id.textView);
-
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        if(position!=2) {
-            fab.setVisibility(View.INVISIBLE);
-        }
-
-        if(position==1){
-            textView.setText("It seems you have not configured to read your SMS to " +
-                    "automatically keep track of " +
-                    "expenses/transactions done through electronic mode.Please go to Track Electronic Expenses" +
-                    " in main menu and configure the same");
-        }
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getActivity(),AddEditExpensesActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 

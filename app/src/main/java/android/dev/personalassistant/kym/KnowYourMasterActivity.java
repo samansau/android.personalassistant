@@ -25,7 +25,7 @@ public class KnowYourMasterActivity extends AppCompatActivity {
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),kymTitles,kymTabFragment);
         viewPager.setAdapter(adapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.expenseTabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.kymTabs);
         tabLayout.setupWithViewPager(viewPager);
 
     }

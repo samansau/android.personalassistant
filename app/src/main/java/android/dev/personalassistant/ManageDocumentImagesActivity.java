@@ -19,9 +19,10 @@ import static android.dev.personalassistant.Constants.DOCUMENTS_IMAGES;
 import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_SHARED_PREFERENCE;
 
 public class ManageDocumentImagesActivity extends AppCompatActivity {
-    final SharedPreferences mSharedPref = this.getSharedPreferences(DOCUMENTS_TAG_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+    SharedPreferences mSharedPref = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mSharedPref=this.getSharedPreferences(DOCUMENTS_TAG_SHARED_PREFERENCE, Context.MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_document_images);
         populateDocumentImageTabs();

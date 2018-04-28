@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:id="@+id/kymPersonal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            >
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/nameFieldLabel"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:id="@+id/kymNameField"
+                        android:layout_width="319dp"
+                        android:layout_height="match_parent"
+                        android:maxLines="1"
+                        android:hint="Full Name" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="fill_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/kymdobLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:id="@+id/kymdobField"
+                        android:layout_width="322dp"
+                        android:layout_height="42dp"
+                        android:maxLines="1"
+                        android:hint="Birth Date(dd-mm-yyyy)" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="fill_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/panNumberLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:id="@+id/panNumberField"
+                        android:layout_width="322dp"
+                        android:layout_height="42dp"
+                        android:maxLines="1"
+                        android:hint="Pan Card Number" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="fill_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/aadharNumberLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:id="@+id/aadharNumberField"
+                        android:layout_width="322dp"
+                        android:layout_height="42dp"
+                        android:maxLines="1"
+                        android:hint="Aadhar Card Number" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/drawer_menu"
+        app:headerLayout="@layout/nav_layout"
+        />
+</android.support.v4.widget.DrawerLayout>
