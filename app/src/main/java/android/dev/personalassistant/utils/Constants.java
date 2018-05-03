@@ -1,4 +1,4 @@
-package android.dev.personalassistant;
+package android.dev.personalassistant.utils;
 
 /**
  * Created by saurabh on 4/1/18.

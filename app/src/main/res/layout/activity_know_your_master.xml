@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="android.dev.personalassistant.kym.KnowYourMasterActivity">
+        tools:context=".kym.main.KnowYourMasterActivity">
          <include layout="@layout/kym_tool_bar_layout"/>
         <android.support.v4.view.ViewPager
             android:id="@+id/kymViewPager"

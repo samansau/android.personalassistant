@@ -1,4 +1,4 @@
-package android.dev.personalassistant.android.dev.personalassistant.adapters;
+package android.dev.personalassistant.tabs;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
  */
 
 public abstract class TabFragment  extends Fragment {
-    int position;
+    protected int position;
 
     public abstract Fragment getInstance(int position);
 

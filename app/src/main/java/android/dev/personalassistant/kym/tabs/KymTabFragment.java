@@ -1,24 +1,29 @@
-package android.dev.personalassistant.android.dev.personalassistant.adapters;
+package android.dev.personalassistant.kym.tabs;
 
 import android.content.Intent;
-import android.dev.personalassistant.AddEditExpensesActivity;
 import android.dev.personalassistant.R;
+import android.dev.personalassistant.kym.components.KymShowBankListActivity;
+import android.dev.personalassistant.tabs.TabFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created by saurabh on 4/5/18.
  */
 
-public class KymTabFragment extends TabFragment{
+public class KymTabFragment extends TabFragment {
     int position;
     private TextView textView;
+    static final ArrayList<HashMap<String,String>> list =
+            new ArrayList<HashMap<String,String>>();
 
     public  Fragment getInstance(int position) {
         Bundle bundle = new Bundle();
@@ -43,19 +48,18 @@ public class KymTabFragment extends TabFragment{
                 view= inflater.inflate(R.layout.kym_personal_fragment, container, false);
                 break;
             case 1:
-                view= inflater.inflate(R.layout.kym_financial_fragment, container, false);
+                view= inflater.inflate(R.layout.activity_kym_show_bank_details, container, false);
                 break;
         }
         return view;
-
-
     }
+
+
+
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-
-
     }
 
 }

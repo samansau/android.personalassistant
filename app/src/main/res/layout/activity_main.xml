@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="android.dev.personalassistant.MainActivity">
+        tools:context="android.dev.personalassistant.main.MainActivity">
         <include layout="@layout/tool_bar_layout"/>
     </LinearLayout>
     <android.support.design.widget.NavigationView

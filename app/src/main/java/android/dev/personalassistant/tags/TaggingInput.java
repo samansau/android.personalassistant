@@ -1,4 +1,4 @@
-package android.dev.personalassistant.utils;
+package android.dev.personalassistant.tags;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -6,7 +6,7 @@ import android.support.design.widget.TextInputEditText;
 import android.view.KeyEvent;
 import android.view.View;
 
-import static android.dev.personalassistant.Constants.SELECTED_TAG_KEY;
+import static android.dev.personalassistant.utils.Constants.SELECTED_TAG_KEY;
 
 /**
  * Created by saurabh on 4/14/18.

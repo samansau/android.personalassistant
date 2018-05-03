@@ -1,21 +1,15 @@
-package android.dev.personalassistant;
+package android.dev.personalassistant.expenses.components;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.dev.personalassistant.utils.TaggingUtility;
-import android.preference.PreferenceManager;
+import android.dev.personalassistant.R;
+import android.dev.personalassistant.main.BaseActivity;
+import android.dev.personalassistant.utils.Constants;
+import android.dev.personalassistant.tags.TaggingUtility;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
-import android.widget.MultiAutoCompleteTextView;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,18 +63,7 @@ public class AddEditExpensesActivity extends BaseActivity implements Constants {
             tagList.add(tagName);
         }
         mExpenseTags=tagList.toArray(mExpenseTags);
-
-
-
-
     }
 
-//    private void populateAutoCompleteExpenseTags(){
-//        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,mExpenseTags);
-//
-//
-//        MultiAutoCompleteTextView multiAutoCompleteExpenseTag = (MultiAutoCompleteTextView)findViewById(R.id.expenseTagsList);
-//        multiAutoCompleteExpenseTag.setAdapter(adapter);
-//        multiAutoCompleteExpenseTag.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-//    }
+
 }

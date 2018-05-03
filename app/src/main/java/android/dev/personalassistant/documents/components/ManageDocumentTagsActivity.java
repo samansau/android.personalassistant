@@ -1,25 +1,17 @@
-package android.dev.personalassistant;
+package android.dev.personalassistant.documents.components;
 
-import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.SharedPreferences;
-import android.dev.personalassistant.utils.TaggingInput;
-import android.dev.personalassistant.utils.TaggingUtility;
+import android.dev.personalassistant.utils.Constants;
+import android.dev.personalassistant.R;
+import android.dev.personalassistant.tags.TaggingInput;
+import android.dev.personalassistant.tags.TaggingUtility;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.GridView;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 
-import static java.security.AccessController.getContext;
-
-public class ManageDocumentTagsActivity extends AppCompatActivity implements Constants{
+public class ManageDocumentTagsActivity extends AppCompatActivity implements Constants {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

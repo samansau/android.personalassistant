@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,22 +24,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ManageExpenseTagsActivity"
+            android:name=".expenses.components.ManageExpenseTagsActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity
-            android:name=".ManageDocumentTagsActivity"
+            android:name=".documents.components.ManageDocumentTagsActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity
-            android:name=".ManageDocumentImagesActivity"
+            android:name=".documents.components.ManageDocumentImagesActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
-        <activity android:name=".AddEditExpensesActivity" />
+        <activity android:name=".expenses.components.AddEditExpensesActivity" />
         <activity android:name=".MyInformationActivity" />
-        <activity android:name=".ShowBankListActivity" />
-        <activity android:name=".ShowBankDetailsActivity" />
-        <activity android:name=".ShowDocumentsListActivity" />
-        <activity android:name=".ShowDocumentDetailsActivity" />
-        <activity android:name=".TrackElectronicExpensesActivity" />
-        <activity android:name=".kym.KnowYourMasterActivity"></activity>
+        <activity android:name=".kym.components.KymShowBankListActivity" />
+        <activity android:name=".kym.components.KymShowBankDetailsActivity" />
+        <activity android:name=".documents.components.ShowDocumentsListActivity" />
+        <activity android:name=".documents.components.ShowDocumentDetailsActivity" />
+        <activity android:name=".expenses.components.TrackElectronicExpensesActivity" />
+        <activity android:name=".kym.main.KnowYourMasterActivity"></activity>
     </application>
 
 </manifest>

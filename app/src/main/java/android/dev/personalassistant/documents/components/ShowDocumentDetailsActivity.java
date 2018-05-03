@@ -1,10 +1,11 @@
-package android.dev.personalassistant;
+package android.dev.personalassistant.documents.components;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.dev.personalassistant.utils.TaggingUtility;
+import android.dev.personalassistant.R;
+import android.dev.personalassistant.tags.TaggingUtility;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,10 +21,10 @@ import android.widget.ScrollView;
 import java.util.HashSet;
 import java.util.Set;
 
-import static android.dev.personalassistant.Constants.DOCUMENTS_IMAGES;
-import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_SHARED_PREFERENCE;
-import static android.dev.personalassistant.Constants.SELECTED_TAG_KEY;
-import static android.dev.personalassistant.Constants.SELECTED_TAG_KEYS;
+import static android.dev.personalassistant.utils.Constants.DOCUMENTS_IMAGES;
+import static android.dev.personalassistant.utils.Constants.DOCUMENTS_TAG_SHARED_PREFERENCE;
+import static android.dev.personalassistant.utils.Constants.SELECTED_TAG_KEY;
+import static android.dev.personalassistant.utils.Constants.SELECTED_TAG_KEYS;
 
 public class ShowDocumentDetailsActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;

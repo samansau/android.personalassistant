@@ -1,10 +1,15 @@
-package android.dev.personalassistant;
+package android.dev.personalassistant.main;
 
 import android.content.Intent;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.TabAdapter;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.ExpenseTabFragment;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.TabFragment;
-import android.dev.personalassistant.kym.KnowYourMasterActivity;
+import android.dev.personalassistant.MyInformationActivity;
+import android.dev.personalassistant.R;
+import android.dev.personalassistant.tabs.TabAdapter;
+import android.dev.personalassistant.expenses.tabs.ExpenseTabFragment;
+import android.dev.personalassistant.tabs.TabFragment;
+import android.dev.personalassistant.documents.components.ShowDocumentsListActivity;
+import android.dev.personalassistant.expenses.components.ManageExpenseTagsActivity;
+import android.dev.personalassistant.expenses.components.TrackElectronicExpensesActivity;
+import android.dev.personalassistant.kym.main.KnowYourMasterActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -28,8 +33,8 @@ public class BaseActivity  extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    ActionBarDrawerToggle mActionBarDrawerToggle;
-    DrawerLayout mDrawerLayout;
+    protected ActionBarDrawerToggle mActionBarDrawerToggle;
+    protected DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
 
     protected void onCreate(Bundle savedInstanceState) {

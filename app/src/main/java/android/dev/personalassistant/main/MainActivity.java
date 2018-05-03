@@ -1,8 +1,9 @@
-package android.dev.personalassistant;
+package android.dev.personalassistant.main;
 
+import android.dev.personalassistant.main.BaseActivity;
 import android.os.Bundle;
 
-public class MainActivity extends BaseActivity  {
+public class MainActivity extends BaseActivity {
 
 
 

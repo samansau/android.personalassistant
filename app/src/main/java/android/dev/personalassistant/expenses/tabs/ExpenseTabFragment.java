@@ -1,12 +1,12 @@
-package android.dev.personalassistant.android.dev.personalassistant.adapters;
+package android.dev.personalassistant.expenses.tabs;
 
 import android.content.Intent;
-import android.dev.personalassistant.AddEditExpensesActivity;
+import android.dev.personalassistant.expenses.components.AddEditExpensesActivity;
 import android.dev.personalassistant.R;
+import android.dev.personalassistant.tabs.TabFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,7 @@ import android.widget.TextView;
  * Created by saurabh on 4/5/18.
  */
 
-public class ExpenseTabFragment extends TabFragment{
+public class ExpenseTabFragment extends TabFragment {
 
     private TextView textView;
 

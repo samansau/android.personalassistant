@@ -1,13 +1,17 @@
-package android.dev.personalassistant.kym;
+package android.dev.personalassistant.kym.main;
 
+import android.content.Intent;
 import android.dev.personalassistant.R;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.KymTabFragment;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.TabAdapter;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.TabFragment;
+import android.dev.personalassistant.kym.components.KymShowBankDetailsActivity;
+import android.dev.personalassistant.kym.components.KymShowBankListActivity;
+import android.dev.personalassistant.kym.tabs.KymTabFragment;
+import android.dev.personalassistant.tabs.TabAdapter;
+import android.dev.personalassistant.tabs.TabFragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class KnowYourMasterActivity extends AppCompatActivity {
 
@@ -28,5 +32,19 @@ public class KnowYourMasterActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.kymTabs);
         tabLayout.setupWithViewPager(viewPager);
 
+    }
+
+    public void addBankDetails(View view){
+        showBankDetails(view);
+    }
+
+    public void showBankDetails(View view){
+        Intent intent=new Intent(this,KymShowBankDetailsActivity.class);
+        startActivity(intent);
+    }
+
+    public void showBankList(View view){
+        Intent intent=new Intent(this,KymShowBankListActivity.class);
+        startActivity(intent);
     }
 }

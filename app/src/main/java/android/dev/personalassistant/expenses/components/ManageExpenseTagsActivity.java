@@ -1,16 +1,17 @@
-package android.dev.personalassistant;
+package android.dev.personalassistant.expenses.components;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.dev.personalassistant.utils.TaggingInput;
-import android.dev.personalassistant.utils.TaggingUtility;
+import android.dev.personalassistant.main.BaseActivity;
+import android.dev.personalassistant.utils.Constants;
+import android.dev.personalassistant.R;
+import android.dev.personalassistant.tags.TaggingInput;
+import android.dev.personalassistant.tags.TaggingUtility;
 import android.support.design.widget.TextInputEditText;
 import android.os.Bundle;
 import android.widget.GridLayout;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 
-public class ManageExpenseTagsActivity extends BaseActivity implements Constants{
+public class ManageExpenseTagsActivity extends BaseActivity implements Constants {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

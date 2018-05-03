@@ -1,24 +1,21 @@
-package android.dev.personalassistant;
+package android.dev.personalassistant.expenses.components;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.dev.personalassistant.utils.TaggingUtility;
+import android.dev.personalassistant.R;
+import android.dev.personalassistant.tags.TaggingUtility;
 import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.GridLayout;
-import android.widget.ScrollView;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_SHARED_PREFERENCE;
-import static android.dev.personalassistant.Constants.SELECTED_TAG_KEYS;
-import static android.dev.personalassistant.Constants.SMS_KEYWORDS;
-import static android.dev.personalassistant.Constants.SMS_KEYWORDS_SET;
+import static android.dev.personalassistant.utils.Constants.SMS_KEYWORDS;
+import static android.dev.personalassistant.utils.Constants.SMS_KEYWORDS_SET;
 
 public class TrackElectronicExpensesActivity extends AppCompatActivity {
 

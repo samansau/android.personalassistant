@@ -1,12 +1,11 @@
-package android.dev.personalassistant;
+package android.dev.personalassistant.documents.components;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.DocumentImageTabFragment;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.KymTabFragment;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.TabAdapter;
-import android.dev.personalassistant.android.dev.personalassistant.adapters.TabFragment;
-import android.support.design.widget.TabLayout;
+import android.dev.personalassistant.R;
+import android.dev.personalassistant.documents.tabs.DocumentImageTabFragment;
+import android.dev.personalassistant.tabs.TabAdapter;
+import android.dev.personalassistant.tabs.TabFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +14,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static android.dev.personalassistant.Constants.DOCUMENTS_IMAGES;
-import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_SHARED_PREFERENCE;
+import static android.dev.personalassistant.utils.Constants.DOCUMENTS_IMAGES;
+import static android.dev.personalassistant.utils.Constants.DOCUMENTS_TAG_SHARED_PREFERENCE;
 
 public class ManageDocumentImagesActivity extends AppCompatActivity {
     SharedPreferences mSharedPref = null;

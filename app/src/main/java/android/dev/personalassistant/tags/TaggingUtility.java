@@ -1,4 +1,4 @@
-package android.dev.personalassistant.utils;
+package android.dev.personalassistant.tags;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -19,11 +19,11 @@ import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_KEYS;
-import static android.dev.personalassistant.Constants.DOCUMENTS_TAG_MAX_KEY;
-import static android.dev.personalassistant.Constants.EXPENSE_TAG_KEYS;
-import static android.dev.personalassistant.Constants.EXPENSE_TAG_MAX_KEY;
-import static android.dev.personalassistant.Constants.SELECTED_TAG_KEYS;
+import static android.dev.personalassistant.utils.Constants.DOCUMENTS_TAG_KEYS;
+import static android.dev.personalassistant.utils.Constants.DOCUMENTS_TAG_MAX_KEY;
+import static android.dev.personalassistant.utils.Constants.EXPENSE_TAG_KEYS;
+import static android.dev.personalassistant.utils.Constants.EXPENSE_TAG_MAX_KEY;
+import static android.dev.personalassistant.utils.Constants.SELECTED_TAG_KEYS;
 import static android.support.design.R.id.center;
 
 /**

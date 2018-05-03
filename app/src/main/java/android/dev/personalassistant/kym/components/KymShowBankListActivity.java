@@ -1,7 +1,8 @@
-package android.dev.personalassistant;
+package android.dev.personalassistant.kym.components;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.dev.personalassistant.R;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListAdapter;
@@ -10,7 +11,7 @@ import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ShowBankListActivity extends ListActivity {
+public class KymShowBankListActivity extends ListActivity {
 
 
     static final ArrayList<HashMap<String,String>> list =
@@ -19,7 +20,7 @@ public class ShowBankListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_bank_list);
+        setContentView(R.layout.activity_kym_show_bank_list);
         ListAdapter adapter = new SimpleAdapter(
                 this,
                 list,
@@ -34,14 +35,7 @@ public class ShowBankListActivity extends ListActivity {
 
     }
 
-    public void addBankDetails(View view){
-        showBankDetails(view);
-    }
 
-    public void showBankDetails(View view){
-        Intent intent=new Intent(this,ShowBankDetailsActivity.class);
-        startActivity(intent);
-    }
 
 
 

@@ -1,22 +1,18 @@
-package android.dev.personalassistant.utils;
+package android.dev.personalassistant.tags;
 
 import android.content.SharedPreferences;
-import android.dev.personalassistant.BaseActivity;
+import android.dev.personalassistant.main.BaseActivity;
 import android.dev.personalassistant.R;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
 import android.widget.GridLayout;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static android.dev.personalassistant.Constants.SELECTED_TAG_KEY;
-import static android.dev.personalassistant.Constants.SELECTED_TAG_KEYS;
-import static java.security.AccessController.getContext;
+import static android.dev.personalassistant.utils.Constants.SELECTED_TAG_KEY;
+import static android.dev.personalassistant.utils.Constants.SELECTED_TAG_KEYS;
 
 /**
  * Created by saurabh on 4/10/18.

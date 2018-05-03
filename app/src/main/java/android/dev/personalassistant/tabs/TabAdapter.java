@@ -1,4 +1,4 @@
-package android.dev.personalassistant.android.dev.personalassistant.adapters;
+package android.dev.personalassistant.tabs;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
