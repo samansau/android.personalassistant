@@ -17,5 +17,22 @@
 
     <string name="action_settings">Settings</string>
 
+    <string-array name="card_type_array">
+        <item>Credit Card</item>
+        <item>Debit Card</item>
+    </string-array>
+
+    <string-array name="bank_name_array">
+        <item>ICICI</item>
+        <item>SBI</item>
+    </string-array>
+
+    <string-array name="card_owner_array">
+        <item>Saurabh Shirish Samant</item>
+        <item>Komal Deshmukh Saurabh Samant</item>
+    </string-array>
 
 </resources>
+
+
+

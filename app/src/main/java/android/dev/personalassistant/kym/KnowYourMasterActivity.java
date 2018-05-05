@@ -1,12 +1,14 @@
-package android.dev.personalassistant.kym.main;
+package android.dev.personalassistant.kym;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.dev.personalassistant.R;
-import android.dev.personalassistant.kym.components.KymShowBankDetailsActivity;
-import android.dev.personalassistant.kym.components.KymShowBankListActivity;
-import android.dev.personalassistant.kym.tabs.KymTabFragment;
+import android.dev.personalassistant.kym.KymShowBankDetailsActivity;
+import android.dev.personalassistant.kym.KymShowBankListActivity;
+import android.dev.personalassistant.kym.KymTabFragment;
 import android.dev.personalassistant.tabs.TabAdapter;
 import android.dev.personalassistant.tabs.TabFragment;
+import android.dev.personalassistant.tabs.TabUtils;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.view.View;
 
 public class KnowYourMasterActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +26,20 @@ public class KnowYourMasterActivity extends AppCompatActivity {
     }
 
     private void populateKymTabs(){
-        ViewPager viewPager;viewPager = (ViewPager) findViewById(R.id.kymViewPager);
-        String kymTitles[]=new String[]{"Per", "Fin", "Pas","Nos"};
+        ViewPager viewPager = (ViewPager) findViewById(R.id.kymViewPager);
+        String kymTitles[]=new String[]{"Per", "Fam", "Fin","Nos"};
         TabFragment kymTabFragment=new KymTabFragment();
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),kymTitles,kymTabFragment);
-        viewPager.setAdapter(adapter);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.kymTabs);
-        tabLayout.setupWithViewPager(viewPager);
+        TabUtils.populateTabs(viewPager,adapter,tabLayout);
 
     }
+
+
+
+
+
+
 
     public void addBankDetails(View view){
         showBankDetails(view);

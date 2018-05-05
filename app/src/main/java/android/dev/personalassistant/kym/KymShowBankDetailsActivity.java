@@ -1,10 +1,12 @@
-package android.dev.personalassistant.kym.components;
+package android.dev.personalassistant.kym;
 
+import android.content.Intent;
 import android.dev.personalassistant.main.BaseActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
 import android.dev.personalassistant.R;
+import android.view.View;
 
 public class KymShowBankDetailsActivity extends BaseActivity {
 
@@ -18,5 +20,10 @@ public class KymShowBankDetailsActivity extends BaseActivity {
         mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
         initDrawer();
         createExpenseToolBar();
+    }
+
+    public void showCardList(View view){
+        Intent intent=new Intent(this,KymShowCardListActivity.class);
+        startActivity(intent);
     }
 }

@@ -1,9 +1,8 @@
-package android.dev.personalassistant.documents.components;
+package android.dev.personalassistant.documents;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.dev.personalassistant.R;
-import android.dev.personalassistant.documents.tabs.DocumentImageTabFragment;
 import android.dev.personalassistant.tabs.TabAdapter;
 import android.dev.personalassistant.tabs.TabFragment;
 import android.support.v4.view.ViewPager;

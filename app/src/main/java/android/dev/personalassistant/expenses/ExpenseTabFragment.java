@@ -1,7 +1,6 @@
-package android.dev.personalassistant.expenses.tabs;
+package android.dev.personalassistant.expenses;
 
 import android.content.Intent;
-import android.dev.personalassistant.expenses.components.AddEditExpensesActivity;
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.tabs.TabFragment;
 import android.os.Bundle;

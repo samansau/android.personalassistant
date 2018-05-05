@@ -1,4 +1,4 @@
-package android.dev.personalassistant.documents.components;
+package android.dev.personalassistant.documents;
 
 import android.content.Context;
 import android.content.SharedPreferences;

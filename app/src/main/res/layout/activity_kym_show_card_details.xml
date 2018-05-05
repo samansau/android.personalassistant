@@ -14,10 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="android.dev.personalassistant.kym.KymShowBankDetailsActivity">
+        tools:context="android.dev.personalassistant.kym.KymShowCardDetailsActivity">
         <include layout="@layout/tool_bar_layout"/>
         <TableLayout
-            android:id="@+id/bankDetails"
+            android:id="@+id/cardDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="8dp"
@@ -29,35 +29,10 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/nameFieldLabel"
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/bankNameField"
-                        android:layout_width="319dp"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:hint="Bank Name" />
-                </android.support.design.widget.TextInputLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/bankBranchFieldLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/dobField"
-                        android:layout_width="319dp"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:hint="Bank Branch" />
-                </android.support.design.widget.TextInputLayout>
+                    android:layout_height="match_parent"
+                    android:hint="Card Owner"/>
             </TableRow>
 
             <TableRow
@@ -65,60 +40,10 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/accountNumberLabel"
-                    android:layout_width="319dp"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/panCardField"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:hint="Account Number" />
-                </android.support.design.widget.TextInputLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/customerIdLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:passwordToggleEnabled="true"
-                    >
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/customerIdField"
-                        android:layout_width="319dp"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:inputType="textPassword"
-                        android:hint="NetBanking Customer Id" />
-                </android.support.design.widget.TextInputLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/netBankingPasswordLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:passwordToggleEnabled="true"
-                    >
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/netBankingPasswordField"
-                        android:layout_width="319dp"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:inputType="textPassword"
-                        android:hint="NetBanking Password" />
-                </android.support.design.widget.TextInputLayout>
+                <Spinner
+                    android:id="@+id/cardOwnerName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -126,20 +51,46 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/phoneBankingNumberLabel"
-                    android:layout_width="319dp"
-                    android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Card Type"/>
 
-                    <EditText
-                        android:id="@+id/phoneBankingNumberField"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:inputType="number"
-                        android:hint="Phone Banking Number" />
-                </android.support.design.widget.TextInputLayout>
             </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <Spinner
+                    android:id="@+id/cardType"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Bank Name"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <Spinner
+                    android:id="@+id/cardBankName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
 
 
             <TableRow
@@ -147,12 +98,58 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 >
-                <Button
-                    android:text="Manage Cards"
-                    android:onClick="showCardList"
-                    />
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/cardNumberLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/cardNumberField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:hint="Card Number" />
+                </android.support.design.widget.TextInputLayout>
             </TableRow>
 
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/cardExpiryLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/cardExpiryField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:inputType="date"
+                        android:hint="Card Expiry (dd-mm-yyyy)" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/cardCvvLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="true"
+                    >
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/cardCvvField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:inputType="textPassword"
+                        android:hint="Card Cvv Number" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
 
             <TableRow
                 android:layout_width="wrap_content"

@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <TableLayout
-            android:id="@+id/kymPersonal"
+            android:id="@+id/kymFamily"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="8dp"
@@ -26,142 +26,109 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
+                android:gravity="fill_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/nameFieldLabel"
+                    android:id="@+id/kymFatherNameFieldLabel"
                     android:layout_width="100dp"
                     android:layout_height="match_parent">
                     <EditText
-                        android:id="@+id/kymNameField"
+                        android:id="@+id/kymFatherNameField"
                         android:layout_width="319dp"
                         android:layout_height="match_parent"
                         android:maxLines="1"
-                        android:hint="Full Name" />
+                        android:hint="Father's Name" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
+                android:gravity="fill_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/kymdobLabel"
+                    android:id="@+id/kymMotherNameFieldLabel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <EditText
-                        android:id="@+id/kymdobField"
+                        android:id="@+id/kymMotherNameField"
                         android:layout_width="322dp"
                         android:layout_height="42dp"
                         android:maxLines="1"
-                        android:hint="Birth Date(dd-mm-yyyy)" />
+                        android:hint="Mother's Name" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="fill_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wifeNameLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:id="@+id/wifeNameField"
+                        android:layout_width="322dp"
+                        android:layout_height="42dp"
+                        android:maxLines="1"
+                        android:hint="Wife's Name" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
+                android:gravity="fill_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/panNumberLabel"
+                    android:id="@+id/kid1Label"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <EditText
-                        android:id="@+id/panNumberField"
+                        android:id="@+id/kid1Field"
                         android:layout_width="322dp"
                         android:layout_height="42dp"
                         android:maxLines="1"
-                        android:hint="Pan Card Number" />
-                </android.support.design.widget.TextInputLayout>
-            </TableRow>
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/aadharNumberLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <EditText
-                        android:id="@+id/aadharNumberField"
-                        android:layout_width="322dp"
-                        android:layout_height="42dp"
-                        android:maxLines="1"
-                        android:hint="Aadhar Card Number" />
-                </android.support.design.widget.TextInputLayout>
-            </TableRow>
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/passPortNumberLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <EditText
-                        android:id="@+id/passPortNumberField"
-                        android:layout_width="322dp"
-                        android:layout_height="42dp"
-                        android:maxLines="1"
-                        android:hint="PassPort Number" />
+                        android:hint="Eldest kid" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
+                android:gravity="fill_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/passPortExpiryLabel"
+                    android:id="@+id/kid2Label"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <EditText
-                        android:id="@+id/passPortExpiryField"
+                        android:id="@+id/kid2Field"
                         android:layout_width="322dp"
                         android:layout_height="42dp"
                         android:maxLines="1"
-                        android:hint="Passport Expiry(dd-mm-yyyy)" />
+                        android:hint="Second Elder kid" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
+                android:gravity="fill_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/drivingLicenseNumberLabel"
+                    android:id="@+id/kid3Label"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <EditText
-                        android:id="@+id/drivingLicenseNumberField"
+                        android:id="@+id/kid3Field"
                         android:layout_width="322dp"
                         android:layout_height="42dp"
                         android:maxLines="1"
-                        android:hint="Driving Lisence Number" />
-                </android.support.design.widget.TextInputLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/drivingLicenseExpiryLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <EditText
-                        android:id="@+id/drivingLicenseExpiryField"
-                        android:layout_width="322dp"
-                        android:layout_height="42dp"
-                        android:maxLines="1"
-                        android:hint="Driving Lisence Expiry(dd-mm-yyyy)" />
+                        android:hint="Third Elder kid" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 

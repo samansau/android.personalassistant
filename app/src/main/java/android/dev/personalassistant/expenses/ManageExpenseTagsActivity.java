@@ -1,4 +1,4 @@
-package android.dev.personalassistant.expenses.components;
+package android.dev.personalassistant.expenses;
 
 import android.content.Context;
 import android.content.SharedPreferences;

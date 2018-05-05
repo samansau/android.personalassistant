@@ -6,20 +6,21 @@
     android:layout_height="match_parent"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
-    tools:context=".kym.KymShowBankListActivity">
-    <ListView android:id="@+id/listBanks"
+    tools:context=".kym.KymShowCardListActivity">
+    <include layout="@layout/tool_bar_layout"/>
+    <ListView android:id="@+id/listCards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:drawSelectorOnTop="false"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/addBankDetails"
+        android:id="@+id/addCardDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:src="@drawable/ic_add"
-        android:onClick="addBankDetails"
+        android:onClick="addCardDetails"
         android:layout_margin="16dp" />
 
 </LinearLayout>

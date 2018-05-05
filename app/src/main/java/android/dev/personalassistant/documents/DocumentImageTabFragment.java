@@ -1,4 +1,4 @@
-package android.dev.personalassistant.documents.tabs;
+package android.dev.personalassistant.documents;
 
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.tabs.TabFragment;

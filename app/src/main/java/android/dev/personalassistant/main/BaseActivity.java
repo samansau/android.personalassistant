@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.dev.personalassistant.MyInformationActivity;
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.tabs.TabAdapter;
-import android.dev.personalassistant.expenses.tabs.ExpenseTabFragment;
+import android.dev.personalassistant.expenses.ExpenseTabFragment;
 import android.dev.personalassistant.tabs.TabFragment;
-import android.dev.personalassistant.documents.components.ShowDocumentsListActivity;
-import android.dev.personalassistant.expenses.components.ManageExpenseTagsActivity;
-import android.dev.personalassistant.expenses.components.TrackElectronicExpensesActivity;
-import android.dev.personalassistant.kym.main.KnowYourMasterActivity;
+import android.dev.personalassistant.documents.ShowDocumentsListActivity;
+import android.dev.personalassistant.expenses.ManageExpenseTagsActivity;
+import android.dev.personalassistant.expenses.TrackElectronicExpensesActivity;
+import android.dev.personalassistant.kym.KnowYourMasterActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -78,6 +78,11 @@ public class BaseActivity  extends AppCompatActivity {
                         return true;
 
                     case R.id.kym:
+                        openKym();
+                        mDrawerLayout.closeDrawers();
+                        return true;
+
+                    case R.id.my_investments:
                         openKym();
                         mDrawerLayout.closeDrawers();
                         return true;
@@ -150,6 +155,11 @@ public class BaseActivity  extends AppCompatActivity {
 
     protected void openTrackElectronicExpenses(){
         Intent intent=new Intent(this,TrackElectronicExpensesActivity.class);
+        startActivity(intent);
+    }
+
+    protected void openMyInvestments(){
+        Intent intent=new Intent(this,KnowYourMasterActivity.class);
         startActivity(intent);
     }
 

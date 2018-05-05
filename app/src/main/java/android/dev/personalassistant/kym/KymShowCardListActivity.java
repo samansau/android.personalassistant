@@ -1,63 +1,63 @@
-package android.dev.personalassistant.kym.components;
+package android.dev.personalassistant.kym;
 
-import android.app.ListActivity;
 import android.content.Intent;
-import android.dev.personalassistant.R;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.dev.personalassistant.R;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class KymShowBankListActivity extends ListActivity {
-
-
+public class KymShowCardListActivity extends AppCompatActivity {
     static final ArrayList<HashMap<String,String>> list =
             new ArrayList<HashMap<String,String>>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kym_show_bank_list);
+        setContentView(R.layout.activity_kym_show_card_list);
+        ListView listView = (ListView) findViewById(R.id.listCards);
+
         ListAdapter adapter = new SimpleAdapter(
                 this,
                 list,
-                R.layout.bank_two_line_list_item,
+                R.layout.two_line_list_item,
                 new String[] {"rank","model"},
                 new int[] {R.id.text1,R.id.text2}
         );
+
         populateList();
-        setListAdapter(adapter);
-
-
-
+        listView.setAdapter(adapter);
     }
 
-
-
-
-
+    public void addCardDetails(View view){
+        Intent intent=new Intent(this,KymShowCardDetailsActivity.class);
+        startActivity(intent);
+    }
 
     private void populateList() {
+        list.clear();
         HashMap map = new HashMap();
         map.put("rank", "1");
-        map.put("model", "Samsung Galaxy Nexus");
+        map.put("model", "SBI Card");
         list.add(map);
 
         map = new HashMap();
         map.put("rank", "2");
-        map.put("model", "Samsung Epic Touch 4G");
+        map.put("model", "HDFC Card");
         list.add(map);
 
         map = new HashMap();
         map.put("rank", "3");
-        map.put("model", "Samsung Epic Touch 5G");
+        map.put("model", "Axis Card");
         list.add(map);
         map = new HashMap();
         map.put("rank", "4");
-        map.put("model", "Samsung Epic Touch 6G");
+        map.put("model", "ICICI Card");
         list.add(map);
 
     }

@@ -24,22 +24,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".expenses.components.ManageExpenseTagsActivity"
+            android:name=".expenses.ManageExpenseTagsActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity
-            android:name=".documents.components.ManageDocumentTagsActivity"
+            android:name=".documents.ManageDocumentTagsActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity
-            android:name=".documents.components.ManageDocumentImagesActivity"
+            android:name=".documents.ManageDocumentImagesActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
-        <activity android:name=".expenses.components.AddEditExpensesActivity" />
+        <activity android:name=".expenses.AddEditExpensesActivity" />
         <activity android:name=".MyInformationActivity" />
-        <activity android:name=".kym.components.KymShowBankListActivity" />
-        <activity android:name=".kym.components.KymShowBankDetailsActivity" />
-        <activity android:name=".documents.components.ShowDocumentsListActivity" />
-        <activity android:name=".documents.components.ShowDocumentDetailsActivity" />
-        <activity android:name=".expenses.components.TrackElectronicExpensesActivity" />
-        <activity android:name=".kym.main.KnowYourMasterActivity"></activity>
+        <activity android:name=".kym.KymShowBankListActivity" />
+        <activity android:name=".kym.KymShowBankDetailsActivity" />
+        <activity android:name=".documents.ShowDocumentsListActivity" />
+        <activity android:name=".documents.ShowDocumentDetailsActivity" />
+        <activity android:name=".expenses.TrackElectronicExpensesActivity" />
+        <activity android:name=".kym.KnowYourMasterActivity" />
+        <activity android:name=".investments.InvestmentsActivity" />
+        <activity android:name=".kym.KymShowCardListActivity" />
+        <activity android:name=".kym.KymShowCardDetailsActivity"></activity>
     </application>
 
 </manifest>

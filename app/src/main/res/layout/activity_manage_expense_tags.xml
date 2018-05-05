@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="android.dev.personalassistant.expenses.components.ManageExpenseTagsActivity">
+    tools:context="android.dev.personalassistant.expenses.ManageExpenseTagsActivity">
     <android.support.design.widget.TextInputEditText
         android:id="@+id/editExpenseTags"
         android:background="@color/inputTextColor"

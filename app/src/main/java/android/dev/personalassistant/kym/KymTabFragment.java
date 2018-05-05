@@ -1,8 +1,6 @@
-package android.dev.personalassistant.kym.tabs;
+package android.dev.personalassistant.kym;
 
-import android.content.Intent;
 import android.dev.personalassistant.R;
-import android.dev.personalassistant.kym.components.KymShowBankListActivity;
 import android.dev.personalassistant.tabs.TabFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class KymTabFragment extends TabFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         position = getArguments().getInt("pos");
+
     }
 
     @Override
@@ -48,12 +50,47 @@ public class KymTabFragment extends TabFragment {
                 view= inflater.inflate(R.layout.kym_personal_fragment, container, false);
                 break;
             case 1:
-                view= inflater.inflate(R.layout.activity_kym_show_bank_details, container, false);
+                view= inflater.inflate(R.layout.kym_family_fragment, container, false);
+                break;
+            case 2:
+
+                view= inflater.inflate(R.layout.activity_kym_show_bank_list, container, false);
+                ListView listView = (ListView) view.findViewById(R.id.listBanks);
+                ListAdapter adapter = new SimpleAdapter(
+                        view.getContext(),
+                        list,
+                        R.layout.two_line_list_item,
+                        new String[] {"rank","model"},
+                        new int[] {R.id.text1,R.id.text2}
+                );
+                populateList();
+                listView.setAdapter(adapter);
                 break;
         }
         return view;
     }
 
+    private void populateList() {
+        HashMap map = new HashMap();
+        map.put("rank", "1");
+        map.put("model", "Samsung Galaxy Nexus");
+        list.add(map);
+
+        map = new HashMap();
+        map.put("rank", "2");
+        map.put("model", "Samsung Epic Touch 4G");
+        list.add(map);
+
+        map = new HashMap();
+        map.put("rank", "3");
+        map.put("model", "Samsung Epic Touch 5G");
+        list.add(map);
+        map = new HashMap();
+        map.put("rank", "4");
+        map.put("model", "Samsung Epic Touch 6G");
+        list.add(map);
+
+    }
 
 
 
