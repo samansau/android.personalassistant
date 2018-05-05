@@ -6,17 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        tools:context="android.dev.personalassistant.kym.KymShowCarDetailsActivity">
+        <include layout="@layout/tool_bar_layout"/>
         <TableLayout
-            android:id="@+id/kymPersonal"
+            android:id="@+id/carDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="8dp"
@@ -28,16 +27,56 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Filter : Car Number"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <Spinner
+                    android:id="@+id/carNumber"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/nameFieldLabel"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent">
+                    android:id="@+id/carNumberFieldLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                     <EditText
-                        android:id="@+id/kymNameField"
+                        android:id="@+id/carNumberField"
                         android:layout_width="319dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:hint="Full Name" />
+                        android:hint="Car Number" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/carNameFieldLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/carNameField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:hint="Car Name" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 
@@ -47,33 +86,15 @@
                 android:gravity="center_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/kymdobLabel"
+                    android:id="@+id/drivingLicenseNumberLabel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <EditText
-                        android:id="@+id/kymdobField"
+                        android:id="@+id/drivingLicenseNumberField"
                         android:layout_width="322dp"
                         android:layout_height="42dp"
                         android:maxLines="1"
-                        android:hint="Birth Date(dd-mm-yyyy)" />
-                </android.support.design.widget.TextInputLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/panNumberLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <EditText
-                        android:id="@+id/panNumberField"
-                        android:layout_width="322dp"
-                        android:layout_height="42dp"
-                        android:maxLines="1"
-                        android:hint="Pan Card Number" />
+                        android:hint="Driving Lisence Number" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
             <TableRow
@@ -82,73 +103,17 @@
                 android:gravity="center_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/aadharNumberLabel"
+                    android:id="@+id/drivingLicenseExpiryLabel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <EditText
-                        android:id="@+id/aadharNumberField"
+                        android:id="@+id/drivingLicenseExpiryField"
                         android:layout_width="322dp"
                         android:layout_height="42dp"
                         android:maxLines="1"
-                        android:hint="Aadhar Card Number" />
+                        android:inputType="date"
+                        android:hint="Driving Lisence Expiry(dd-mm-yyyy)" />
                 </android.support.design.widget.TextInputLayout>
-            </TableRow>
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/passPortNumberLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <EditText
-                        android:id="@+id/passPortNumberField"
-                        android:layout_width="322dp"
-                        android:layout_height="42dp"
-                        android:maxLines="1"
-                        android:hint="PassPort Number" />
-                </android.support.design.widget.TextInputLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/passPortExpiryLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <EditText
-                        android:id="@+id/passPortExpiryField"
-                        android:layout_width="322dp"
-                        android:layout_height="42dp"
-                        android:maxLines="1"
-                        android:hint="Passport Expiry(dd-mm-yyyy)" />
-                </android.support.design.widget.TextInputLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <Button
-                    android:text="Residential Details"
-                    android:onClick="showResidentialDetails"
-                    />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <Button
-                    android:text="Car Details"
-                    android:onClick="showCarDetails"
-                    />
             </TableRow>
 
             <TableRow
@@ -161,7 +126,6 @@
                     />
             </TableRow>
         </TableLayout>
-
     </LinearLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

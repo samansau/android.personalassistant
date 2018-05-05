@@ -42,7 +42,9 @@
         <activity android:name=".kym.KnowYourMasterActivity" />
         <activity android:name=".investments.InvestmentsActivity" />
         <activity android:name=".kym.KymShowCardListActivity" />
-        <activity android:name=".kym.KymShowCardDetailsActivity"></activity>
+        <activity android:name=".kym.KymShowCardDetailsActivity" />
+        <activity android:name=".kym.KymShowCarDetailsActivity" />
+        <activity android:name=".kym.KymShowResidentialDetailsActivity"></activity>
     </application>
 
 </manifest>

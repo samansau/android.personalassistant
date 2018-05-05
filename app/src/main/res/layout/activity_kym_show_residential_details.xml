@@ -6,17 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        tools:context="android.dev.personalassistant.kym.KymShowResidentialDetailsActivity">
+        <include layout="@layout/tool_bar_layout"/>
         <TableLayout
-            android:id="@+id/kymPersonal"
+            android:id="@+id/residentialDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="8dp"
@@ -28,16 +27,74 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Filter : Residence Name"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <Spinner
+                    android:id="@+id/residenceName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/nameFieldLabel"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent">
+                    android:id="@+id/carNumberFieldLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                     <EditText
-                        android:id="@+id/kymNameField"
+                        android:id="@+id/residenceNameField"
                         android:layout_width="319dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:hint="Full Name" />
+                        android:hint="Residence Name" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/electricMeterNumberLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/electricMeterNumberField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:hint="Electric Meter Number" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/electricMeterCANumberLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/electricMeterCANumberField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:hint="Electric Consumer Account Number" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 
@@ -47,15 +104,33 @@
                 android:gravity="center_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/kymdobLabel"
+                    android:id="@+id/gasMeterNumberLabel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <EditText
-                        android:id="@+id/kymdobField"
+                        android:id="@+id/gasMeterNumberField"
                         android:layout_width="322dp"
                         android:layout_height="42dp"
                         android:maxLines="1"
-                        android:hint="Birth Date(dd-mm-yyyy)" />
+                        android:hint="Gas Meter Number" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/gasMeterCANumberLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/gasMeterCANumberField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:hint="Gas Consumer Account Number" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 
@@ -65,93 +140,37 @@
                 android:gravity="center_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/panNumberLabel"
+                    android:id="@+id/waterMeterNumberLabel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <EditText
-                        android:id="@+id/panNumberField"
+                        android:id="@+id/waterMeterNumberField"
                         android:layout_width="322dp"
                         android:layout_height="42dp"
                         android:maxLines="1"
-                        android:hint="Pan Card Number" />
+                        android:hint="Water Meter Number" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
+
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/aadharNumberLabel"
+                    android:id="@+id/waterMeterCANumberLabel"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
                     <EditText
-                        android:id="@+id/aadharNumberField"
-                        android:layout_width="322dp"
-                        android:layout_height="42dp"
+                        android:id="@+id/waterMeterCANumberField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:hint="Aadhar Card Number" />
-                </android.support.design.widget.TextInputLayout>
-            </TableRow>
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/passPortNumberLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <EditText
-                        android:id="@+id/passPortNumberField"
-                        android:layout_width="322dp"
-                        android:layout_height="42dp"
-                        android:maxLines="1"
-                        android:hint="PassPort Number" />
+                        android:hint="Water Consumer Account Number" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/passPortExpiryLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <EditText
-                        android:id="@+id/passPortExpiryField"
-                        android:layout_width="322dp"
-                        android:layout_height="42dp"
-                        android:maxLines="1"
-                        android:hint="Passport Expiry(dd-mm-yyyy)" />
-                </android.support.design.widget.TextInputLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <Button
-                    android:text="Residential Details"
-                    android:onClick="showResidentialDetails"
-                    />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <Button
-                    android:text="Car Details"
-                    android:onClick="showCarDetails"
-                    />
-            </TableRow>
-
-            <TableRow
+             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
@@ -161,7 +180,6 @@
                     />
             </TableRow>
         </TableLayout>
-
     </LinearLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
