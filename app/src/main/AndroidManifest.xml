@@ -44,7 +44,8 @@
         <activity android:name=".kym.KymShowCardListActivity" />
         <activity android:name=".kym.KymShowCardDetailsActivity" />
         <activity android:name=".kym.KymShowCarDetailsActivity" />
-        <activity android:name=".kym.KymShowResidentialDetailsActivity"></activity>
+        <activity android:name=".kym.KymShowResidentialDetailsActivity" />
+        <activity android:name=".kym.KymShowFamilyDetailsActivity"></activity>
     </application>
 
 </manifest>

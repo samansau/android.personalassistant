@@ -50,10 +50,6 @@ public class KymTabFragment extends TabFragment {
                 view= inflater.inflate(R.layout.kym_personal_fragment, container, false);
                 break;
             case 1:
-                view= inflater.inflate(R.layout.kym_family_fragment, container, false);
-                break;
-            case 2:
-
                 view= inflater.inflate(R.layout.activity_kym_show_bank_list, container, false);
                 ListView listView = (ListView) view.findViewById(R.id.listBanks);
                 ListAdapter adapter = new SimpleAdapter(

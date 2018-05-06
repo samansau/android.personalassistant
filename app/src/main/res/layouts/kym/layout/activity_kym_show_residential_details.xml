@@ -14,6 +14,9 @@
         android:orientation="vertical"
         tools:context="android.dev.personalassistant.kym.KymShowResidentialDetailsActivity">
         <include layout="@layout/tool_bar_layout"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <TableLayout
             android:id="@+id/residentialDetails"
             android:layout_width="match_parent"
@@ -50,7 +53,7 @@
                 android:gravity="center_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/carNumberFieldLabel"
+                    android:id="@+id/residenceNameLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <EditText
@@ -59,6 +62,24 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:hint="Residence Name" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/shareCertificateNameLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/shareCertificateNameField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:hint="Share Certificate Number" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 
@@ -170,6 +191,78 @@
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/phoneLine1NumberLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/phoneLine1NumberField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:hint="Phone Line 1 Number" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/phoneLine1CANumberLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/phoneLine1CANumberField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:hint="Phone Line 1 Consumer Account Number" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/phoneLine2NumberLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/phoneLine2NumberField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:hint="Phone Line 2 Number" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/phoneLine2CANumberLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/phoneLine2CANumberField"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:hint="Phone Line 2 Consumer Account Number" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
              <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -180,6 +273,7 @@
                     />
             </TableRow>
         </TableLayout>
+        </ScrollView>
     </LinearLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

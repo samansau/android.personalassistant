@@ -27,7 +27,7 @@ public class KnowYourMasterActivity extends AppCompatActivity {
 
     private void populateKymTabs(){
         ViewPager viewPager = (ViewPager) findViewById(R.id.kymViewPager);
-        String kymTitles[]=new String[]{"Personal", "Family", "Financial"};
+        String kymTitles[]=new String[]{"Personal", "Financial"};
         TabFragment kymTabFragment=new KymTabFragment();
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),kymTitles,kymTabFragment);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.kymTabs);
@@ -39,6 +39,12 @@ public class KnowYourMasterActivity extends AppCompatActivity {
         Intent intent=new Intent(this,KymShowResidentialDetailsActivity.class);
         startActivity(intent);
     }
+
+    public void showFamilyDetails(View view){
+        Intent intent=new Intent(this,KymShowFamilyDetailsActivity.class);
+        startActivity(intent);
+    }
+
 
 
 
