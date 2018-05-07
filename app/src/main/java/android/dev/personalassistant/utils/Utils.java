@@ -34,6 +34,37 @@ public class Utils {
         list.add(map);
 
     }
+    public static void populateListOf4Items(List list) {
+        HashMap map = new HashMap();
+        map.put("bank", "ICICI");
+        map.put("branch", "Goregaon (W)");
+        map.put("account_number", "1234");
+        map.put("balance", "5678");
+
+        list.add(map);
+
+        map = new HashMap();
+        map.put("bank", "AXIS");
+        map.put("branch", "Goregaon (W)");
+        map.put("account_number", "1234");
+        map.put("balance", "5678");
+        list.add(map);
+
+        map = new HashMap();
+        map.put("bank", "HDFC");
+        map.put("branch", "Goregaon (W)");
+        map.put("account_number", "1234");
+        map.put("balance", "5678");
+        list.add(map);
+        map = new HashMap();
+        map.put("bank", "SBI");
+        map.put("branch", "Goregaon (W)");
+        map.put("account_number", "1234");
+        map.put("balance", "5678");
+        list.add(map);
+
+    }
+
 
     public static void showDialog(String text,Activity activity){
         AlertDialog.Builder dialog = new AlertDialog.Builder(activity);

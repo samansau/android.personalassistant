@@ -35,15 +35,23 @@ public class InvestmentsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> list, View v, int pos, long id) {
                 switch (pos){
-                    case 0: // FD
-                        Intent intentFD =new Intent(v.getContext(),FixedDepositsInvestmentListActivity.class);
-                        startActivity(intentFD);
+                    case 0:// Savings
+                        Intent intentSavings =new Intent(v.getContext(),SavingsInvestmentListActivity.class);
+                        startActivity(intentSavings);
                         break;
                     case 1: // PPF
                         Intent intentPPF =new Intent(v.getContext(),PPFInvestmentListActivity.class);
                         startActivity(intentPPF);
                         break;
-                    case 2:
+                    case 2: // FD
+                        Intent intentFD =new Intent(v.getContext(),FixedDepositsInvestmentListActivity.class);
+                        startActivity(intentFD);
+                        break;
+                    case 3: // SIP
+                        break;
+                    case 4: // RD
+                        break;
+                    case 5: // Mutual Funds
                         break;
                 }
             }
