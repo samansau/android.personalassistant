@@ -6,13 +6,21 @@
     android:layout_height="match_parent"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
-    tools:context=".investments.InvestmentsActivity">
+    tools:context=".investments.FixedDepositsInvestmentListActivity">
     <include layout="@layout/tool_bar_layout"/>
-    <ListView android:id="@+id/listInvestments"
+    <ListView android:id="@+id/listFDs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:drawSelectorOnTop="false"/>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addFD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_add"
+        android:onClick="addUpdateFD"
+        android:layout_margin="16dp" />
 
 </LinearLayout>

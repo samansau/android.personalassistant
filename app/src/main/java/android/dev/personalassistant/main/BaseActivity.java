@@ -3,6 +3,7 @@ package android.dev.personalassistant.main;
 import android.content.Intent;
 import android.dev.personalassistant.MyInformationActivity;
 import android.dev.personalassistant.R;
+import android.dev.personalassistant.investments.InvestmentsActivity;
 import android.dev.personalassistant.tabs.TabAdapter;
 import android.dev.personalassistant.expenses.ExpenseTabFragment;
 import android.dev.personalassistant.tabs.TabFragment;
@@ -83,7 +84,7 @@ public class BaseActivity  extends AppCompatActivity {
                         return true;
 
                     case R.id.my_investments:
-                        openKym();
+                        openMyInvestments();
                         mDrawerLayout.closeDrawers();
                         return true;
                 }
@@ -159,7 +160,7 @@ public class BaseActivity  extends AppCompatActivity {
     }
 
     protected void openMyInvestments(){
-        Intent intent=new Intent(this,KnowYourMasterActivity.class);
+        Intent intent=new Intent(this,InvestmentsActivity.class);
         startActivity(intent);
     }
 

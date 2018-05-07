@@ -14,14 +14,16 @@ import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class InvestmentsActivity extends AppCompatActivity {
+public class FixedDepositsInvestmentListActivity extends AppCompatActivity {
     static final ArrayList<HashMap<String,String>> list =
             new ArrayList<HashMap<String,String>>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_investments);
-        final ListView listView = (ListView) findViewById(R.id.listInvestments);
+        setContentView(R.layout.activity_fixed_deposits_investment_list);
+
+
+        final ListView listView = (ListView) findViewById(R.id.listFDs);
         final ListAdapter adapter = new SimpleAdapter(
                 this,
                 list,
@@ -32,24 +34,16 @@ public class InvestmentsActivity extends AppCompatActivity {
         Utils.populateList(list);
         listView.setAdapter(adapter);
 
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> list, View v, int pos, long id) {
-                switch (pos){
-                    case 0: // FD
-                        Intent intentFD =new Intent(v.getContext(),FixedDepositsInvestmentListActivity.class);
-                        startActivity(intentFD);
-                        break;
-                    case 1: // PPF
-                        Intent intentPPF =new Intent(v.getContext(),PPFInvestmentListActivity.class);
-                        startActivity(intentPPF);
-                        break;
-                    case 2:
-                        break;
-                }
+            public void onItemClick(AdapterView<?> list, View view, int pos, long id) {
+                addUpdateFD(view);
             }
         });
     }
 
-
-
+    public void addUpdateFD(View view){
+        Intent intent =new Intent(view.getContext(),FixedDepositsInvestmentDetailActivity.class);
+        startActivity(intent);
+    }
 }

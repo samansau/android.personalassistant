@@ -2,6 +2,7 @@ package android.dev.personalassistant.kym;
 
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.tabs.TabFragment;
+import android.dev.personalassistant.utils.Utils;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by saurabh on 4/5/18.
@@ -59,34 +61,13 @@ public class KymTabFragment extends TabFragment {
                         new String[] {"rank","model"},
                         new int[] {R.id.text1,R.id.text2}
                 );
-                populateList();
+                Utils.populateList(list);
                 listView.setAdapter(adapter);
                 break;
         }
         return view;
     }
 
-    private void populateList() {
-        HashMap map = new HashMap();
-        map.put("rank", "1");
-        map.put("model", "Samsung Galaxy Nexus");
-        list.add(map);
-
-        map = new HashMap();
-        map.put("rank", "2");
-        map.put("model", "Samsung Epic Touch 4G");
-        list.add(map);
-
-        map = new HashMap();
-        map.put("rank", "3");
-        map.put("model", "Samsung Epic Touch 5G");
-        list.add(map);
-        map = new HashMap();
-        map.put("rank", "4");
-        map.put("model", "Samsung Epic Touch 6G");
-        list.add(map);
-
-    }
 
 
 

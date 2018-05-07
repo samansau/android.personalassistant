@@ -45,7 +45,11 @@
         <activity android:name=".kym.KymShowCardDetailsActivity" />
         <activity android:name=".kym.KymShowCarDetailsActivity" />
         <activity android:name=".kym.KymShowResidentialDetailsActivity" />
-        <activity android:name=".kym.KymShowFamilyDetailsActivity"></activity>
+        <activity android:name=".kym.KymShowFamilyDetailsActivity" />
+        <activity android:name=".investments.FixedDepositsInvestmentDetailActivity" />
+        <activity android:name=".investments.FixedDepositsInvestmentListActivity" />
+        <activity android:name=".investments.PPFInvestmentListActivity" />
+        <activity android:name=".investments.PPFInvestmentDetailActivity"></activity>
     </application>
 
 </manifest>

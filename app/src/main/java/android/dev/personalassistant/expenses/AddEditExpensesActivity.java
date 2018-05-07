@@ -54,7 +54,6 @@ public class AddEditExpensesActivity extends BaseActivity implements Constants {
     }
 
     private void populateExpenseTagsArray(){
-
         Set<String> tagKeys=mSharedPref.getStringSet(EXPENSE_TAG_KEYS,null);
         List<String> tagList=new ArrayList<String>();
         tagList.add("Select Expense Tag");
@@ -64,6 +63,5 @@ public class AddEditExpensesActivity extends BaseActivity implements Constants {
         }
         mExpenseTags=tagList.toArray(mExpenseTags);
     }
-
 
 }
