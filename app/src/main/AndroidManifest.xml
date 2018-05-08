@@ -51,7 +51,11 @@
         <activity android:name=".investments.PPFInvestmentListActivity" />
         <activity android:name=".investments.PPFInvestmentDetailActivity" />
         <activity android:name=".investments.SavingsInvestmentListActivity" />
-        <activity android:name=".investments.SavingsInvestmentDetailActivity"></activity>
+        <activity android:name=".investments.SavingsInvestmentDetailActivity" />
+        <activity android:name=".investments.SIPInvestmentDetailActivity" />
+        <activity android:name=".investments.SIPInvestmentListActivity" />
+        <activity android:name=".investments.RDInvestmentListActivity" />
+        <activity android:name=".investments.RDInvestmentDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="android.dev.personalassistant.investments.SIPInvestmentDetailActivity">
+        <include layout="@layout/tool_bar_layout"/>
+            <TableLayout
+                android:id="@+id/sipDetails"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp"
+                >
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/sipNameDescriptionLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/sipNameDescriptionField"
+                            android:layout_width="319dp"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:hint="Name/Description" />
+                    </android.support.design.widget.TextInputLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Bank"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <Spinner
+                        android:id="@+id/sipBank"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Branch"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <Spinner
+                        android:id="@+id/sipBranch"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Account Number"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <Spinner
+                        android:id="@+id/sipAcNumber"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/sipOwnersLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <MultiAutoCompleteTextView
+                            android:id="@+id/sipOwnersField"
+                            android:layout_width="319dp"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:hint="SIP Owners" />
+                    </android.support.design.widget.TextInputLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/sipBeginDateLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/sipBeginDateField"
+                            android:layout_width="319dp"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:inputType="date"
+                            android:hint="Begin Date (dd-mm-yyyy)" />
+                    </android.support.design.widget.TextInputLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Installment Period"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <Spinner
+                        android:id="@+id/sipInstallmentPeriod"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" />
+                </TableRow>
+
+
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/sipInstallmentAmountLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:passwordToggleEnabled="true"
+                        >
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/sipInstallmentAmountField"
+                            android:layout_width="319dp"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:inputType="numberDecimal"
+                            android:hint="SIP Installment Amount" />
+                    </android.support.design.widget.TextInputLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="SIP Accrued Amount"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    >
+                    <Button
+                        android:text="Save"
+                        />
+                </TableRow>
+            </TableLayout>
+    </LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/drawer_menu"
+        app:headerLayout="@layout/nav_layout"
+        />
+</android.support.v4.widget.DrawerLayout>

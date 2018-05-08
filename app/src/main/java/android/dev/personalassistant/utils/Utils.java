@@ -28,8 +28,19 @@ public class Utils {
         map.put("rank", "3");
         map.put("model", "Samsung Epic Touch 5G");
         list.add(map);
+
         map = new HashMap();
         map.put("rank", "4");
+        map.put("model", "Samsung Epic Touch 6G");
+        list.add(map);
+
+        map = new HashMap();
+        map.put("rank", "5");
+        map.put("model", "Samsung Epic Touch 6G");
+        list.add(map);
+
+        map = new HashMap();
+        map.put("rank", "6");
         map.put("model", "Samsung Epic Touch 6G");
         list.add(map);
 

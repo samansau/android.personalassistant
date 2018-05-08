@@ -48,8 +48,12 @@ public class InvestmentsActivity extends AppCompatActivity {
                         startActivity(intentFD);
                         break;
                     case 3: // SIP
+                        Intent intentSIP =new Intent(v.getContext(),SIPInvestmentListActivity.class);
+                        startActivity(intentSIP);
                         break;
                     case 4: // RD
+                        Intent intentRD =new Intent(v.getContext(),RDInvestmentListActivity.class);
+                        startActivity(intentRD);
                         break;
                     case 5: // Mutual Funds
                         break;
