@@ -6,6 +6,6 @@ package android.dev.personalassistant.entities;
 
 public class Card {
     public int id;
-    
+
 
 }
