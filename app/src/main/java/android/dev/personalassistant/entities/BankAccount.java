@@ -1,24 +1,23 @@
 package android.dev.personalassistant.entities;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 /**
  * Created by saurabh on 5/8/18.
  */
 
+@Entity
 public class BankAccount {
-    public int id;
+    @NonNull
+    @PrimaryKey
     public String accountNumber;
     public Bank bank;
     public String netBankingCustomerId;
     public String netBankingPassword;
     public String phoneBankingNumber;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getAccountNumber() {
         return accountNumber;

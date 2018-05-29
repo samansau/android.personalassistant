@@ -113,8 +113,6 @@ public class ShowDocumentDetailsActivity extends AppCompatActivity {
                 GridLayout selectedDocumentsGridLayout =(GridLayout)findViewById(R.id.selectedDocumentsImages);
 
                 ImageView imageView=new ImageView(selectedDocumentsGridLayout.getContext());
-                imageView.setMaxWidth(50);
-                imageView.setMaxHeight(50);
 
                 imageView.setImageURI(uri);
                 imageView.setOnClickListener(new View.OnClickListener() {

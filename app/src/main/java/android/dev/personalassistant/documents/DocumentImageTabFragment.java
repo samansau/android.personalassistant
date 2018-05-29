@@ -60,6 +60,8 @@ public class DocumentImageTabFragment extends TabFragment {
 
         Uri uri=Uri.parse(uriStr);
         imageView.setImageURI(uri);
+        imageView.setMaxHeight(10);
+        imageView.setMaxWidth(10);
 
     }
 
