@@ -1,9 +1,12 @@
 package android.dev.personalassistant.kym;
 
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
+import android.dev.personalassistant.entities.Bank;
 import android.dev.personalassistant.entities.BankAccount;
+import android.dev.personalassistant.helpers.DatabaseHelper;
 import android.dev.personalassistant.main.BaseActivity;
 import android.dev.personalassistant.utils.Constants;
 import android.support.v4.widget.DrawerLayout;
@@ -16,7 +19,7 @@ import android.widget.TextView;
 
 public class KymShowBankDetailsActivity extends BaseActivity implements Constants{
 
-    private PersonalAssistantDatabase personalAssistantDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +41,49 @@ public class KymShowBankDetailsActivity extends BaseActivity implements Constant
     }
 
     public void saveBankDetails(View view){
-        personalAssistantDatabase = Room.databaseBuilder(getApplicationContext(),
-                PersonalAssistantDatabase.class,DATABASE_NAME).fallbackToDestructiveMigration().build();
-
+        DatabaseHelper databaseHelper=new DatabaseHelper();
+        final PersonalAssistantDatabase personalAssistantDatabase=databaseHelper.getDatabase(getApplicationContext());
         new Thread(new Runnable() {
             @Override
             public void run() {
                 BankAccount bankAccount =new BankAccount();
-                TextView bankName = (TextView)findViewById(R.id.bankNameField);
-                String text=bankName.getText().toString();
-                Log.d("bn",text);
-                //bankAccount.setAccountNumber(view.get);
+                Bank bank =new Bank();
 
-                //personalAssistantDatabase.getBankAccountDAO().insertBankAccount(bankAccount);
+                TextView bankName = findViewById(R.id.bankNameField);
+                String bankNameField=bankName.getText().toString();
+
+                TextView bankbranch = findViewById(R.id.bankBranchField);
+                String bankBranchField=bankbranch.getText().toString();
+
+
+                TextView accountNumber = findViewById(R.id.accountNumberField);
+                String accountNumberField=accountNumber.getText().toString();
+
+
+                TextView netBankingCustomerId = findViewById(R.id.netBankingCustomerIdField);
+                String netBankingCustomerIdField=netBankingCustomerId.getText().toString();
+
+
+                TextView netBankingPassword = findViewById(R.id.netBankingPasswordField);
+                String netBankingPasswordField=netBankingPassword.getText().toString();
+
+
+                TextView phoneBankingNumber = findViewById(R.id.phoneBankingNumberField);
+                String phoneBankingNumberField=phoneBankingNumber.getText().toString();
+
+                bank.setBankName(bankNameField);
+                bank.setBranch(bankBranchField);
+                bankAccount.setBank(bank);
+                bankAccount.setAccountNumber(accountNumberField);
+                bankAccount.setNetBankingCustomerId(netBankingCustomerIdField);
+                bankAccount.setNetBankingPassword(netBankingPasswordField);
+                bankAccount.setPhoneBankingNumber(phoneBankingNumberField);
+
+                Log.d("bank account : ",bankAccount.toString());
+
+
+
+                personalAssistantDatabase.getBankAccountDAO().insertBankAccount(bankAccount);
             }
         }) .start();
     }

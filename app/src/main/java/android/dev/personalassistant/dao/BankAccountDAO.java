@@ -28,6 +28,10 @@ public interface BankAccountDAO {
     @Query("select * from BankAccount where accountNumber = :accountNumber")
     public BankAccount fetchBankAccountByAccountNumber(String accountNumber);
 
+    @Query("select * from BankAccount")
+    public List<BankAccount> fetchAllBankAccounts();
+
+
     @Delete
     public void deleteBankAccount(BankAccount bankAccount);
 

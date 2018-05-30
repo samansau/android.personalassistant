@@ -2,18 +2,24 @@ package android.dev.personalassistant.kym;
 
 import android.app.ListActivity;
 import android.dev.personalassistant.R;
+import android.dev.personalassistant.dao.PersonalAssistantDatabase;
+import android.dev.personalassistant.entities.Bank;
+import android.dev.personalassistant.entities.BankAccount;
+import android.dev.personalassistant.helpers.DatabaseHelper;
 import android.os.Bundle;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class KymShowBankListActivity extends ListActivity {
 
 
-    static final ArrayList<HashMap<String,String>> list =
-            new ArrayList<HashMap<String,String>>();
+    static final ArrayList<Map<String,String>> list =
+            new ArrayList<Map<String,String>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +33,7 @@ public class KymShowBankListActivity extends ListActivity {
                 this,
                 list,
                 R.layout.two_line_list_item,
-                new String[] {"rank","model"},
+                new String[] {"bank","branch"},
                 new int[] {R.id.text1,R.id.text2}
         );
         populateList();
@@ -40,24 +46,15 @@ public class KymShowBankListActivity extends ListActivity {
 
 
     private void populateList() {
-        HashMap map = new HashMap();
-        map.put("rank", "1");
-        map.put("model", "Samsung Galaxy Nexus");
-        list.add(map);
-
-        map = new HashMap();
-        map.put("rank", "2");
-        map.put("model", "Samsung Epic Touch 4G");
-        list.add(map);
-
-        map = new HashMap();
-        map.put("rank", "3");
-        map.put("model", "Samsung Epic Touch 5G");
-        list.add(map);
-        map = new HashMap();
-        map.put("rank", "4");
-        map.put("model", "Samsung Epic Touch 6G");
-        list.add(map);
-
+        DatabaseHelper databaseHelper=new DatabaseHelper();
+        PersonalAssistantDatabase database=databaseHelper.getDatabase(getApplicationContext());
+        List<BankAccount> allBankAccounts=database.getBankAccountDAO().fetchAllBankAccounts();
+        for(BankAccount bankAccount:allBankAccounts){
+            Map<String,String> map = new HashMap();
+            Bank bank=bankAccount.getBank();
+            map.put("bank",bank.getBankName());
+            map.put("branch",bank.getBranch());
+            list.add(map);
+        }
     }
 }

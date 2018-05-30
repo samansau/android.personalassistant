@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 @Entity
 public class Bank {
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int id;
     public String bankName;
     public String branch;
@@ -37,5 +37,14 @@ public class Bank {
 
     public void setBranch(String branch) {
         this.branch = branch;
+    }
+
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "id=" + id +
+                ", bankName='" + bankName + '\'' +
+                ", branch='" + branch + '\'' +
+                '}';
     }
 }

@@ -1,5 +1,6 @@
 package android.dev.personalassistant.entities;
 
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ public class BankAccount {
     @NonNull
     @PrimaryKey
     public String accountNumber;
+    @Embedded
     public Bank bank;
     public String netBankingCustomerId;
     public String netBankingPassword;
@@ -55,7 +57,20 @@ public class BankAccount {
         return phoneBankingNumber;
     }
 
+
+
     public void setPhoneBankingNumber(String phoneBankingNumber) {
         this.phoneBankingNumber = phoneBankingNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "accountNumber='" + accountNumber + '\'' +
+                ", bank=" + bank +
+                ", netBankingCustomerId='" + netBankingCustomerId + '\'' +
+                ", netBankingPassword='" + netBankingPassword + '\'' +
+                ", phoneBankingNumber='" + phoneBankingNumber + '\'' +
+                '}';
     }
 }
