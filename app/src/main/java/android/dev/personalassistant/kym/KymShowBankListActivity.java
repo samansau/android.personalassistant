@@ -32,7 +32,7 @@ public class KymShowBankListActivity extends ListActivity {
         ListAdapter adapter = new SimpleAdapter(
                 this,
                 list,
-                R.layout.two_line_list_item,
+                R.layout.three_line_list_item,
                 new String[] {"bank","branch"},
                 new int[] {R.id.text1,R.id.text2}
         );

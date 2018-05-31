@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.dev.personalassistant.R;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -25,7 +24,7 @@ public class KymShowCardListActivity extends AppCompatActivity {
         ListAdapter adapter = new SimpleAdapter(
                 this,
                 list,
-                R.layout.two_line_list_item,
+                R.layout.three_line_list_item,
                 new String[] {"rank","model"},
                 new int[] {R.id.text1,R.id.text2}
         );
