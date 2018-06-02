@@ -11,8 +11,9 @@ import android.support.annotation.NonNull;
 
 @Entity
 public class BankAccount {
+    @PrimaryKey(autoGenerate = true)
+    public int bankAccountId;
     @NonNull
-    @PrimaryKey
     public String accountNumber;
     @Embedded
     public Bank bank;
@@ -20,6 +21,13 @@ public class BankAccount {
     public String netBankingPassword;
     public String phoneBankingNumber;
 
+    public int getBankAccountId() {
+        return bankAccountId;
+    }
+
+    public void setBankAccountId(int bankAccountId) {
+        this.bankAccountId = bankAccountId;
+    }
 
     public String getAccountNumber() {
         return accountNumber;

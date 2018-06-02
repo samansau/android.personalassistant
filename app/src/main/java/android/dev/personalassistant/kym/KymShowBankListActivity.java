@@ -28,33 +28,4 @@ public class KymShowBankListActivity extends ListActivity {
 
     }
 
-    public void loadList(){
-        ListAdapter adapter = new SimpleAdapter(
-                this,
-                list,
-                R.layout.three_line_list_item,
-                new String[] {"bank","branch"},
-                new int[] {R.id.text1,R.id.text2}
-        );
-        populateList();
-        setListAdapter(adapter);
-    }
-
-
-
-
-
-
-    private void populateList() {
-        DatabaseHelper databaseHelper=new DatabaseHelper();
-        PersonalAssistantDatabase database=databaseHelper.getDatabase(getApplicationContext());
-        List<BankAccount> allBankAccounts=database.getBankAccountDAO().fetchAllBankAccounts();
-        for(BankAccount bankAccount:allBankAccounts){
-            Map<String,String> map = new HashMap();
-            Bank bank=bankAccount.getBank();
-            map.put("bank",bank.getBankName());
-            map.put("branch",bank.getBranch());
-            list.add(map);
-        }
-    }
 }

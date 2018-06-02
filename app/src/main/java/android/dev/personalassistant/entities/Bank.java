@@ -7,21 +7,16 @@ import android.support.annotation.NonNull;
 /**
  * Created by saurabh on 5/8/18.
  */
-@Entity
+@Entity(primaryKeys = {"bankName","branch"})
 public class Bank {
+
+
     @NonNull
-    @PrimaryKey(autoGenerate = true)
-    public int id;
     public String bankName;
+
+    @NonNull
     public String branch;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getBankName() {
         return bankName;
@@ -42,7 +37,6 @@ public class Bank {
     @Override
     public String toString() {
         return "Bank{" +
-                "id=" + id +
                 ", bankName='" + bankName + '\'' +
                 ", branch='" + branch + '\'' +
                 '}';

@@ -27,7 +27,7 @@ public class KnowYourMasterActivity extends AppCompatActivity {
 
     private void populateKymTabs(){
         ViewPager viewPager = (ViewPager) findViewById(R.id.kymViewPager);
-        String kymTitles[]=new String[]{"Personal", "Financial"};
+        String kymTitles[]=new String[]{"Personal", "Banks","Cards"};
         TabFragment kymTabFragment=new KymTabFragment();
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),kymTitles,kymTabFragment);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.kymTabs);
@@ -54,6 +54,11 @@ public class KnowYourMasterActivity extends AppCompatActivity {
         showBankDetails(view);
     }
 
+    public void addCardDetails(View view){
+        Intent intent=new Intent(this,KymShowCardDetailsActivity.class);
+        startActivity(intent);
+    }
+
     public void showBankDetails(View view){
         Intent intent=new Intent(this,KymShowBankDetailsActivity.class);
         startActivity(intent);
@@ -63,6 +68,8 @@ public class KnowYourMasterActivity extends AppCompatActivity {
         Intent intent=new Intent(this,KymShowCarDetailsActivity.class);
         startActivity(intent);
     }
+
+
 
     public void showBankList(View view){
         Intent intent=new Intent(this,KymShowBankListActivity.class);

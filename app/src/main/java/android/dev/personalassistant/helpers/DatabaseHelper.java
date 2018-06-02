@@ -12,7 +12,7 @@ import static android.dev.personalassistant.utils.Constants.DATABASE_NAME;
 
 public class DatabaseHelper {
 
-    public  PersonalAssistantDatabase getDatabase(Context context){
+    public  static PersonalAssistantDatabase getDatabase(Context context){
         PersonalAssistantDatabase personalAssistantDatabase = Room.databaseBuilder(context,
                 PersonalAssistantDatabase.class,DATABASE_NAME).fallbackToDestructiveMigration().build();
         return personalAssistantDatabase;

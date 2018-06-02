@@ -33,10 +33,7 @@ public class KymShowCardListActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    public void addCardDetails(View view){
-        Intent intent=new Intent(this,KymShowCardDetailsActivity.class);
-        startActivity(intent);
-    }
+
 
     private void populateList() {
         list.clear();

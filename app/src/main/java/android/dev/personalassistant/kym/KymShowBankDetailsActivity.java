@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
 import android.dev.personalassistant.entities.Bank;
 import android.dev.personalassistant.entities.BankAccount;
+import android.dev.personalassistant.helpers.BankAccountHelper;
 import android.dev.personalassistant.helpers.DatabaseHelper;
 import android.dev.personalassistant.main.BaseActivity;
 import android.dev.personalassistant.utils.Constants;
+import android.dev.personalassistant.vo.BankAccountVO;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import static android.dev.personalassistant.utils.Keys.accountNumber;
 import static android.dev.personalassistant.utils.Keys.bank;
+import static android.dev.personalassistant.utils.Keys.bankAccountId;
 import static android.dev.personalassistant.utils.Keys.branch;
 import static android.dev.personalassistant.utils.Keys.netBankingCustomerId;
 import static android.dev.personalassistant.utils.Keys.netBankingPassword;
@@ -32,6 +35,8 @@ public class KymShowBankDetailsActivity extends BaseActivity implements Constant
     TextView netBankingCustomerIdObj;
     TextView netBankingPasswordObj;
     TextView phoneBankingNumberObj;
+
+    int bankAccountIdValue=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,7 @@ public class KymShowBankDetailsActivity extends BaseActivity implements Constant
             String bankValue = bundle.getString(bank);
             String branchValue = bundle.getString(branch);
             String accountNumberValue = bundle.getString(accountNumber);
+            this.bankAccountIdValue=bundle.getInt(bankAccountId);
             String netBankingCustomerIdValue = bundle.getString(netBankingCustomerId);
             String netBankingPasswordValue = bundle.getString(netBankingPassword);
             String phoneBankingNumberValue = bundle.getString(phoneBankingNumber);
@@ -76,36 +82,25 @@ public class KymShowBankDetailsActivity extends BaseActivity implements Constant
         startActivity(intent);
     }
 
-
     public void saveBankDetails(View view){
-        DatabaseHelper databaseHelper=new DatabaseHelper();
-        final PersonalAssistantDatabase personalAssistantDatabase=databaseHelper.getDatabase(getApplicationContext());
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                BankAccount bankAccount =new BankAccount();
-                Bank bank =new Bank();
-                String bankNameField=bankNameObj.getText().toString();
-                String bankBranchField=bankBranchObj.getText().toString();
-                String accountNumberField=accountNumberObj.getText().toString();
-                String netBankingCustomerIdField=netBankingCustomerIdObj.getText().toString();
-                String netBankingPasswordField=netBankingPasswordObj.getText().toString();
-                String phoneBankingNumberField=phoneBankingNumberObj.getText().toString();
+        PersonalAssistantDatabase personalAssistantDatabase=DatabaseHelper.getDatabase(getApplicationContext());
+        BankAccountVO bankAccountVO=new BankAccountVO();
+        bankAccountVO.setAccountNumberValue(accountNumberObj.getText().toString());
+        bankAccountVO.setBankAccountIdValue(bankAccountIdValue);
+        bankAccountVO.setBankBranchValue(bankBranchObj.getText().toString());
+        bankAccountVO.setBankNameValue(bankNameObj.getText().toString());
+        bankAccountVO.setNetBankingCustomerIdValue(netBankingCustomerIdObj.getText().toString());
+        bankAccountVO.setNetBankingPasswordValue(netBankingPasswordObj.getText().toString());
+        bankAccountVO.setPhoneBankingNumberValue(phoneBankingNumberObj.getText().toString());
 
-                bank.setBankName(bankNameField);
-                bank.setBranch(bankBranchField);
-                bankAccount.setBank(bank);
-                bankAccount.setAccountNumber(accountNumberField);
-                bankAccount.setNetBankingCustomerId(netBankingCustomerIdField);
-                bankAccount.setNetBankingPassword(netBankingPasswordField);
-                bankAccount.setPhoneBankingNumber(phoneBankingNumberField);
-
-                Log.d("bank account : ",bankAccount.toString());
+        BankAccountHelper bankAccountHelper=new BankAccountHelper();
+        bankAccountHelper.persistBankAccount(personalAssistantDatabase,bankAccountVO);
+        finish();
+        startActivity(new Intent(this,KymShowBankListActivity.class));
 
 
-
-                personalAssistantDatabase.getBankAccountDAO().insertBankAccount(bankAccount);
-            }
-        }) .start();
     }
+
+
+
 }
