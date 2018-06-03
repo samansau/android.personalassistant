@@ -16,7 +16,12 @@ public class Keys {
     public static final String phoneBankingNumber="phone_banking_number";
 
     //Card Keys
+    public static final String cardId="card_id";
+    public static final String cardType="card_type";
+    public static final String cardCategory="card_category";
     public static final String cardNumber="card_number";
-    public static final String cardExpirydate="card_expiry_date";
+    public static final String cardExpiryDate="card_expiry_date";
+    public static final String cardCvv="card_cvv";
+
 
 }

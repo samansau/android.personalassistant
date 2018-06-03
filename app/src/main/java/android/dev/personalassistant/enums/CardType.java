@@ -17,9 +17,20 @@ public enum CardType {
         this.value=value;
     };
 
+
+
     @Override
     public String toString() {
         return value;
+    }
+
+    public static CardType fromString(String text) {
+        for (CardType cardType : CardType.values()) {
+            if (cardType.value.equalsIgnoreCase(text)) {
+                return cardType;
+            }
+        }
+        return null;
     }
 
 

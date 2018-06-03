@@ -28,6 +28,9 @@ public interface BankAccountDAO {
     @Query("select * from BankAccount where accountNumber = :accountNumber")
     public BankAccount fetchBankAccountByAccountNumber(String accountNumber);
 
+    @Query("select * from BankAccount where bankAccountId = :bankAccountId")
+    public BankAccount fetchBankAccountByBankAccountId(int bankAccountId);
+
     @Query("select * from BankAccount")
     public List<BankAccount> fetchAllBankAccounts();
 

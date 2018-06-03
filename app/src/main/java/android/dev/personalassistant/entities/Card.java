@@ -2,30 +2,56 @@ package android.dev.personalassistant.entities;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.dev.personalassistant.enums.CardType;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * Created by saurabh on 5/8/18.
  */
-@Entity
+@Entity(foreignKeys = {@ForeignKey(entity= BankAccount.class,
+                                    parentColumns = "bankAccountId",
+                                    childColumns ="bankAccountId"
+                                  )
+                      },
+        indices = {@Index(value =
+                {"cardNumber"}, unique = true)}
+
+       )
 public class Card {
+
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public int cardId;
+
+    @Nullable
+    private int bankAccountId;
 
     private String cardType;
 
     private String cardCategory;
+
+    @NonNull
     private String cardNumber;
     private String cardExpiryDate;
     private String cardCvv;
 
-    public int getId() {
-        return id;
+    public int getCardId() {
+        return cardId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
+    }
+
+    public int getBankAccountId() {
+        return bankAccountId;
+    }
+
+    public void setBankAccountId(int bankAccountId) {
+        this.bankAccountId = bankAccountId;
     }
 
     public String getCardType() {
@@ -57,7 +83,7 @@ public class Card {
         return cardExpiryDate;
     }
 
-    public void setCardExpiryDate(String CardExpiryDate) {
+    public void setCardExpiryDate(String cardExpiryDate) {
         this.cardExpiryDate = cardExpiryDate;
     }
 
@@ -67,5 +93,18 @@ public class Card {
 
     public void setCardCvv(String cardCvv) {
         this.cardCvv = cardCvv;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "cardId=" + cardId +
+                ", bankAccountId=" + bankAccountId +
+                ", cardType='" + cardType + '\'' +
+                ", cardCategory='" + cardCategory + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", cardExpiryDate='" + cardExpiryDate + '\'' +
+                ", cardCvv='" + cardCvv + '\'' +
+                '}';
     }
 }

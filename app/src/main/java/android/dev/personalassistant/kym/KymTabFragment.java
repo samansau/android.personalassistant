@@ -11,6 +11,7 @@ import android.dev.personalassistant.tabs.TabFragment;
 import android.dev.personalassistant.vo.BankAccountVO;
 import android.dev.personalassistant.vo.CardVO;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -32,8 +33,12 @@ import static android.dev.personalassistant.utils.Keys.accountNumber;
 import static android.dev.personalassistant.utils.Keys.bank;
 import static android.dev.personalassistant.utils.Keys.bankAccountId;
 import static android.dev.personalassistant.utils.Keys.branch;
-import static android.dev.personalassistant.utils.Keys.cardExpirydate;
+import static android.dev.personalassistant.utils.Keys.cardCategory;
+import static android.dev.personalassistant.utils.Keys.cardCvv;
+import static android.dev.personalassistant.utils.Keys.cardExpiryDate;
+import static android.dev.personalassistant.utils.Keys.cardId;
 import static android.dev.personalassistant.utils.Keys.cardNumber;
+import static android.dev.personalassistant.utils.Keys.cardType;
 import static android.dev.personalassistant.utils.Keys.netBankingCustomerId;
 import static android.dev.personalassistant.utils.Keys.netBankingPassword;
 import static android.dev.personalassistant.utils.Keys.phoneBankingNumber;
@@ -77,63 +82,105 @@ public class KymTabFragment extends TabFragment {
                 view= inflater.inflate(R.layout.kym_personal_fragment, container, false);
                 break;
             case 1:
-                view= inflater.inflate(R.layout.activity_kym_show_bank_list, container, false);
-                ListView listView = (ListView) view.findViewById(R.id.listBanks);
-                populateBankList(getContext());
-                ListAdapter bankAdapter = new SimpleAdapter(
-                        view.getContext(),
-                        bankList,
-                        R.layout.three_line_list_item,
-                        new String[] {bank,branch,accountNumber},
-                        new int[] {R.id.text1,R.id.text2,R.id.text3}
-                );
-
-                listView.setAdapter(bankAdapter);
-
-
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int pos, long is) {
-                        Intent intent=new Intent(getContext(),KymShowBankDetailsActivity.class);
-                        Bundle extras=new Bundle();
-
-                        BankAccountHelper bankAccountHelper=new BankAccountHelper();
-                        HashMap<String,String> bankData=(HashMap)adapterView.getItemAtPosition(pos);
-                        final String accountNumberStr=bankData.get(accountNumber);
-                        PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
-                        try {
-                            BankAccountVO bankAccountVO = bankAccountHelper.fetchBankAccountVOFromAccountNumber(personalAssistantDatabase, accountNumberStr);
-
-                            extras.putString(bank, bankAccountVO.getBankNameValue());
-                            extras.putString(branch, bankAccountVO.getBankBranchValue());
-                            extras.putInt(bankAccountId, bankAccountVO.getBankAccountIdValue());
-                            extras.putString(accountNumber, accountNumberStr);
-                            extras.putString(netBankingCustomerId, bankAccountVO.getNetBankingCustomerIdValue());
-                            extras.putString(netBankingPassword, bankAccountVO.getNetBankingPasswordValue());
-                            extras.putString(phoneBankingNumber, bankAccountVO.getPhoneBankingNumberValue());
-                        }catch (InterruptedException ie){
-                            Log.e("InterruptedException",ie.getStackTrace().toString());
-                        }
-                        intent.putExtras(extras);
-                        startActivity(intent);
-                    }
-                });
+                view = getBankAccountView(inflater, container);
                 break;
 
             case 2:
-                view= inflater.inflate(R.layout.activity_kym_show_card_list, container, false);
-                ListView cardListView = (ListView) view.findViewById(R.id.listCards);
-                ListAdapter cardAdapter = new SimpleAdapter(
-                        view.getContext(),
-                        cardList,
-                        R.layout.three_line_list_item,
-                        new String[] {bank,cardNumber,cardExpirydate},
-                        new int[] {R.id.text1,R.id.text2,R.id.text3}
-                );
-                populateCardList(getContext());
-                cardListView.setAdapter(cardAdapter);
+                view = getCardView(inflater, container);
 
         }
+        return view;
+    }
+
+    @NonNull
+    private View getCardView(LayoutInflater inflater, ViewGroup container) {
+        View view;
+        view= inflater.inflate(R.layout.activity_kym_show_card_list, container, false);
+        ListView cardListView = (ListView) view.findViewById(R.id.listCards);
+        ListAdapter cardAdapter = new SimpleAdapter(
+                view.getContext(),
+                cardList,
+                R.layout.three_line_list_item,
+                new String[] {bank,cardNumber,cardExpiryDate},
+                new int[] {R.id.text1,R.id.text2,R.id.text3}
+        );
+        populateCardList(getContext());
+        cardListView.setAdapter(cardAdapter);
+
+        cardListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long is) {
+                Intent intent=new Intent(getContext(),KymShowCardDetailsActivity.class);
+                Bundle extras=new Bundle();
+
+                CardHelper cardHelper=new CardHelper();
+                HashMap<String,String> cardData=(HashMap)adapterView.getItemAtPosition(pos);
+                final String cardNumberStr=cardData.get(cardNumber);
+                PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
+                try {
+                    CardVO cardVO = cardHelper.fetchCardVOByCardNumber(personalAssistantDatabase,cardNumberStr);
+                    extras.putInt(cardId, cardVO.getCardId());
+                    extras.putString(cardType, cardVO.getCardTypeValue());
+                    extras.putString(bank, cardVO.getBankName());
+                    extras.putString(bankAccountId, cardVO.getBranch());
+                    extras.putString(cardCategory, cardVO.getCardCategoryValue());
+                    extras.putString(cardNumber, cardVO.getCardNumberValue());
+                    extras.putString(cardExpiryDate, cardVO.getCardExpiryDateValue());
+                    extras.putString(cardCvv, cardVO.getCardCvvValue());
+                }catch (InterruptedException ie){
+                    Log.e("InterruptedException",ie.getStackTrace().toString());
+                }
+                intent.putExtras(extras);
+                startActivity(intent);
+            }
+        });
+
+        return view;
+    }
+
+    private View getBankAccountView(LayoutInflater inflater, ViewGroup container) {
+        View view;
+        view= inflater.inflate(R.layout.activity_kym_show_bank_list, container, false);
+        ListView bankAccountListView = (ListView) view.findViewById(R.id.listBanks);
+        populateBankList(getContext());
+        ListAdapter bankAdapter = new SimpleAdapter(
+                view.getContext(),
+                bankList,
+                R.layout.three_line_list_item,
+                new String[] {bank,branch,accountNumber},
+                new int[] {R.id.text1,R.id.text2,R.id.text3}
+        );
+
+        bankAccountListView.setAdapter(bankAdapter);
+
+
+        bankAccountListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long is) {
+                Intent intent=new Intent(getContext(),KymShowBankDetailsActivity.class);
+                Bundle extras=new Bundle();
+
+                BankAccountHelper bankAccountHelper=new BankAccountHelper();
+                HashMap<String,String> bankData=(HashMap)adapterView.getItemAtPosition(pos);
+                final String accountNumberStr=bankData.get(accountNumber);
+                PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
+                try {
+                    BankAccountVO bankAccountVO = bankAccountHelper.fetchBankAccountVOFromAccountNumber(personalAssistantDatabase, accountNumberStr);
+
+                    extras.putString(bank, bankAccountVO.getBankNameValue());
+                    extras.putString(branch, bankAccountVO.getBankBranchValue());
+                    extras.putInt(bankAccountId, bankAccountVO.getBankAccountIdValue());
+                    extras.putString(accountNumber, accountNumberStr);
+                    extras.putString(netBankingCustomerId, bankAccountVO.getNetBankingCustomerIdValue());
+                    extras.putString(netBankingPassword, bankAccountVO.getNetBankingPasswordValue());
+                    extras.putString(phoneBankingNumber, bankAccountVO.getPhoneBankingNumberValue());
+                }catch (InterruptedException ie){
+                    Log.e("InterruptedException",ie.getStackTrace().toString());
+                }
+                intent.putExtras(extras);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -162,9 +209,9 @@ public class KymTabFragment extends TabFragment {
             List<CardVO> cardVOs=cardHelper.fetchAllCardVOs(DatabaseHelper.getDatabase(context));
             for(CardVO cardVO : cardVOs){
                 Map<String, String> map = new HashMap();
-                map.put(bank, cardVO.getBankNameValue());
+                map.put(bank, cardVO.getBankName());
                 map.put(cardNumber, cardVO.getCardNumberValue());
-                map.put(cardExpirydate, cardVO.getCardExpiryDateValue());
+                map.put(cardExpiryDate, cardVO.getCardExpiryDateValue());
                 cardList.add(map);
             }
 

@@ -8,8 +8,11 @@ public class CardVO {
 
     public int cardId;
     private String cardTypeValue;
-    private String bankNameValue;
-    private String branchValue;
+    private int bankAccountId;
+
+    private String bankName;
+    private String branch;
+
     private String cardCategoryValue;
     private String cardNumberValue;
     private String cardExpiryDateValue;
@@ -32,20 +35,28 @@ public class CardVO {
         this.cardTypeValue = cardTypeValue;
     }
 
-    public String getBankNameValue() {
-        return bankNameValue;
+    public int getBankAccountId() {
+        return bankAccountId;
     }
 
-    public void setBankNameValue(String bankNameValue) {
-        this.bankNameValue = bankNameValue;
+    public void setBankAccountId(int bankAccountId) {
+        this.bankAccountId = bankAccountId;
     }
 
-    public String getBranchValue() {
-        return branchValue;
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setBranchValue(String branchValue) {
-        this.branchValue = branchValue;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 
     public String getCardExpiryDateValue() {
@@ -79,5 +90,19 @@ public class CardVO {
 
     public void setCardCvvValue(String cardCvvValue) {
         this.cardCvvValue = cardCvvValue;
+    }
+
+
+    @Override
+    public String toString() {
+        return "CardVO{" +
+                "cardId=" + cardId +
+                ", cardTypeValue='" + cardTypeValue + '\'' +
+                ", bankAccountId=" + bankAccountId +
+                ", cardCategoryValue='" + cardCategoryValue + '\'' +
+                ", cardNumberValue='" + cardNumberValue + '\'' +
+                ", cardExpiryDateValue='" + cardExpiryDateValue + '\'' +
+                ", cardCvvValue='" + cardCvvValue + '\'' +
+                '}';
     }
 }

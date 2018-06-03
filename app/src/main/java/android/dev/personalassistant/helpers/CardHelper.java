@@ -5,6 +5,7 @@ import android.dev.personalassistant.entities.BankAccount;
 import android.dev.personalassistant.entities.Card;
 import android.dev.personalassistant.vo.BankAccountVO;
 import android.dev.personalassistant.vo.CardVO;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,34 +22,21 @@ public class CardHelper {
             @Override
             public void run() {
                 Card card = new Card();
+
                 int cardIdValue=cardVO.getCardId();
+
+                card.setBankAccountId(cardVO.getBankAccountId());
                 card.setCardType(cardVO.getCardTypeValue());
                 card.setCardNumber(cardVO.getCardNumberValue());
-//                Bank bankObj=null;
-//                try {
-//                    BankHelper bankHelper = new BankHelper();
-//
-//                    bankObj=bankHelper.fetchBankByBankNameAndBranch(personalAssistantDatabase, cardVO.getBankNameValue(), cardVO.getBranchValue());
-//                    Log.d("bank value :",bankObj.toString());
-//                }catch(InterruptedException ie){
-//                    Log.e(CardHelper.class.getName(),ie.getStackTrace().toString());
-//                }
-//
-//
-//                card.setBank(bankObj);
 
                 card.setCardCategory(cardVO.getCardCategoryValue());
                 card.setCardNumber(cardVO.getCardNumberValue());
                 card.setCardExpiryDate(cardVO.getCardExpiryDateValue());
                 card.setCardCvv(cardVO.getCardCvvValue());
 
-
-
-
-
-
+                Log.d("Card Object : ",card.toString());
                 if (cardIdValue >= 0) {
-                    card.setId(cardIdValue);
+                    card.setCardId(cardVO.getCardId());
                     personalAssistantDatabase.getCardDAO().updateCards(card);
                 }else{
                     personalAssistantDatabase.getCardDAO().insertCard(card);
@@ -58,29 +46,33 @@ public class CardHelper {
         }).start();
     }
 
-    public BankAccountVO fetchBankAccountVOFromAccountNumber(final PersonalAssistantDatabase personalAssistantDatabase,final String accountNumber) throws InterruptedException{
-        final BankAccountVO bankAccountVO=new BankAccountVO();
 
+    public CardVO fetchCardVOByCardNumber(final PersonalAssistantDatabase personalAssistantDatabase,final String cardNumber) throws InterruptedException{
+        final CardVO cardVO=new CardVO();
         Thread fetchThread=new Thread(new Runnable() {
             @Override
             public void run() {
-                BankAccount bankAccount = personalAssistantDatabase.getBankAccountDAO().fetchBankAccountByAccountNumber(accountNumber);
-                if(bankAccount!=null){
-                    //Bank bank=bankAccount.getBank();
-                   // bankAccountVO.setBankNameValue(bank.getBankName());
-                   // bankAccountVO.setBankBranchValue(bank.getBranch());
-                    bankAccountVO.setAccountNumberValue(bankAccount.getAccountNumber());
-                    bankAccountVO.setBankAccountIdValue(bankAccount.getBankAccountId());
-                    bankAccountVO.setNetBankingCustomerIdValue(bankAccount.getNetBankingCustomerId());
-                    bankAccountVO.setNetBankingPasswordValue(bankAccount.getNetBankingPassword());
-                    bankAccountVO.setPhoneBankingNumberValue(bankAccount.getPhoneBankingNumber());
+                Card card = personalAssistantDatabase.getCardDAO().fetchCardByCardNumber(cardNumber);
+                if(card!=null){
+                    int bankAccountId=card.getBankAccountId();
+                    cardVO.setBankAccountId(bankAccountId);
+                    BankAccount bankAccount=personalAssistantDatabase.getBankAccountDAO().fetchBankAccountByBankAccountId(bankAccountId);
+                    cardVO.setCardId(card.getCardId());
+                    cardVO.setBankName(bankAccount.getBankName());
+                    cardVO.setBranch(bankAccount.getBranch());
+                    cardVO.setCardCategoryValue(card.getCardCategory());
+                    cardVO.setCardCvvValue(card.getCardCvv());
+                    cardVO.setCardExpiryDateValue(card.getCardExpiryDate());
+                    cardVO.setCardNumberValue(card.getCardNumber());
+                    cardVO.setCardTypeValue(card.getCardType());
                 }
             }
         });
         fetchThread.start();
         fetchThread.join();
-        return bankAccountVO;
+        return cardVO;
     }
+
 
     public List<CardVO> fetchAllCardVOs(final PersonalAssistantDatabase personalAssistantDatabase) throws InterruptedException{
         final List<CardVO> cardVOs=new ArrayList<>();
@@ -91,12 +83,20 @@ public class CardHelper {
                 if(cards!=null){
                     for(Card card:cards){
                         CardVO cardVO=new CardVO();
+                        int bankAccountId=card.getBankAccountId();
+                        cardVO.setBankAccountId(bankAccountId);
+                        BankAccount bankAccount=personalAssistantDatabase.getBankAccountDAO().fetchBankAccountByBankAccountId(bankAccountId);
 
+                        cardVO.setCardId(card.getCardId());
+                        cardVO.setBankName(bankAccount.getBankName());
+                        cardVO.setBranch(bankAccount.getBranch());
                         cardVO.setCardCategoryValue(card.getCardCategory());
                         cardVO.setCardCvvValue(card.getCardCvv());
                         cardVO.setCardExpiryDateValue(card.getCardExpiryDate());
                         cardVO.setCardNumberValue(card.getCardNumber());
                         cardVO.setCardTypeValue(card.getCardType());
+
+
 
                         cardVOs.add(cardVO);
                     }

@@ -24,14 +24,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static android.dev.personalassistant.utils.Keys.bank;
+import static android.dev.personalassistant.utils.Keys.branch;
+import static android.dev.personalassistant.utils.Keys.cardCategory;
+import static android.dev.personalassistant.utils.Keys.cardCvv;
+import static android.dev.personalassistant.utils.Keys.cardExpiryDate;
+import static android.dev.personalassistant.utils.Keys.cardId;
+import static android.dev.personalassistant.utils.Keys.cardNumber;
+import static android.dev.personalassistant.utils.Keys.cardType;
+
 public class KymShowCardDetailsActivity extends AppCompatActivity {
 
     Spinner spinnerCardType;
-    Spinner spinnerCardBankBranchName;
+    Spinner spinnerCardBankName;
     TextView cardCategoryObj;
     TextView cardNumberObj;
     TextView cardExpiryDateObj;
     TextView cardCvvObj;
+    List<Integer> bankAccountIds=new ArrayList<>();
 
     int cardIdValue=-1;
     @Override
@@ -43,23 +53,52 @@ public class KymShowCardDetailsActivity extends AppCompatActivity {
         ArrayAdapter<CardType> adapterCardType = new ArrayAdapter<CardType>(this,android.R.layout.simple_spinner_dropdown_item,CardType.values());
         spinnerCardType.setAdapter(adapterCardType);
 
-        spinnerCardBankBranchName = (Spinner) findViewById(R.id.cardBankName);
+        spinnerCardBankName = (Spinner) findViewById(R.id.cardBankName);
         try {
             BankAccountHelper bankAccountHelper = new BankAccountHelper();
             List<BankAccountVO> bankAccountVOs= bankAccountHelper.fetchAllBankAccountVOs(DatabaseHelper.getDatabase(getBaseContext()));
 
 
             String [] bankBranchNames=bankAccountVOs.stream().map(bankAccountVO -> {
-                return bankAccountVO.getBankNameValue()+","+bankAccountVO.getBankBranchValue();
+                bankAccountIds.add(bankAccountVO.getBankAccountIdValue());
+                return bankAccountVO.getBankNameValue();
             }).toArray(String [] ::new);
 
             ArrayAdapter<String> adapterBankName = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,bankBranchNames);
-            spinnerCardBankBranchName.setAdapter(adapterBankName);
+            spinnerCardBankName.setAdapter(adapterBankName);
 
             cardCategoryObj= findViewById(R.id.cardCategoryField);
             cardNumberObj =findViewById(R.id.cardNumberField);
             cardExpiryDateObj=findViewById(R.id.cardExpiryField);
             cardCvvObj=findViewById(R.id.cardCvvField);
+
+
+            Bundle bundle=getIntent().getExtras();
+            if(bundle!=null){
+                String bankValue = bundle.getString(bank);
+
+                int bankBranchPosition =adapterBankName.getPosition(bankValue);
+
+                Log.d("Bank Position",bankBranchPosition+"");
+                spinnerCardBankName.setSelection(bankBranchPosition);
+
+                String cardTypeValue = bundle.getString(cardType);
+                int cardPosition =adapterCardType.getPosition(CardType.fromString(cardTypeValue));
+                spinnerCardType.setSelection(cardPosition);
+
+                String cardCategoryValue = bundle.getString(cardCategory);
+                String cardNumberValue = bundle.getString(cardNumber);
+                String cardExpiryDateValue = bundle.getString(cardExpiryDate);
+                String cardCvvValue = bundle.getString(cardCvv);
+                this.cardIdValue=bundle.getInt(cardId);
+
+                //spinnerCardType.set
+                cardCategoryObj.setText(cardCategoryValue);
+                cardNumberObj.setText(cardNumberValue);
+                cardExpiryDateObj.setText(cardExpiryDateValue);
+                cardCvvObj.setText(cardCvvValue);
+
+            }
 
 
 
@@ -72,13 +111,11 @@ public class KymShowCardDetailsActivity extends AppCompatActivity {
     public void saveCardDetails(View view){
         PersonalAssistantDatabase personalAssistantDatabase=DatabaseHelper.getDatabase(getApplicationContext());
         CardVO cardVO=new CardVO();
-        String bankBranch=spinnerCardBankBranchName.getSelectedItem().toString();
-        String bankName=bankBranch.split(",")[0];
-        String branch=bankBranch.split(",")[1];
+
 
         cardVO.setCardId(cardIdValue);
-        cardVO.setBankNameValue(bankName);
-        cardVO.setBranchValue(branch);
+        int bankAccountIdValue=bankAccountIds.get(spinnerCardBankName.getSelectedItemPosition());
+        cardVO.setBankAccountId(bankAccountIdValue);
         cardVO.setCardTypeValue(spinnerCardType.getSelectedItem().toString());
 
 
@@ -88,6 +125,8 @@ public class KymShowCardDetailsActivity extends AppCompatActivity {
         cardVO.setCardNumberValue(cardNumberObj.getText().toString());
 
         CardHelper cardHelper=new CardHelper();
+
+        Log.d("Card VO: ",cardVO.toString());
 
         cardHelper.persistCard(personalAssistantDatabase,cardVO);
         finish();
