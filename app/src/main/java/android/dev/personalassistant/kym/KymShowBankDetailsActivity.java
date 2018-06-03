@@ -1,11 +1,7 @@
 package android.dev.personalassistant.kym;
 
-import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.content.Intent;
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
-import android.dev.personalassistant.entities.Bank;
-import android.dev.personalassistant.entities.BankAccount;
 import android.dev.personalassistant.helpers.BankAccountHelper;
 import android.dev.personalassistant.helpers.DatabaseHelper;
 import android.dev.personalassistant.main.BaseActivity;
@@ -15,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
 import android.dev.personalassistant.R;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -84,11 +79,13 @@ public class KymShowBankDetailsActivity extends BaseActivity implements Constant
 
     public void saveBankDetails(View view){
         PersonalAssistantDatabase personalAssistantDatabase=DatabaseHelper.getDatabase(getApplicationContext());
+
+
         BankAccountVO bankAccountVO=new BankAccountVO();
         bankAccountVO.setAccountNumberValue(accountNumberObj.getText().toString());
         bankAccountVO.setBankAccountIdValue(bankAccountIdValue);
-        bankAccountVO.setBankBranchValue(bankBranchObj.getText().toString());
         bankAccountVO.setBankNameValue(bankNameObj.getText().toString());
+        bankAccountVO.setBankBranchValue(bankBranchObj.getText().toString());
         bankAccountVO.setNetBankingCustomerIdValue(netBankingCustomerIdObj.getText().toString());
         bankAccountVO.setNetBankingPasswordValue(netBankingPasswordObj.getText().toString());
         bankAccountVO.setPhoneBankingNumberValue(phoneBankingNumberObj.getText().toString());

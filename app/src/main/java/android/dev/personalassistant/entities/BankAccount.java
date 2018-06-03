@@ -2,6 +2,7 @@ package android.dev.personalassistant.entities;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -15,8 +16,11 @@ public class BankAccount {
     public int bankAccountId;
     @NonNull
     public String accountNumber;
-    @Embedded
-    public Bank bank;
+
+    public String bankName;
+
+    public String branch;
+
     public String netBankingCustomerId;
     public String netBankingPassword;
     public String phoneBankingNumber;
@@ -37,12 +41,21 @@ public class BankAccount {
         this.accountNumber = accountNumber;
     }
 
-    public Bank getBank() {
-        return bank;
+
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setBank(Bank bank) {
-        this.bank = bank;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 
     public String getNetBankingCustomerId() {
@@ -74,8 +87,10 @@ public class BankAccount {
     @Override
     public String toString() {
         return "BankAccount{" +
-                "accountNumber='" + accountNumber + '\'' +
-                ", bank=" + bank +
+                "bankAccountId=" + bankAccountId +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", branch='" + branch + '\'' +
                 ", netBankingCustomerId='" + netBankingCustomerId + '\'' +
                 ", netBankingPassword='" + netBankingPassword + '\'' +
                 ", phoneBankingNumber='" + phoneBankingNumber + '\'' +

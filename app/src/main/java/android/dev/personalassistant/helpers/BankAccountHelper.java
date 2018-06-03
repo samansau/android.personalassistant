@@ -1,7 +1,6 @@
 package android.dev.personalassistant.helpers;
 
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
-import android.dev.personalassistant.entities.Bank;
 import android.dev.personalassistant.entities.BankAccount;
 import android.dev.personalassistant.vo.BankAccountVO;
 
@@ -19,13 +18,11 @@ public class BankAccountHelper {
             @Override
             public void run() {
                 BankAccount bankAccount = new BankAccount();
-                Bank bank = new Bank();
+
 
                 int bankAccountIdValue = bankAccountVO.getBankAccountIdValue();
-
-                bank.setBankName(bankAccountVO.getBankNameValue());
-                bank.setBranch(bankAccountVO.getBankBranchValue());
-                bankAccount.setBank(bank);
+                bankAccount.setBankName(bankAccountVO.getBankNameValue());
+                bankAccount.setBranch(bankAccountVO.getBankBranchValue());
                 bankAccount.setAccountNumber(bankAccountVO.getAccountNumberValue());
                 bankAccount.setNetBankingCustomerId(bankAccountVO.getNetBankingCustomerIdValue());
                 bankAccount.setNetBankingPassword(bankAccountVO.getNetBankingPasswordValue());
@@ -50,11 +47,13 @@ public class BankAccountHelper {
             public void run() {
                 BankAccount bankAccount = personalAssistantDatabase.getBankAccountDAO().fetchBankAccountByAccountNumber(accountNumber);
                 if(bankAccount!=null){
-                    Bank bank=bankAccount.getBank();
-                    bankAccountVO.setBankNameValue(bank.getBankName());
-                    bankAccountVO.setBankBranchValue(bank.getBranch());
+                    //Bank bank=bankAccount.getBank();
+                    //bankAccountVO.setBankNameValue(bank.getBankName());
+                    //bankAccountVO.setBankBranchValue(bank.getBranch());
                     bankAccountVO.setAccountNumberValue(bankAccount.getAccountNumber());
                     bankAccountVO.setBankAccountIdValue(bankAccount.getBankAccountId());
+                    bankAccountVO.setBankNameValue(bankAccount.getBankName());
+                    bankAccountVO.setBankBranchValue(bankAccount.getBranch());
                     bankAccountVO.setNetBankingCustomerIdValue(bankAccount.getNetBankingCustomerId());
                     bankAccountVO.setNetBankingPasswordValue(bankAccount.getNetBankingPassword());
                     bankAccountVO.setPhoneBankingNumberValue(bankAccount.getPhoneBankingNumber());
@@ -75,9 +74,8 @@ public class BankAccountHelper {
                 if(bankAccounts!=null){
                     for(BankAccount bankAccount:bankAccounts){
                         BankAccountVO bankAccountVO=new BankAccountVO();
-                        Bank bank=bankAccount.getBank();
-                        bankAccountVO.setBankNameValue(bank.getBankName());
-                        bankAccountVO.setBankBranchValue(bank.getBranch());
+                        bankAccountVO.setBankNameValue(bankAccount.getBankName());
+                        bankAccountVO.setBankBranchValue(bankAccount.getBranch());
                         bankAccountVO.setAccountNumberValue(bankAccount.getAccountNumber());
                         bankAccountVO.setBankAccountIdValue(bankAccount.getBankAccountId());
                         bankAccountVO.setNetBankingCustomerIdValue(bankAccount.getNetBankingCustomerId());

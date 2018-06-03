@@ -14,8 +14,7 @@ public class Card {
     public int id;
 
     private String cardType;
-    @Embedded
-    private Bank bank;
+
     private String cardCategory;
     private String cardNumber;
     private String cardExpiryDate;
@@ -37,13 +36,6 @@ public class Card {
         this.cardType = cardType;
     }
 
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
 
     public String getCardCategory() {
         return cardCategory;

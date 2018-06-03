@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
-import android.dev.personalassistant.entities.Bank;
-import android.dev.personalassistant.entities.BankAccount;
 import android.dev.personalassistant.helpers.BankAccountHelper;
 import android.dev.personalassistant.helpers.CardHelper;
 import android.dev.personalassistant.helpers.DatabaseHelper;
