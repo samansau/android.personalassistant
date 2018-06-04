@@ -147,10 +147,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 >
-                <Button
-                    android:text="Manage Cards"
-                    android:onClick="showCardList"
-                    />
             </TableRow>
 
 

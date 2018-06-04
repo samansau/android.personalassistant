@@ -10,9 +10,6 @@ import java.util.Map;
 public class KymShowBankListActivity extends ListActivity {
 
 
-    static final ArrayList<Map<String,String>> list =
-            new ArrayList<Map<String,String>>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
