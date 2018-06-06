@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="android.dev.personalassistant.kym.KymShowCarDetailsActivity">
-        <include layout="@layout/tool_bar_layout"/>
         <TableLayout
             android:id="@+id/carDetails"
             android:layout_width="match_parent"

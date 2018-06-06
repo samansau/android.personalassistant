@@ -6,6 +6,12 @@ package android.dev.personalassistant.utils;
 
 public class Keys {
 
+
+    //Personal keys
+    public static final String name="name";
+    public static final String phoneNumber="phone_number";
+    public static final String relation="relation";
+
     // Bank Keys
     public static final String bank="bank";
     public static final String branch="branch";

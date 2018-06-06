@@ -7,14 +7,16 @@
     android:layout_height="match_parent">
 
 
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
+        <include layout="@layout/tool_bar_layout"/>
         <TableLayout
             android:id="@+id/kymPersonal"
             android:layout_width="match_parent"
@@ -40,6 +42,29 @@
                         android:hint="Full Name" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Relation"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <Spinner
+                    android:id="@+id/relations"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+
 
             <TableRow
                 android:layout_width="wrap_content"
@@ -93,6 +118,7 @@
                         android:hint="Aadhar Card Number" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
+
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -134,10 +160,17 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 >
-                <Button
-                    android:text="Family Details"
-                    android:onClick="showFamilyDetails"
-                    />
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/drivingLisenceNumberLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:id="@+id/drivingLisenceNumberField"
+                        android:layout_width="322dp"
+                        android:layout_height="42dp"
+                        android:maxLines="1"
+                        android:hint="Driving Lisence Number" />
+                </android.support.design.widget.TextInputLayout>
             </TableRow>
 
             <TableRow
@@ -145,22 +178,20 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 >
-                <Button
-                    android:text="Residential Details"
-                    android:onClick="showResidentialDetails"
-                    />
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/drivingLisenceExpiryLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:id="@+id/drivingLisenceExpiryField"
+                        android:layout_width="322dp"
+                        android:layout_height="42dp"
+                        android:maxLines="1"
+                        android:hint="Driving Lisence Expiry(dd-mm-yyyy)" />
+                </android.support.design.widget.TextInputLayout>
             </TableRow>
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <Button
-                    android:text="Car Details"
-                    android:onClick="showCarDetails"
-                    />
-            </TableRow>
+
 
             <TableRow
                 android:layout_width="wrap_content"
@@ -174,6 +205,7 @@
         </TableLayout>
 
     </LinearLayout>
+</ScrollView>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

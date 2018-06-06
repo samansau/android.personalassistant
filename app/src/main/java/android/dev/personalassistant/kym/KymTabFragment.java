@@ -39,9 +39,12 @@ import static android.dev.personalassistant.utils.Keys.cardExpiryDate;
 import static android.dev.personalassistant.utils.Keys.cardId;
 import static android.dev.personalassistant.utils.Keys.cardNumber;
 import static android.dev.personalassistant.utils.Keys.cardType;
+import static android.dev.personalassistant.utils.Keys.name;
 import static android.dev.personalassistant.utils.Keys.netBankingCustomerId;
 import static android.dev.personalassistant.utils.Keys.netBankingPassword;
 import static android.dev.personalassistant.utils.Keys.phoneBankingNumber;
+import static android.dev.personalassistant.utils.Keys.phoneNumber;
+import static android.dev.personalassistant.utils.Keys.relation;
 
 /**
  * Created by saurabh on 4/5/18.
@@ -56,6 +59,9 @@ public class KymTabFragment extends TabFragment {
             new ArrayList<Map<String,String>>();
 
     static final ArrayList<Map<String,String>> cardList =
+            new ArrayList<Map<String,String>>();
+
+    static final ArrayList<Map<String,String>> personList =
             new ArrayList<Map<String,String>>();
 
     public  Fragment getInstance(int position) {
@@ -79,16 +85,68 @@ public class KymTabFragment extends TabFragment {
         View view =null;
         switch(position){
             case 0:
-                view= inflater.inflate(R.layout.kym_personal_fragment, container, false);
+                view= getPersonalView(inflater, container);
                 break;
             case 1:
                 view = getBankAccountView(inflater, container);
                 break;
-
             case 2:
                 view = getCardView(inflater, container);
+                break;
+            case 3:
+                view= inflater.inflate(R.layout.activity_kym_show_residential_details, container, false);
+                break;
+            case 4:
+                view= inflater.inflate(R.layout.activity_kym_show_car_details, container, false);
+                break;
 
         }
+        return view;
+    }
+
+    @NonNull
+    private View getPersonalView(LayoutInflater inflater, ViewGroup container) {
+        View view;
+        view= inflater.inflate(R.layout.activity_kym_show_personal_list, container, false);
+        ListView personalListView = (ListView) view.findViewById(R.id.listPersons);
+        ListAdapter personAdapter = new SimpleAdapter(
+                view.getContext(),
+                personList,
+                R.layout.two_line_list_item,
+                new String[] {name,relation},
+                new int[] {R.id.text1,R.id.text2}
+        );
+        populatePersonalList(getContext());
+        personalListView.setAdapter(personAdapter);
+
+        personalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long is) {
+                Intent intent=new Intent(getContext(),KymShowPersonalDetailsActivity.class);
+                Bundle extras=new Bundle();
+
+                CardHelper cardHelper=new CardHelper();
+                HashMap<String,String> cardData=(HashMap)adapterView.getItemAtPosition(pos);
+                final String cardNumberStr=cardData.get(cardNumber);
+                PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
+                try {
+                    CardVO cardVO = cardHelper.fetchCardVOByCardNumber(personalAssistantDatabase,cardNumberStr);
+                    extras.putInt(cardId, cardVO.getCardId());
+                    extras.putString(cardType, cardVO.getCardTypeValue());
+                    extras.putString(bank, cardVO.getBankName());
+                    extras.putString(bankAccountId, cardVO.getBranch());
+                    extras.putString(cardCategory, cardVO.getCardCategoryValue());
+                    extras.putString(cardNumber, cardVO.getCardNumberValue());
+                    extras.putString(cardExpiryDate, cardVO.getCardExpiryDateValue());
+                    extras.putString(cardCvv, cardVO.getCardCvvValue());
+                }catch (InterruptedException ie){
+                    Log.e("InterruptedException",ie.getStackTrace().toString());
+                }
+                intent.putExtras(extras);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
@@ -203,6 +261,24 @@ public class KymTabFragment extends TabFragment {
     }
 
     private void populateCardList(final Context context) {
+        cardList.clear();
+        try {
+            CardHelper cardHelper = new CardHelper();
+            List<CardVO> cardVOs=cardHelper.fetchAllCardVOs(DatabaseHelper.getDatabase(context));
+            for(CardVO cardVO : cardVOs){
+                Map<String, String> map = new HashMap();
+                map.put(bank, cardVO.getBankName());
+                map.put(cardNumber, cardVO.getCardNumberValue());
+                map.put(cardExpiryDate, cardVO.getCardExpiryDateValue());
+                cardList.add(map);
+            }
+
+        }catch (InterruptedException ie){
+            Log.e(KymTabFragment.class.getName() , ie.getStackTrace().toString());
+        }
+    }
+
+    private void populatePersonalList(final Context context) {
         cardList.clear();
         try {
             CardHelper cardHelper = new CardHelper();
