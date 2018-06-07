@@ -23,6 +23,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.dev.personalassistant.utils.Keys.aadharCardNumber;
 import static android.dev.personalassistant.utils.Keys.bank;
 import static android.dev.personalassistant.utils.Keys.cardCategory;
 import static android.dev.personalassistant.utils.Keys.cardCvv;
@@ -30,8 +31,14 @@ import static android.dev.personalassistant.utils.Keys.cardExpiryDate;
 import static android.dev.personalassistant.utils.Keys.cardId;
 import static android.dev.personalassistant.utils.Keys.cardNumber;
 import static android.dev.personalassistant.utils.Keys.cardType;
+import static android.dev.personalassistant.utils.Keys.dob;
+import static android.dev.personalassistant.utils.Keys.drivingLisenceExpiry;
+import static android.dev.personalassistant.utils.Keys.drivingLisenceNumber;
+import static android.dev.personalassistant.utils.Keys.fullName;
+import static android.dev.personalassistant.utils.Keys.panCardNumber;
 import static android.dev.personalassistant.utils.Keys.passportExpiry;
 import static android.dev.personalassistant.utils.Keys.passportNumber;
+import static android.dev.personalassistant.utils.Keys.relation;
 
 public class KymShowPersonalDetailsActivity extends AppCompatActivity {
 
@@ -44,7 +51,7 @@ public class KymShowPersonalDetailsActivity extends AppCompatActivity {
     TextView passportExpiryObj;
     TextView drivingLisenceNumberObj;
     TextView drivingLisenceExpiryObj;
-
+    boolean isNew=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +67,26 @@ public class KymShowPersonalDetailsActivity extends AppCompatActivity {
         drivingLisenceNumberObj=findViewById(R.id.drivingLisenceNumberField);
         drivingLisenceExpiryObj=findViewById(R.id.drivingLisenceExpiryField);
 
-        ArrayAdapter<Relations> adapterCardType = new ArrayAdapter<Relations>(this,android.R.layout.simple_spinner_dropdown_item,Relations.values());
-        spinnerRelations.setAdapter(adapterCardType);
+        ArrayAdapter<Relations> adapterRelation = new ArrayAdapter<Relations>(this,android.R.layout.simple_spinner_dropdown_item,Relations.values());
+        spinnerRelations.setAdapter(adapterRelation);
 
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null){
+            String relationValue = bundle.getString(relation);
+            int personPosition =adapterRelation.getPosition(Relations.fromString(relationValue));
+            spinnerRelations.setSelection(personPosition);
 
-
-        try{
-        }catch (Exception ie){
-            Log.e(KymShowPersonalDetailsActivity.class.getName(),ie.getStackTrace().toString());
+            fullNameObj.setText(bundle.getString(fullName));
+            dobObj.setText(bundle.getString(dob));
+            panCardNumberObj.setText(bundle.getString(panCardNumber));
+            aadharCardNumberObj.setText(bundle.getString(aadharCardNumber));
+            passportNumberObj.setText(bundle.getString(passportNumber));
+            passportExpiryObj.setText(bundle.getString(passportExpiry));
+            drivingLisenceNumberObj.setText(bundle.getString(drivingLisenceNumber));
+            drivingLisenceExpiryObj.setText(bundle.getString(drivingLisenceExpiry));
+            isNew=false;
         }
+
 
     }
 
@@ -87,7 +105,7 @@ public class KymShowPersonalDetailsActivity extends AppCompatActivity {
         personVO.setDrivingLisenceNumber(drivingLisenceNumberObj.getText().toString());
         personVO.setDrivingLisenceExpiry(drivingLisenceExpiryObj.getText().toString());
 
-
+        personVO.setNew(isNew);
         PersonHelper personHelper=new PersonHelper();
 
         Log.d("Person VO: ",personVO.toString());

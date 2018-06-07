@@ -52,6 +52,10 @@ public class KnowYourMasterActivity extends AppCompatActivity {
         showPersonalDetails(view);
     }
 
+    public void addCarDetails(View view){
+        showCarDetails(view);
+    }
+
     public void showPersonalDetails(View view){
         Intent intent=new Intent(this,KymShowPersonalDetailsActivity.class);
         startActivity(intent);

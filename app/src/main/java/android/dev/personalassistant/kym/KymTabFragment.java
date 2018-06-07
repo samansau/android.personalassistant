@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
+import android.dev.personalassistant.enums.CardType;
 import android.dev.personalassistant.helpers.BankAccountHelper;
+import android.dev.personalassistant.helpers.CarHelper;
 import android.dev.personalassistant.helpers.CardHelper;
 import android.dev.personalassistant.helpers.DatabaseHelper;
 import android.dev.personalassistant.helpers.PersonHelper;
 import android.dev.personalassistant.tabs.TabFragment;
 import android.dev.personalassistant.vo.BankAccountVO;
+import android.dev.personalassistant.vo.CarVO;
 import android.dev.personalassistant.vo.CardVO;
 import android.dev.personalassistant.vo.PersonVO;
 import android.os.Bundle;
@@ -21,9 +24,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -105,12 +110,47 @@ public class KymTabFragment extends TabFragment {
                 view= inflater.inflate(R.layout.activity_kym_show_residential_details, container, false);
                 break;
             case 4:
-                view= inflater.inflate(R.layout.activity_kym_show_car_details, container, false);
+                view= getCarView(inflater, container);//inflater.inflate(R.layout.activity_kym_show_car_details, container, false);
                 break;
 
         }
         return view;
     }
+
+    @NonNull
+    private View getCarView(LayoutInflater inflater, ViewGroup container) {
+        View view;
+        view= inflater.inflate(R.layout.activity_kym_show_car_details, container, false);
+        String [] carNumbers= populateCarNumberList(getContext());
+
+        Spinner carNumbersObj = (Spinner) view.findViewById(R.id.carNumber);
+        ArrayAdapter<String> adapterCardType = new ArrayAdapter<String>(this.getContext(),android.R.layout.simple_spinner_dropdown_item,carNumbers);
+        carNumbersObj.setAdapter(adapterCardType);
+
+        TextView carNameObj = view.findViewById(R.id.carNameField);;
+        TextView carInsuranceObj = view.findViewById(R.id.carInsuranceNumberField);;
+        TextView carInsuranceExpiry = view.findViewById(R.id.carInsuranceExpiryField);;
+        TextView carPUCExpiry = view.findViewById(R.id.carPUCExpiryField);;
+        List<CarVO> carList= populateCarList(getContext());
+
+        carNumbersObj.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long is) {
+                CarVO carVO=carList.get(pos);
+                carNameObj.setText(carVO.getCarName());
+                carInsuranceObj.setText(carVO.getCarInsuranceNumber());
+                carInsuranceExpiry.setText(carVO.getCarInsuranceExpiry());
+                carPUCExpiry.setText(carVO.getCarPUCExpiry());
+
+            }
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        return view;
+    }
+
 
     @NonNull
     private View getPersonalView(LayoutInflater inflater, ViewGroup container) {
@@ -286,6 +326,34 @@ public class KymTabFragment extends TabFragment {
         }catch (InterruptedException ie){
             Log.e(KymTabFragment.class.getName() , ie.getStackTrace().toString());
         }
+    }
+
+    private String [] populateCarNumberList(final Context context) {
+        String [] carNumbers = null;
+        try {
+            CarHelper carHelper = new CarHelper();
+            List<CarVO> carVOs=carHelper.fetchAllCarVOs(DatabaseHelper.getDatabase(context));
+            carNumbers=new String[carVOs.size()];
+            int i=0;
+            for(CarVO carVO : carVOs){
+                carNumbers[i++]=carVO.getCarNumber();
+            }
+
+        }catch (InterruptedException ie){
+            Log.e(KymTabFragment.class.getName() , ie.getStackTrace().toString());
+        }
+        return  carNumbers;
+    }
+
+    private List<CarVO> populateCarList(final Context context) {
+        List<CarVO> carVOs =null;
+        try {
+            CarHelper carHelper = new CarHelper();
+            carVOs=carHelper.fetchAllCarVOs(DatabaseHelper.getDatabase(context));
+        }catch (InterruptedException ie){
+            Log.e(KymTabFragment.class.getName() , ie.getStackTrace().toString());
+        }
+        return carVOs;
     }
 
     private void populatePersonalList(final Context context) {

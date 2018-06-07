@@ -8,6 +8,7 @@ import android.dev.personalassistant.enums.Relations;
 
 public class PersonVO {
 
+    private boolean isNew;
     private String fullName;
     private String relation;
     private String dob;
@@ -18,6 +19,14 @@ public class PersonVO {
     private String drivingLisenceNumber;
     private String drivingLisenceExpiry;
 
+
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public void setNew(boolean aNew) {
+        isNew = aNew;
+    }
 
     public String getFullName() {
         return fullName;
@@ -89,5 +98,20 @@ public class PersonVO {
 
     public void setDrivingLisenceExpiry(String drivingLisenceExpiry) {
         this.drivingLisenceExpiry = drivingLisenceExpiry;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonVO{" +
+                "fullName='" + fullName + '\'' +
+                ", relation='" + relation + '\'' +
+                ", dob='" + dob + '\'' +
+                ", panCardNumber='" + panCardNumber + '\'' +
+                ", aadharCardNumber='" + aadharCardNumber + '\'' +
+                ", passportNumber='" + passportNumber + '\'' +
+                ", passportExpiry='" + passportExpiry + '\'' +
+                ", drivingLisenceNumber='" + drivingLisenceNumber + '\'' +
+                ", drivingLisenceExpiry='" + drivingLisenceExpiry + '\'' +
+                '}';
     }
 }

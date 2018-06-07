@@ -24,18 +24,25 @@ public class PersonHelper {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Card card = new Card();
+                Person person = new Person();
 
-                int personalIdValue=0;
+                person.setFullName(personVO.getFullName());
+                person.setRelation(personVO.getRelation());
+                person.setDob(personVO.getDob());
+                person.setAadharCardNumber(personVO.getAadharCardNumber());
+                person.setPanCardNumber(personVO.getPanCardNumber());
+                person.setPassportNumber(personVO.getPassportNumber());
+                person.setPassportExpiry(personVO.getPassportExpiry());
+                person.setDrivingLisenceNumber(personVO.getDrivingLisenceNumber());
+                person.setDrivingLisenceExpiry(personVO.getDrivingLisenceExpiry());
 
 
 
-                Log.d("Card Object : ",card.toString());
-                if (personalIdValue >= 0) {
-
-                    personalAssistantDatabase.getCardDAO().updateCards(card);
+                Log.d("person Object : ",person.toString());
+                if (!personVO.isNew()) {
+                    personalAssistantDatabase.getPersonDAO().updatePersons(person);
                 }else{
-                    personalAssistantDatabase.getCardDAO().insertCard(card);
+                    personalAssistantDatabase.getPersonDAO().insertPerson(person);
                 }
 
             }
@@ -50,7 +57,6 @@ public class PersonHelper {
             public void run() {
                 Person person = personalAssistantDatabase.getPersonDAO().fetchPersonByPersonName(personName);
                 if(person!=null){
-                    PersonVO personVO=new PersonVO();
                     personVO.setFullName(person.getFullName());
                     personVO.setRelation(person.getRelation());
                     personVO.setDob(person.getDob());

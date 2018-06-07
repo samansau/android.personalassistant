@@ -29,7 +29,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Filter : Car Number"/>
+                    android:hint="Select : Car Number"/>
             </TableRow>
 
             <TableRow
@@ -85,15 +85,15 @@
                 android:gravity="center_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/drivingLicenseNumberLabel"
+                    android:id="@+id/carInsuranceNumberLabel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <EditText
-                        android:id="@+id/drivingLicenseNumberField"
+                        android:id="@+id/carInsuranceNumberField"
                         android:layout_width="322dp"
                         android:layout_height="42dp"
                         android:maxLines="1"
-                        android:hint="Driving Lisence Number" />
+                        android:hint="Car Insurance Number" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
             <TableRow
@@ -102,18 +102,40 @@
                 android:gravity="center_horizontal"
                 >
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/drivingLicenseExpiryLabel"
+                    android:id="@+id/carInsuranceExpiryLabel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <EditText
-                        android:id="@+id/drivingLicenseExpiryField"
+                        android:id="@+id/carInsuranceExpiryField"
                         android:layout_width="322dp"
                         android:layout_height="42dp"
                         android:maxLines="1"
                         android:inputType="date"
-                        android:hint="Driving Lisence Expiry(dd-mm-yyyy)" />
+                        android:hint="Car Insurance Expiry(dd-mm-yyyy)" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
+
+
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/carPUCExpiryLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:id="@+id/carPUCExpiryField"
+                        android:layout_width="322dp"
+                        android:layout_height="42dp"
+                        android:maxLines="1"
+                        android:inputType="date"
+                        android:hint="Car PUC Expiry(dd-mm-yyyy)" />
+                </android.support.design.widget.TextInputLayout>
+            </TableRow>
+
 
             <TableRow
                 android:layout_width="wrap_content"
@@ -122,6 +144,7 @@
                 >
                 <Button
                     android:text="Save"
+                    android:onClick="saveCarDetails"
                     />
             </TableRow>
         </TableLayout>
