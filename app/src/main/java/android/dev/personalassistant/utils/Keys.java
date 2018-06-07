@@ -8,9 +8,17 @@ public class Keys {
 
 
     //Personal keys
-    public static final String name="name";
-    public static final String phoneNumber="phone_number";
+    public static final String fullName="full_name";
     public static final String relation="relation";
+    public static final String dob="dob";
+    public static final String panCardNumber="pan_card_number";
+    public static final String aadharCardNumber="aadhar_card_number";
+    public static final String passportNumber="passport_number";
+    public static final String passportExpiry="passport_expiry";
+    public static final String drivingLisenceNumber="driving_lisence_number";
+    public static final String drivingLisenceExpiry="driving_lisence_expiry";
+
+
 
     // Bank Keys
     public static final String bank="bank";

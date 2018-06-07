@@ -1,26 +1,28 @@
 package android.dev.personalassistant.entities;
 
-import android.dev.personalassistant.enums.Relation;
-
-import java.util.Date;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.dev.personalassistant.enums.Relations;
+import android.support.annotation.NonNull;
 
 /**
  * Created by saurabh on 5/8/18.
  */
 
+@Entity
 public class Person {
-    public int id;
-    public String fullName;
-    public Relation relation;
+    @PrimaryKey
+    @NonNull
+    private String fullName;
+    private String relation;
+    private String dob;
+    private String panCardNumber;
+    private String aadharCardNumber;
+    private String passportNumber;
+    private String passportExpiry;
+    private String drivingLisenceNumber;
+    private String drivingLisenceExpiry;
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFullName() {
         return fullName;
@@ -30,11 +32,67 @@ public class Person {
         this.fullName = fullName;
     }
 
-    public Relation getRelation() {
+    public String getRelation() {
         return relation;
     }
 
-    public void setRelation(Relation relation) {
+    public void setRelation(String relation) {
         this.relation = relation;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getPanCardNumber() {
+        return panCardNumber;
+    }
+
+    public void setPanCardNumber(String panCardNumber) {
+        this.panCardNumber = panCardNumber;
+    }
+
+    public String getAadharCardNumber() {
+        return aadharCardNumber;
+    }
+
+    public void setAadharCardNumber(String aadharCardNumber) {
+        this.aadharCardNumber = aadharCardNumber;
+    }
+
+    public String getPassportNumber() {
+        return passportNumber;
+    }
+
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
+    }
+
+    public String getPassportExpiry() {
+        return passportExpiry;
+    }
+
+    public void setPassportExpiry(String passportExpiry) {
+        this.passportExpiry = passportExpiry;
+    }
+
+    public String getDrivingLisenceNumber() {
+        return drivingLisenceNumber;
+    }
+
+    public void setDrivingLisenceNumber(String drivingLisenceNumber) {
+        this.drivingLisenceNumber = drivingLisenceNumber;
+    }
+
+    public String getDrivingLisenceExpiry() {
+        return drivingLisenceExpiry;
+    }
+
+    public void setDrivingLisenceExpiry(String drivingLisenceExpiry) {
+        this.drivingLisenceExpiry = drivingLisenceExpiry;
     }
 }

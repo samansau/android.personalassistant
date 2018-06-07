@@ -39,6 +39,7 @@
         <activity android:name=".expenses.TrackElectronicExpensesActivity" />
         <activity android:name=".kym.KnowYourMasterActivity" />
         <activity android:name=".kym.KymShowPersonalDetailsActivity" />
+        <activity android:name=".kym.KymShowPersonalListActivity" />
         <activity android:name=".kym.KymShowBankListActivity" />
         <activity android:name=".kym.KymShowBankDetailsActivity" />
         <activity android:name=".kym.KymShowCardListActivity" />

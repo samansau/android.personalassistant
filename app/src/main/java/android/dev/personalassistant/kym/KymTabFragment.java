@@ -7,9 +7,11 @@ import android.dev.personalassistant.dao.PersonalAssistantDatabase;
 import android.dev.personalassistant.helpers.BankAccountHelper;
 import android.dev.personalassistant.helpers.CardHelper;
 import android.dev.personalassistant.helpers.DatabaseHelper;
+import android.dev.personalassistant.helpers.PersonHelper;
 import android.dev.personalassistant.tabs.TabFragment;
 import android.dev.personalassistant.vo.BankAccountVO;
 import android.dev.personalassistant.vo.CardVO;
+import android.dev.personalassistant.vo.PersonVO;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.dev.personalassistant.utils.Keys.aadharCardNumber;
 import static android.dev.personalassistant.utils.Keys.accountNumber;
 import static android.dev.personalassistant.utils.Keys.bank;
 import static android.dev.personalassistant.utils.Keys.bankAccountId;
@@ -39,11 +42,16 @@ import static android.dev.personalassistant.utils.Keys.cardExpiryDate;
 import static android.dev.personalassistant.utils.Keys.cardId;
 import static android.dev.personalassistant.utils.Keys.cardNumber;
 import static android.dev.personalassistant.utils.Keys.cardType;
-import static android.dev.personalassistant.utils.Keys.name;
+import static android.dev.personalassistant.utils.Keys.dob;
+import static android.dev.personalassistant.utils.Keys.drivingLisenceExpiry;
+import static android.dev.personalassistant.utils.Keys.drivingLisenceNumber;
+import static android.dev.personalassistant.utils.Keys.fullName;
 import static android.dev.personalassistant.utils.Keys.netBankingCustomerId;
 import static android.dev.personalassistant.utils.Keys.netBankingPassword;
+import static android.dev.personalassistant.utils.Keys.panCardNumber;
+import static android.dev.personalassistant.utils.Keys.passportExpiry;
+import static android.dev.personalassistant.utils.Keys.passportNumber;
 import static android.dev.personalassistant.utils.Keys.phoneBankingNumber;
-import static android.dev.personalassistant.utils.Keys.phoneNumber;
 import static android.dev.personalassistant.utils.Keys.relation;
 
 /**
@@ -113,7 +121,7 @@ public class KymTabFragment extends TabFragment {
                 view.getContext(),
                 personList,
                 R.layout.two_line_list_item,
-                new String[] {name,relation},
+                new String[] {fullName,relation},
                 new int[] {R.id.text1,R.id.text2}
         );
         populatePersonalList(getContext());
@@ -125,20 +133,22 @@ public class KymTabFragment extends TabFragment {
                 Intent intent=new Intent(getContext(),KymShowPersonalDetailsActivity.class);
                 Bundle extras=new Bundle();
 
-                CardHelper cardHelper=new CardHelper();
-                HashMap<String,String> cardData=(HashMap)adapterView.getItemAtPosition(pos);
-                final String cardNumberStr=cardData.get(cardNumber);
+                PersonHelper personHelper=new PersonHelper();
+                HashMap<String,String> personData=(HashMap)adapterView.getItemAtPosition(pos);
+                final String personFullName=personData.get(fullName);
                 PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
                 try {
-                    CardVO cardVO = cardHelper.fetchCardVOByCardNumber(personalAssistantDatabase,cardNumberStr);
-                    extras.putInt(cardId, cardVO.getCardId());
-                    extras.putString(cardType, cardVO.getCardTypeValue());
-                    extras.putString(bank, cardVO.getBankName());
-                    extras.putString(bankAccountId, cardVO.getBranch());
-                    extras.putString(cardCategory, cardVO.getCardCategoryValue());
-                    extras.putString(cardNumber, cardVO.getCardNumberValue());
-                    extras.putString(cardExpiryDate, cardVO.getCardExpiryDateValue());
-                    extras.putString(cardCvv, cardVO.getCardCvvValue());
+                    PersonVO personVO = personHelper.fetchPersonVOByPersonName(personalAssistantDatabase,personFullName);
+                    extras.putString(fullName, personVO.getFullName());
+                    extras.putString(relation, personVO.getRelation());
+                    extras.putString(dob, personVO.getDob());
+                    extras.putString(panCardNumber, personVO.getPanCardNumber());
+                    extras.putString(aadharCardNumber, personVO.getAadharCardNumber());
+                    extras.putString(passportNumber, personVO.getPassportNumber());
+                    extras.putString(passportExpiry, personVO.getPassportExpiry());
+                    extras.putString(drivingLisenceNumber, personVO.getDrivingLisenceNumber());
+                    extras.putString(drivingLisenceExpiry, personVO.getDrivingLisenceExpiry());
+
                 }catch (InterruptedException ie){
                     Log.e("InterruptedException",ie.getStackTrace().toString());
                 }
@@ -279,16 +289,15 @@ public class KymTabFragment extends TabFragment {
     }
 
     private void populatePersonalList(final Context context) {
-        cardList.clear();
+        personList.clear();
         try {
-            CardHelper cardHelper = new CardHelper();
-            List<CardVO> cardVOs=cardHelper.fetchAllCardVOs(DatabaseHelper.getDatabase(context));
-            for(CardVO cardVO : cardVOs){
+            PersonHelper personHelper = new PersonHelper();
+            List<PersonVO> personVOs=personHelper.fetchAllPersonVOs(DatabaseHelper.getDatabase(context));
+            for(PersonVO personVO : personVOs){
                 Map<String, String> map = new HashMap();
-                map.put(bank, cardVO.getBankName());
-                map.put(cardNumber, cardVO.getCardNumberValue());
-                map.put(cardExpiryDate, cardVO.getCardExpiryDateValue());
-                cardList.add(map);
+                map.put(fullName, personVO.getFullName());
+                map.put(relation, personVO.getRelation());
+                personList.add(map);
             }
 
         }catch (InterruptedException ie){
