@@ -11,7 +11,8 @@ import android.support.annotation.NonNull;
 
 @Entity
 public class Person {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int personId;
     @NonNull
     private String fullName;
     private String relation;
@@ -23,6 +24,13 @@ public class Person {
     private String drivingLisenceNumber;
     private String drivingLisenceExpiry;
 
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
 
     public String getFullName() {
         return fullName;

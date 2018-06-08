@@ -7,6 +7,7 @@ package android.dev.personalassistant.vo;
 public class CarVO {
 
     private boolean isNew;
+    private int carId;
     private String carNumber;
     private String carName;
     private String carInsuranceNumber;
@@ -15,6 +16,14 @@ public class CarVO {
 
     public boolean isNew() {
         return isNew;
+    }
+
+    public int getCarId() {
+        return carId;
+    }
+
+    public void setCarId(int carId) {
+        this.carId = carId;
     }
 
     public void setNew(boolean aNew) {

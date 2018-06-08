@@ -20,6 +20,24 @@ import static android.dev.personalassistant.utils.Keys.cardNumber;
 public class PersonHelper {
 
 
+    public void deletePerson(final PersonalAssistantDatabase personalAssistantDatabase, final String personName) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Person person = new Person();
+                try {
+                    PersonVO personVOOld=fetchPersonVOByPersonName(personalAssistantDatabase, personName);
+                    person.setPersonId(personVOOld.getPersonId());
+                    personalAssistantDatabase.getPersonDAO().deletePerson(person);
+                }catch (InterruptedException ie){
+                    Log.e("deletePerson",ie.getStackTrace().toString());
+                }
+
+            }
+        }).start();
+    }
+
+
     public void persistPerson(final PersonalAssistantDatabase personalAssistantDatabase, final PersonVO personVO){
         new Thread(new Runnable() {
             @Override
@@ -38,8 +56,10 @@ public class PersonHelper {
 
 
 
+
                 Log.d("person Object : ",person.toString());
                 if (!personVO.isNew()) {
+                    person.setPersonId(personVO.getPersonId());
                     personalAssistantDatabase.getPersonDAO().updatePersons(person);
                 }else{
                     personalAssistantDatabase.getPersonDAO().insertPerson(person);
@@ -57,6 +77,7 @@ public class PersonHelper {
             public void run() {
                 Person person = personalAssistantDatabase.getPersonDAO().fetchPersonByPersonName(personName);
                 if(person!=null){
+                    personVO.setPersonId(person.getPersonId());
                     personVO.setFullName(person.getFullName());
                     personVO.setRelation(person.getRelation());
                     personVO.setDob(person.getDob());
@@ -84,6 +105,7 @@ public class PersonHelper {
                 if(persons!=null){
                     for(Person person:persons){
                         PersonVO personVO=new PersonVO();
+                        personVO.setPersonId(person.getPersonId());
                         personVO.setFullName(person.getFullName());
                         personVO.setRelation(person.getRelation());
                         personVO.setDob(person.getDob());

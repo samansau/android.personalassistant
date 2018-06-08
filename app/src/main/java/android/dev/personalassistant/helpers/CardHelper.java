@@ -16,6 +16,23 @@ import java.util.List;
 
 public class CardHelper {
 
+    public void deleteCard(final PersonalAssistantDatabase personalAssistantDatabase, final String cardNumber) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Card card = new Card();
+                try {
+                    CardVO cardVOOld=fetchCardVOByCardNumber(personalAssistantDatabase, cardNumber);
+                    card.setCardId(cardVOOld.getCardId());
+                    personalAssistantDatabase.getCardDAO().deleteCard(card);
+                }catch (InterruptedException ie){
+                    Log.e("deleteCard",ie.getStackTrace().toString());
+                }
+
+            }
+        }).start();
+    }
+
 
     public void persistCard(final PersonalAssistantDatabase personalAssistantDatabase, final CardVO cardVO){
         new Thread(new Runnable() {

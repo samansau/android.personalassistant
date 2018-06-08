@@ -11,7 +11,8 @@ import android.support.annotation.NonNull;
 @Entity
 public class Car {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int carId;
     @NonNull
     private String carNumber;
     private String carName;
@@ -19,6 +20,13 @@ public class Car {
     private String carInsuranceExpiry;
     private String carPUCExpiry;
 
+    public int getCarId() {
+        return carId;
+    }
+
+    public void setCarId(int carId) {
+        this.carId = carId;
+    }
 
     @NonNull
     public String getCarNumber() {
@@ -61,5 +69,15 @@ public class Car {
         this.carPUCExpiry = carPUCExpiry;
     }
 
-
+    @Override
+    public String toString() {
+        return "Car{" +
+                "carId=" + carId +
+                ", carNumber='" + carNumber + '\'' +
+                ", carName='" + carName + '\'' +
+                ", carInsuranceNumber='" + carInsuranceNumber + '\'' +
+                ", carInsuranceExpiry='" + carInsuranceExpiry + '\'' +
+                ", carPUCExpiry='" + carPUCExpiry + '\'' +
+                '}';
+    }
 }

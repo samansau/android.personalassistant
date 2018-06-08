@@ -38,6 +38,7 @@ import static android.dev.personalassistant.utils.Keys.fullName;
 import static android.dev.personalassistant.utils.Keys.panCardNumber;
 import static android.dev.personalassistant.utils.Keys.passportExpiry;
 import static android.dev.personalassistant.utils.Keys.passportNumber;
+import static android.dev.personalassistant.utils.Keys.personId;
 import static android.dev.personalassistant.utils.Keys.relation;
 
 public class KymShowPersonalDetailsActivity extends AppCompatActivity {
@@ -52,6 +53,7 @@ public class KymShowPersonalDetailsActivity extends AppCompatActivity {
     TextView drivingLisenceNumberObj;
     TextView drivingLisenceExpiryObj;
     boolean isNew=true;
+    int personIdVal=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,8 @@ public class KymShowPersonalDetailsActivity extends AppCompatActivity {
             String relationValue = bundle.getString(relation);
             int personPosition =adapterRelation.getPosition(Relations.fromString(relationValue));
             spinnerRelations.setSelection(personPosition);
+
+            personIdVal=bundle.getInt(personId);
 
             fullNameObj.setText(bundle.getString(fullName));
             dobObj.setText(bundle.getString(dob));
@@ -106,6 +110,7 @@ public class KymShowPersonalDetailsActivity extends AppCompatActivity {
         personVO.setDrivingLisenceExpiry(drivingLisenceExpiryObj.getText().toString());
 
         personVO.setNew(isNew);
+        personVO.setPersonId(personIdVal);
         PersonHelper personHelper=new PersonHelper();
 
         Log.d("Person VO: ",personVO.toString());

@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
+import android.database.sqlite.SQLiteConstraintException;
 import android.dev.personalassistant.entities.BankAccount;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public interface BankAccountDAO {
 
 
     @Delete
-    public void deleteBankAccount(BankAccount bankAccount);
+    public void deleteBankAccount(BankAccount bankAccount) throws SQLiteConstraintException;
 
 
 }

@@ -1,7 +1,9 @@
 package android.dev.personalassistant.kym;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
 import android.dev.personalassistant.enums.CardType;
@@ -30,6 +32,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +59,7 @@ import static android.dev.personalassistant.utils.Keys.netBankingPassword;
 import static android.dev.personalassistant.utils.Keys.panCardNumber;
 import static android.dev.personalassistant.utils.Keys.passportExpiry;
 import static android.dev.personalassistant.utils.Keys.passportNumber;
+import static android.dev.personalassistant.utils.Keys.personId;
 import static android.dev.personalassistant.utils.Keys.phoneBankingNumber;
 import static android.dev.personalassistant.utils.Keys.relation;
 
@@ -139,8 +143,10 @@ public class KymTabFragment extends TabFragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long is) {
                 CarVO carVO=carList.get(pos);
                 carVO.setNew(false);
-                if(adapterView.getSelectedItem()!=null)
-                carNumberFieldObj.setText(adapterView.getSelectedItem().toString());
+                if(adapterView.getSelectedItem()!=null) {
+                    carNumberFieldObj.setText(adapterView.getSelectedItem().toString());
+
+                }
                 carNameObj.setText(carVO.getCarName());
                 carInsuranceObj.setText(carVO.getCarInsuranceNumber());
                 carInsuranceExpiry.setText(carVO.getCarInsuranceExpiry());
@@ -170,6 +176,19 @@ public class KymTabFragment extends TabFragment {
         );
         populatePersonalList(getContext());
         personalListView.setAdapter(personAdapter);
+        personalListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                PersonHelper personHelper=new PersonHelper();
+                HashMap<String,String> personData=(HashMap)adapterView.getItemAtPosition(pos);;
+                final String personFullName=personData.get(fullName);
+                PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
+                personHelper.deletePerson(personalAssistantDatabase,personFullName);
+                ((Activity)view.getContext()).recreate();
+                return false;
+            }
+        });
+
 
         personalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -183,6 +202,7 @@ public class KymTabFragment extends TabFragment {
                 PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
                 try {
                     PersonVO personVO = personHelper.fetchPersonVOByPersonName(personalAssistantDatabase,personFullName);
+                    extras.putInt(personId,personVO.getPersonId());
                     extras.putString(fullName, personVO.getFullName());
                     extras.putString(relation, personVO.getRelation());
                     extras.putString(dob, personVO.getDob());
@@ -218,6 +238,19 @@ public class KymTabFragment extends TabFragment {
         );
         populateCardList(getContext());
         cardListView.setAdapter(cardAdapter);
+
+        cardListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                CardHelper cardHelper=new CardHelper();
+                HashMap<String,String> cardData=(HashMap)adapterView.getItemAtPosition(pos);;
+                final String cardNumberValue=cardData.get(cardNumber);
+                PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
+                cardHelper.deleteCard(personalAssistantDatabase,cardNumberValue);
+                ((Activity)view.getContext()).recreate();
+                return false;
+            }
+        });
 
         cardListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -265,6 +298,24 @@ public class KymTabFragment extends TabFragment {
 
         bankAccountListView.setAdapter(bankAdapter);
 
+        bankAccountListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                BankAccountHelper bankAccountHelper=new BankAccountHelper();
+                HashMap<String,String> bankAccountData=(HashMap)adapterView.getItemAtPosition(pos);;
+                final String accountNumberValue=bankAccountData.get(accountNumber);
+                PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
+                try {
+                    bankAccountHelper.deleteCard(personalAssistantDatabase, accountNumberValue);
+
+                }catch (SQLiteConstraintException ex){
+                    Toast.makeText(view.getContext(),("Some Card/s hold refernce to "+accountNumberValue+" bank reference"),
+                            Toast.LENGTH_SHORT).show();
+                }
+                ((Activity) view.getContext()).recreate();
+                return false;
+            }
+        });
 
         bankAccountListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

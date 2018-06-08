@@ -18,7 +18,7 @@ import java.util.List;
 public class CarHelper {
 
 
-    public void persistCar(final PersonalAssistantDatabase personalAssistantDatabase, final CarVO carVO){
+    public void persistCar(final PersonalAssistantDatabase personalAssistantDatabase, final CarVO carVO,final String oldCarNumber){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -29,15 +29,23 @@ public class CarHelper {
                 car.setCarInsuranceNumber(carVO.getCarInsuranceNumber());
                 car.setCarInsuranceExpiry(carVO.getCarInsuranceExpiry());
                 car.setCarPUCExpiry(carVO.getCarPUCExpiry());
+                try {
+                    CarVO carVOOld = fetchCarVOByCarNumber(personalAssistantDatabase, oldCarNumber);
 
 
 
-                Log.d("Car Object : ",car.toString());
-                if (!carVO.isNew() ) {
-                    personalAssistantDatabase.getCarDAO().updateCars(car);
-                }else{
-                    personalAssistantDatabase.getCarDAO().insertCar(car);
+                    if (!carVO.isNew()) {
+                        car.setCarId(carVOOld.getCarId());
+                        personalAssistantDatabase.getCarDAO().updateCars(car);
+                    } else {
+                        personalAssistantDatabase.getCarDAO().insertCar(car);
+                    }
+                    Log.d("Car Object : ", car.toString());
                 }
+                catch (InterruptedException ie){
+                    Log.e("InterruptedException " ,ie.getStackTrace().toString());
+                }
+
 
             }
         }).start();
@@ -51,6 +59,7 @@ public class CarHelper {
             public void run() {
                 Car car = personalAssistantDatabase.getCarDAO().fetchCarByCarNumber(carNumber);
                 if(car!=null){
+                    carVO.setCarId(car.getCarId());
                     carVO.setCarNumber(carNumber);
                     carVO.setCarName(car.getCarName());
                     carVO.setCarInsuranceNumber(car.getCarInsuranceNumber());
@@ -77,6 +86,7 @@ public class CarHelper {
                     carVOs.add(carVOBlank);
                     for(Car car:cars){
                         CarVO carVO=new CarVO();
+                        carVO.setCarId(car.getCarId());
                         carVO.setCarNumber(car.getCarNumber());
                         carVO.setCarName(car.getCarName());
                         carVO.setCarInsuranceNumber(car.getCarInsuranceNumber());

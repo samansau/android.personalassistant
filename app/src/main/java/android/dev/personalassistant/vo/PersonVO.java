@@ -9,6 +9,7 @@ import android.dev.personalassistant.enums.Relations;
 public class PersonVO {
 
     private boolean isNew;
+    private int personId;
     private String fullName;
     private String relation;
     private String dob;
@@ -22,6 +23,14 @@ public class PersonVO {
 
     public boolean isNew() {
         return isNew;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
     public void setNew(boolean aNew) {

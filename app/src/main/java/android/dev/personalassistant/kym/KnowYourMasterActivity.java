@@ -98,8 +98,10 @@ public class KnowYourMasterActivity extends AppCompatActivity {
         TextView carPUCExpiryFieldObj;
 
         carNumberObj = (Spinner) findViewById(R.id.carNumber);
-        if(carNumberObj.getSelectedItem()!=null)
-            isCarNew=carNumberObj.getSelectedItem().toString().isEmpty();
+        if(carNumberObj.getSelectedItem()!=null) {
+            isCarNew = carNumberObj.getSelectedItem().toString().isEmpty();
+
+        }
         carNumberFieldObj=findViewById(R.id.carNumberField);
         carNameFieldObj=findViewById(R.id.carNameField);
         carInsuranceNumberFieldObj=findViewById(R.id.carInsuranceNumberField);
@@ -115,7 +117,7 @@ public class KnowYourMasterActivity extends AppCompatActivity {
         carVO.setCarPUCExpiry(carPUCExpiryFieldObj.getText().toString());
         carVO.setNew(isCarNew);
         CarHelper carHelper=new CarHelper();
-        carHelper.persistCar(personalAssistantDatabase,carVO);
+        carHelper.persistCar(personalAssistantDatabase,carVO,carNumberObj.getSelectedItem().toString());
         Log.d("CAR VO to persist: ",carVO.toString());
         finish();
         startActivity(new Intent(this,KnowYourMasterActivity.class));

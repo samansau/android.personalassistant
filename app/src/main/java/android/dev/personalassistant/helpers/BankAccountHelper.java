@@ -1,8 +1,10 @@
 package android.dev.personalassistant.helpers;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
 import android.dev.personalassistant.entities.BankAccount;
 import android.dev.personalassistant.vo.BankAccountVO;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,28 @@ import java.util.List;
  */
 
 public class BankAccountHelper {
+
+
+    public void deleteCard(final PersonalAssistantDatabase personalAssistantDatabase, final String accountNumber) throws SQLiteConstraintException {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BankAccount bankAccount = new BankAccount();
+                try {
+                    BankAccountVO bankAccountVOOld=fetchBankAccountVOFromAccountNumber(personalAssistantDatabase, accountNumber);
+                    bankAccount.setBankAccountId(bankAccountVOOld.getBankAccountIdValue());
+                    personalAssistantDatabase.getBankAccountDAO().deleteBankAccount(bankAccount);
+                }catch (InterruptedException ie){
+                    Log.e("deleteCard",ie.getStackTrace().toString());
+                }
+                catch (SQLiteConstraintException se){
+                    throw se;
+                }
+
+            }
+        }).start();
+    }
+
 
     public void persistBankAccount(final PersonalAssistantDatabase personalAssistantDatabase, final BankAccountVO bankAccountVO){
         new Thread(new Runnable() {
