@@ -39,22 +39,4 @@ public class KymShowCarDetailsActivity extends AppCompatActivity {
     }
 
 
-    public void saveCarDetails(View view){
-        PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(getApplicationContext());
-
-
-        CarVO carVO=new CarVO();
-        carVO.setCarNumber(carNumberObj.getSelectedItem().toString());
-        carVO.setCarName(carNameFieldObj.getText().toString());
-        carVO.setCarInsuranceNumber(carInsuranceNumberFieldObj.getText().toString());
-        carVO.setCarInsuranceExpiry(carInsuranceExpiryFieldObj.getText().toString());
-        carVO.setCarPUCExpiry(carPUCExpiryFieldObj.getText().toString());
-
-        CarHelper carHelper=new CarHelper();
-        carHelper.persistCar(personalAssistantDatabase,carVO);
-        finish();
-        startActivity(new Intent(this,KymShowCarDetailsActivity.class));
-
-
-    }
 }

@@ -127,6 +127,7 @@ public class KymTabFragment extends TabFragment {
         ArrayAdapter<String> adapterCardType = new ArrayAdapter<String>(this.getContext(),android.R.layout.simple_spinner_dropdown_item,carNumbers);
         carNumbersObj.setAdapter(adapterCardType);
 
+        TextView carNumberFieldObj = view.findViewById(R.id.carNumberField);;
         TextView carNameObj = view.findViewById(R.id.carNameField);;
         TextView carInsuranceObj = view.findViewById(R.id.carInsuranceNumberField);;
         TextView carInsuranceExpiry = view.findViewById(R.id.carInsuranceExpiryField);;
@@ -137,6 +138,9 @@ public class KymTabFragment extends TabFragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long is) {
                 CarVO carVO=carList.get(pos);
+                carVO.setNew(false);
+                if(adapterView.getSelectedItem()!=null)
+                carNumberFieldObj.setText(adapterView.getSelectedItem().toString());
                 carNameObj.setText(carVO.getCarName());
                 carInsuranceObj.setText(carVO.getCarInsuranceNumber());
                 carInsuranceExpiry.setText(carVO.getCarInsuranceExpiry());
@@ -376,5 +380,7 @@ public class KymTabFragment extends TabFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     }
+
+
 
 }

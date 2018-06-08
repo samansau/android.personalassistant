@@ -60,4 +60,16 @@ public class CarVO {
     public void setCarPUCExpiry(String carPUCExpiry) {
         this.carPUCExpiry = carPUCExpiry;
     }
+
+    @Override
+    public String toString() {
+        return "CarVO{" +
+                "isNew=" + isNew +
+                ", carNumber='" + carNumber + '\'' +
+                ", carName='" + carName + '\'' +
+                ", carInsuranceNumber='" + carInsuranceNumber + '\'' +
+                ", carInsuranceExpiry='" + carInsuranceExpiry + '\'' +
+                ", carPUCExpiry='" + carPUCExpiry + '\'' +
+                '}';
+    }
 }

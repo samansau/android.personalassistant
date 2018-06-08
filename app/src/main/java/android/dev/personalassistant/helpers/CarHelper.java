@@ -34,7 +34,6 @@ public class CarHelper {
 
                 Log.d("Car Object : ",car.toString());
                 if (!carVO.isNew() ) {
-
                     personalAssistantDatabase.getCarDAO().updateCars(car);
                 }else{
                     personalAssistantDatabase.getCarDAO().insertCar(car);
@@ -73,6 +72,9 @@ public class CarHelper {
             public void run() {
                 List<Car> cars = personalAssistantDatabase.getCarDAO().fetchAllCars();
                 if(cars!=null){
+                    CarVO carVOBlank=new CarVO();
+                    carVOBlank.setCarNumber("");
+                    carVOs.add(carVOBlank);
                     for(Car car:cars){
                         CarVO carVO=new CarVO();
                         carVO.setCarNumber(car.getCarNumber());
