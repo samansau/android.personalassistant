@@ -144,8 +144,17 @@
                 >
                 <Button
                     android:text="Save"
-                    android:onClick="saveCarDetails"
-                    />
+                    android:onClick="saveCarDetails" />
+
+            </TableRow>
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                >
+            <Button
+                android:text="Delete"
+                android:onClick="deleteCarDetails" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

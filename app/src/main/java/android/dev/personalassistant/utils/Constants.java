@@ -23,4 +23,6 @@ public interface Constants {
     public String SMS_KEYWORDS_SET="SMS_KEYWORDS_SET";
 
     public static final String DATABASE_NAME  ="PERSONAL_ASSISTANT_DB";
+
+    public static final String dateFormat="dd-mm-yyyy";
 }

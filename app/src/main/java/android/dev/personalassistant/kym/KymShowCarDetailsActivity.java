@@ -1,16 +1,8 @@
 package android.dev.personalassistant.kym;
 
-import android.content.Intent;
-import android.dev.personalassistant.dao.PersonalAssistantDatabase;
-import android.dev.personalassistant.helpers.BankAccountHelper;
-import android.dev.personalassistant.helpers.CarHelper;
-import android.dev.personalassistant.helpers.DatabaseHelper;
-import android.dev.personalassistant.vo.BankAccountVO;
-import android.dev.personalassistant.vo.CarVO;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.dev.personalassistant.R;
-import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 

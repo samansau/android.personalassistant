@@ -1,9 +1,9 @@
-package android.dev.personalassistant.helpers;
+package android.dev.personalassistant.helpers.kym;
 
 import android.database.sqlite.SQLiteConstraintException;
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
-import android.dev.personalassistant.entities.BankAccount;
-import android.dev.personalassistant.vo.BankAccountVO;
+import android.dev.personalassistant.entities.kym.BankAccount;
+import android.dev.personalassistant.vo.kym.BankAccountVO;
 import android.util.Log;
 
 import java.util.ArrayList;

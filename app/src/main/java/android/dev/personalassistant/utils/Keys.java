@@ -7,6 +7,13 @@ package android.dev.personalassistant.utils;
 public class Keys {
 
 
+
+
+    // Investment Summary keys
+    public static final String investmentCategory = "investment_category";
+    public static final String investmentCategoryPercent="investment_category_percent";
+    public static final String investmentCategoryTotal = "investment_category_total";
+
     //Personal keys
     public static final String personId="person_id";
     public static final String fullName="full_name";
@@ -29,6 +36,8 @@ public class Keys {
     public static final String netBankingCustomerId="net_banking_customer_id";
     public static final String netBankingPassword="net_banking_password";
     public static final String phoneBankingNumber="phone_banking_number";
+    public static final String bankBalance="bank_balance";
+
 
     //Card Keys
     public static final String cardId="card_id";
@@ -37,6 +46,19 @@ public class Keys {
     public static final String cardNumber="card_number";
     public static final String cardExpiryDate="card_expiry_date";
     public static final String cardCvv="card_cvv";
+
+
+    //FD keys
+    public static final String fdMaturityDate="fd_maturity_date";
+    public static final String fdMaurityAmount="fd_maturityAmount";
+
+    // Expenses keys
+    public static final String expenseDate="expense_date";
+    public static final String expenseAmount="expense_amount";
+    public static final String expenseTags="expense_tags";
+    public static final String expenseDescription="expense_description";
+
+
 
 
 }

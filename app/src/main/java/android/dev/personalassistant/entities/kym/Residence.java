@@ -1,4 +1,4 @@
-package android.dev.personalassistant.entities;
+package android.dev.personalassistant.entities.kym;
 
 /**
  * Created by saurabh on 5/9/18.

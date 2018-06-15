@@ -8,6 +8,11 @@ import android.support.v7.app.AlertDialog;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.dev.personalassistant.utils.Keys.expenseAmount;
+import static android.dev.personalassistant.utils.Keys.expenseDate;
+import static android.dev.personalassistant.utils.Keys.expenseDescription;
+import static android.dev.personalassistant.utils.Keys.expenseTags;
+
 /**
  * Created by saurabh on 5/6/18.
  */
@@ -47,32 +52,21 @@ public class Utils {
     }
     public static void populateListOf4Items(List list) {
         HashMap map = new HashMap();
-        map.put("bank", "ICICI");
-        map.put("branch", "Goregaon (W)");
-        map.put("account_number", "1234");
-        map.put("balance", "5678");
+        map.put(expenseTags, "Education,Kids");
+        map.put(expenseDate, "2018-06-05");
+        map.put(expenseAmount, "12345");
+        map.put(expenseDescription, "xyz");
 
         list.add(map);
 
         map = new HashMap();
-        map.put("bank", "AXIS");
-        map.put("branch", "Goregaon (W)");
-        map.put("account_number", "1234");
-        map.put("balance", "5678");
+        map.put(expenseTags, "Health");
+        map.put(expenseDate, "2018-06-02");
+        map.put(expenseAmount, "1234");
+        map.put(expenseDescription, "xyz");
         list.add(map);
 
-        map = new HashMap();
-        map.put("bank", "HDFC");
-        map.put("branch", "Goregaon (W)");
-        map.put("account_number", "1234");
-        map.put("balance", "5678");
-        list.add(map);
-        map = new HashMap();
-        map.put("bank", "SBI");
-        map.put("branch", "Goregaon (W)");
-        map.put("account_number", "1234");
-        map.put("balance", "5678");
-        list.add(map);
+
 
     }
 

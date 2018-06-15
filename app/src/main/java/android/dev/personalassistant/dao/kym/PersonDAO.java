@@ -1,12 +1,11 @@
-package android.dev.personalassistant.dao;
+package android.dev.personalassistant.dao.kym;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
-import android.dev.personalassistant.entities.Card;
-import android.dev.personalassistant.entities.Person;
+import android.dev.personalassistant.entities.kym.Person;
 
 import java.util.List;
 
@@ -31,6 +30,9 @@ public interface PersonDAO {
 
     @Query("select * from Person")
     public List<Person> fetchAllPersons();
+
+//    @Query("select * from Person where fullName in (:personNames)")
+//    public List<Person> fetchAllPersonsWithName(List personNames);
 
 
     @Delete

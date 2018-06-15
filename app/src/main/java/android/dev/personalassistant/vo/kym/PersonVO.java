@@ -1,4 +1,4 @@
-package android.dev.personalassistant.vo;
+package android.dev.personalassistant.vo.kym;
 
 import android.dev.personalassistant.enums.Relations;
 

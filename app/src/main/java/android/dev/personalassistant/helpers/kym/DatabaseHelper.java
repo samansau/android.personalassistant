@@ -1,4 +1,4 @@
-package android.dev.personalassistant.helpers;
+package android.dev.personalassistant.helpers.kym;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -14,7 +14,7 @@ public class DatabaseHelper {
 
     public  static PersonalAssistantDatabase getDatabase(Context context){
         PersonalAssistantDatabase personalAssistantDatabase = Room.databaseBuilder(context,
-                PersonalAssistantDatabase.class,DATABASE_NAME).fallbackToDestructiveMigration().build();
+                PersonalAssistantDatabase.class,DATABASE_NAME).build();
         return personalAssistantDatabase;
 
     }

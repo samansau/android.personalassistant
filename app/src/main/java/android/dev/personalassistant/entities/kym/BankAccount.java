@@ -1,10 +1,11 @@
-package android.dev.personalassistant.entities;
+package android.dev.personalassistant.entities.kym;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+
 
 /**
  * Created by saurabh on 5/8/18.
@@ -16,7 +17,7 @@ public class BankAccount {
     public int bankAccountId;
     @NonNull
     public String accountNumber;
-
+    @NonNull
     public String bankName;
 
     public String branch;

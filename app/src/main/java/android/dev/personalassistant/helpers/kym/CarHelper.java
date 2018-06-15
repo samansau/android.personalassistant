@@ -1,11 +1,8 @@
-package android.dev.personalassistant.helpers;
+package android.dev.personalassistant.helpers.kym;
 
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
-import android.dev.personalassistant.entities.BankAccount;
-import android.dev.personalassistant.entities.Car;
-import android.dev.personalassistant.entities.Card;
-import android.dev.personalassistant.vo.CarVO;
-import android.dev.personalassistant.vo.CardVO;
+import android.dev.personalassistant.entities.kym.Car;
+import android.dev.personalassistant.vo.kym.CarVO;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,6 +14,22 @@ import java.util.List;
 
 public class CarHelper {
 
+    public void deleteCard(final PersonalAssistantDatabase personalAssistantDatabase, final String carNumber) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Car car = new Car();
+                try {
+                    CarVO carVOOld=fetchCarVOByCarNumber(personalAssistantDatabase, carNumber);
+                    car.setCarId(carVOOld.getCarId());
+                    personalAssistantDatabase.getCarDAO().deleteCar(car);
+                }catch (InterruptedException ie){
+                    Log.e("deleteCar",ie.getStackTrace().toString());
+                }
+
+            }
+        }).start();
+    }
 
     public void persistCar(final PersonalAssistantDatabase personalAssistantDatabase, final CarVO carVO,final String oldCarNumber){
         new Thread(new Runnable() {

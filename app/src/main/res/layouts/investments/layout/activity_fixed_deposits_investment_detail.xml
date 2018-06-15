@@ -49,28 +49,6 @@
                     android:layout_height="wrap_content" />
             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Branch"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                >
-                <Spinner
-                    android:id="@+id/fdBranch"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
-            </TableRow>
-
 
             <TableRow
                 android:layout_width="match_parent"
@@ -147,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:inputType="date"
-                        android:hint="FD Date (dd-mm-yyyy)" />
+                        android:hint="FD Inception Date (dd-mm-yyyy)" />
                 </android.support.design.widget.TextInputLayout>
             </TableRow>
 
@@ -240,6 +218,7 @@
                 >
                 <Button
                     android:text="Save"
+                    android:onClick="saveFD"
                     />
             </TableRow>
         </TableLayout>

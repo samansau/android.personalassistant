@@ -1,6 +1,7 @@
-package android.dev.personalassistant.entities;
+package android.dev.personalassistant.entities.kym;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.dev.personalassistant.enums.Relations;
 import android.support.annotation.NonNull;
@@ -9,7 +10,7 @@ import android.support.annotation.NonNull;
  * Created by saurabh on 5/8/18.
  */
 
-@Entity
+@Entity(indices = @Index(value="fullName",unique = true))
 public class Person {
     @PrimaryKey(autoGenerate = true)
     private int personId;

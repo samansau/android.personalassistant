@@ -1,10 +1,9 @@
-package android.dev.personalassistant.helpers;
+package android.dev.personalassistant.helpers.kym;
 
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
-import android.dev.personalassistant.entities.BankAccount;
-import android.dev.personalassistant.entities.Card;
-import android.dev.personalassistant.vo.BankAccountVO;
-import android.dev.personalassistant.vo.CardVO;
+import android.dev.personalassistant.entities.kym.BankAccount;
+import android.dev.personalassistant.entities.kym.Card;
+import android.dev.personalassistant.vo.kym.CardVO;
 import android.util.Log;
 
 import java.util.ArrayList;

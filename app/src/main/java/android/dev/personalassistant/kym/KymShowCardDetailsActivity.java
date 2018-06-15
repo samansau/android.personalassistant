@@ -2,13 +2,12 @@ package android.dev.personalassistant.kym;
 
 import android.content.Intent;
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
-import android.dev.personalassistant.entities.BankAccount;
 import android.dev.personalassistant.enums.CardType;
-import android.dev.personalassistant.helpers.BankAccountHelper;
-import android.dev.personalassistant.helpers.CardHelper;
-import android.dev.personalassistant.helpers.DatabaseHelper;
-import android.dev.personalassistant.vo.BankAccountVO;
-import android.dev.personalassistant.vo.CardVO;
+import android.dev.personalassistant.helpers.kym.BankAccountHelper;
+import android.dev.personalassistant.helpers.kym.CardHelper;
+import android.dev.personalassistant.helpers.kym.DatabaseHelper;
+import android.dev.personalassistant.vo.kym.BankAccountVO;
+import android.dev.personalassistant.vo.kym.CardVO;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.dev.personalassistant.R;
@@ -18,14 +17,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static android.dev.personalassistant.utils.Keys.bank;
-import static android.dev.personalassistant.utils.Keys.branch;
 import static android.dev.personalassistant.utils.Keys.cardCategory;
 import static android.dev.personalassistant.utils.Keys.cardCvv;
 import static android.dev.personalassistant.utils.Keys.cardExpiryDate;
@@ -61,7 +56,7 @@ public class KymShowCardDetailsActivity extends AppCompatActivity {
 
             String [] bankBranchNames=bankAccountVOs.stream().map(bankAccountVO -> {
                 bankAccountIds.add(bankAccountVO.getBankAccountIdValue());
-                return bankAccountVO.getBankNameValue();
+                return bankAccountVO.getBankNameValue()+","+bankAccountVO.getBankBranchValue();
             }).toArray(String [] ::new);
 
             ArrayAdapter<String> adapterBankName = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,bankBranchNames);

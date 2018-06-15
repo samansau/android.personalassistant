@@ -1,4 +1,4 @@
-package android.dev.personalassistant.entities;
+package android.dev.personalassistant.entities.kym;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;

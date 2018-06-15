@@ -1,17 +1,13 @@
-package android.dev.personalassistant.helpers;
+package android.dev.personalassistant.helpers.kym;
 
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
-import android.dev.personalassistant.entities.BankAccount;
-import android.dev.personalassistant.entities.Card;
-import android.dev.personalassistant.entities.Person;
-import android.dev.personalassistant.vo.CardVO;
-import android.dev.personalassistant.vo.PersonVO;
+import android.dev.personalassistant.entities.kym.Person;
+import android.dev.personalassistant.enums.Relations;
+import android.dev.personalassistant.vo.kym.PersonVO;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.dev.personalassistant.utils.Keys.cardNumber;
 
 /**
  * Created by saurabh on 6/2/18.
@@ -58,13 +54,15 @@ public class PersonHelper {
 
 
                 Log.d("person Object : ",person.toString());
-                if (!personVO.isNew()) {
-                    person.setPersonId(personVO.getPersonId());
-                    personalAssistantDatabase.getPersonDAO().updatePersons(person);
-                }else{
-                    personalAssistantDatabase.getPersonDAO().insertPerson(person);
+                List<Person> allPersons=personalAssistantDatabase.getPersonDAO().fetchAllPersons();
+                if(!personVO.getRelation().equals(Relations.Self.toString()) || allPersons.stream().filter(p->p.getRelation().equals(Relations.Self.toString())).count()==0){
+                    if (!personVO.isNew()) {
+                        person.setPersonId(personVO.getPersonId());
+                        personalAssistantDatabase.getPersonDAO().updatePersons(person);
+                    } else {
+                        personalAssistantDatabase.getPersonDAO().insertPerson(person);
+                    }
                 }
-
             }
         }).start();
     }

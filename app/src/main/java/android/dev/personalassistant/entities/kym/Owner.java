@@ -1,4 +1,4 @@
-package android.dev.personalassistant.entities;
+package android.dev.personalassistant.entities.kym;
 
 import java.util.Date;
 import java.util.List;

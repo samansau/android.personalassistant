@@ -1,4 +1,4 @@
-package android.dev.personalassistant.vo;
+package android.dev.personalassistant.vo.kym;
 
 /**
  * Created by saurabh on 6/2/18.

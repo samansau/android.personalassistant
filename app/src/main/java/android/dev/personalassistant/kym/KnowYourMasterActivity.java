@@ -1,19 +1,14 @@
 package android.dev.personalassistant.kym;
 
-import android.app.Activity;
-import android.arch.persistence.room.util.StringUtil;
 import android.content.Intent;
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
-import android.dev.personalassistant.helpers.CarHelper;
-import android.dev.personalassistant.helpers.DatabaseHelper;
-import android.dev.personalassistant.kym.KymShowBankDetailsActivity;
-import android.dev.personalassistant.kym.KymShowBankListActivity;
-import android.dev.personalassistant.kym.KymTabFragment;
+import android.dev.personalassistant.helpers.kym.CarHelper;
+import android.dev.personalassistant.helpers.kym.DatabaseHelper;
 import android.dev.personalassistant.tabs.TabAdapter;
 import android.dev.personalassistant.tabs.TabFragment;
 import android.dev.personalassistant.tabs.TabUtils;
-import android.dev.personalassistant.vo.CarVO;
+import android.dev.personalassistant.vo.kym.CarVO;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -86,6 +81,19 @@ public class KnowYourMasterActivity extends AppCompatActivity {
     public void showCarDetails(View view){
         Intent intent=new Intent(this,KymShowCarDetailsActivity.class);
         startActivity(intent);
+    }
+
+    public void deleteCarDetails(View view){
+        PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(getApplicationContext());
+        Spinner carNumberObj = (Spinner) findViewById(R.id.carNumber);
+        if(carNumberObj.getSelectedItem()!=null) {
+            String carNumber = carNumberObj.getSelectedItem().toString();
+            CarHelper carHelper=new CarHelper();
+            carHelper.deleteCard(personalAssistantDatabase,carNumber);
+            finish();
+            startActivity(new Intent(this,KnowYourMasterActivity.class));
+        }
+
     }
     public void saveCarDetails(View view){
         PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(getApplicationContext());

@@ -6,18 +6,13 @@
     android:layout_height="match_parent"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
-    tools:context=".investments.SavingsInvestmentListActivity">
-    <include layout="@layout/tool_bar_layout"/>
-    <ListView android:id="@+id/listSavings"
+    tools:context=".expenses.ExpensesShowAllListActivity">
+    <ListView android:id="@+id/listAllExpenses"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="110dp"
         android:layout_weight="1"
         android:drawSelectorOnTop="false"/>
 
-    <Button
-        android:layout_height="50dp"
-        android:layout_width="100dp"
-        android:text="Scan SMS"
-        android:onClick="scanSMSInbox" />
 
 </LinearLayout>
