@@ -57,7 +57,9 @@
         <activity android:name=".investments.SIPInvestmentDetailActivity" />
         <activity android:name=".investments.SIPInvestmentListActivity" />
         <activity android:name=".investments.RDInvestmentListActivity" />
-        <activity android:name=".investments.RDInvestmentDetailActivity"></activity>
+        <activity android:name=".investments.RDInvestmentDetailActivity" />
+        <activity android:name=".reminders.ManageRemindersListActivity" />
+        <activity android:name=".reminders.ManageRemindersDetailsActivity"></activity>
     </application>
 
 </manifest>

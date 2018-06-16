@@ -1,10 +1,17 @@
 package android.dev.personalassistant.utils;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.dev.personalassistant.main.MainActivity;
 import android.support.v7.app.AlertDialog;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TimePicker;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -93,5 +100,54 @@ public class Utils {
         alert.show();
 
     }
+
+    public static void populateDateField(EditText fieldToPopulate,Context context){
+        int mYear, mMonth, mDay;
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        fieldToPopulate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+
+        //return fieldToPopulate;
+    }
+
+
+
+    public static void populateTimeField(EditText fieldToPopulate,Context context){
+        int mHour, mMinute;
+        // Get Current Time
+        final Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
+
+        // Launch Time Picker Dialog
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context,
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+
+                        fieldToPopulate.setText(hourOfDay + ":" + minute);
+                    }
+                }, mHour, mMinute, false);
+        timePickerDialog.show();
+
+    }
+
 
 }

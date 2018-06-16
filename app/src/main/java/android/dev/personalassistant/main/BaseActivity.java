@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.dev.personalassistant.MyInformationActivity;
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.investments.InvestmentsActivity;
+import android.dev.personalassistant.reminders.ManageRemindersListActivity;
 import android.dev.personalassistant.tabs.TabAdapter;
 import android.dev.personalassistant.expenses.ExpenseTabFragment;
 import android.dev.personalassistant.tabs.TabFragment;
@@ -87,6 +88,13 @@ public class BaseActivity  extends AppCompatActivity {
                         openMyInvestments();
                         mDrawerLayout.closeDrawers();
                         return true;
+
+                    case R.id.reminders:
+                        openReminders();
+                        mDrawerLayout.closeDrawers();
+                        return true;
+
+
                 }
                 return true;
             }
@@ -161,6 +169,11 @@ public class BaseActivity  extends AppCompatActivity {
 
     protected void openMyInvestments(){
         Intent intent=new Intent(this,InvestmentsActivity.class);
+        startActivity(intent);
+    }
+
+    protected void openReminders(){
+        Intent intent=new Intent(this,ManageRemindersListActivity.class);
         startActivity(intent);
     }
 

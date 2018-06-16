@@ -23,4 +23,9 @@
         <item android:id="@+id/my_investments"
             android:title="My Investments"
             android:icon="@drawable/savings" />
+
+        <item android:id="@+id/reminders"
+            android:title="Reminders"
+            android:icon="@drawable/savings" />
+
 </menu>

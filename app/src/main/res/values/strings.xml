@@ -32,6 +32,80 @@
         <item>Komal Deshmukh Saurabh Samant</item>
     </string-array>
 
+    <string-array name="reminder_HH">
+        <item>00 hr</item>
+        <item>01 hr</item>
+        <item>02 hr</item>
+        <item>03 hr</item>
+        <item>04 hr</item>
+        <item>05 hr</item>
+        <item>06 hr</item>
+        <item>07 hr</item>
+        <item>08 hr</item>
+        <item>09 hr</item>
+        <item>10 hr</item>
+        <item>11 hr</item>
+        <item>12 hr</item>
+        <item>14 hr</item>
+        <item>15 hr</item>
+        <item>16 hr</item>
+        <item>17 hr</item>
+        <item>18 hr</item>
+        <item>19 hr</item>
+        <item>20 hr</item>
+        <item>21 hr</item>
+        <item>22 hr</item>
+        <item>23 hr</item>
+        <item>24 hr</item>
+    </string-array>
+
+    <string-array name="reminder_MM">
+        <item>00 min</item>
+        <item>01 min</item>
+        <item>05 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+        <item>25 min</item>
+        <item>30 min</item>
+        <item>35 min</item>
+        <item>40 min</item>
+        <item>45 min</item>
+        <item>50 min</item>
+        <item>55 min</item>
+    </string-array>
+    <string-array name="reminder_SS">
+        <item>00 sec</item>
+        <item>01 sec</item>
+        <item>05 sec</item>
+        <item>10 sec</item>
+        <item>15 sec</item>
+        <item>20 sec</item>
+        <item>25 sec</item>
+        <item>30 sec</item>
+        <item>35 sec</item>
+        <item>40 sec</item>
+        <item>45 sec</item>
+        <item>50 sec</item>
+        <item>55 sec</item>
+    </string-array>
+
+    <string-array name="reminder_interval">
+        <item>00 sec</item>
+        <item>01 sec</item>
+        <item>05 sec</item>
+        <item>10 sec</item>
+        <item>15 sec</item>
+        <item>20 sec</item>
+        <item>25 sec</item>
+        <item>30 sec</item>
+        <item>35 sec</item>
+        <item>40 sec</item>
+        <item>45 sec</item>
+        <item>50 sec</item>
+        <item>55 sec</item>
+    </string-array>
+
 </resources>
 
 
