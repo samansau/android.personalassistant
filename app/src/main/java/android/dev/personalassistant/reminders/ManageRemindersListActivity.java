@@ -1,21 +1,97 @@
 package android.dev.personalassistant.reminders;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.dev.personalassistant.R;
+import android.dev.personalassistant.dao.PersonalAssistantDatabase;
+import android.dev.personalassistant.entities.reminder.Reminder;
+import android.dev.personalassistant.helpers.kym.DatabaseHelper;
+import android.dev.personalassistant.helpers.reminder.ReminderHelper;
+import android.dev.personalassistant.vo.kym.CardVO;
+import android.dev.personalassistant.vo.reminder.ReminderVO;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
-public class ManageRemindersListActivity extends ListActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+
+import static android.dev.personalassistant.utils.Keys.reminderName;
+import static android.dev.personalassistant.utils.Keys.reminderInterval;
+import static android.dev.personalassistant.utils.Keys.reminderRepeat;
+import static java.security.AccessController.getContext;
+
+public class ManageRemindersListActivity extends AppCompatActivity {
+
+    static final ArrayList<Map<String,String>> reminderList =
+            new ArrayList<Map<String,String>>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_reminders_list);
+
+        ListView reminderListView = (ListView) findViewById(R.id.list);
+        ListAdapter reminderAdapter = new SimpleAdapter(
+                getBaseContext(),
+                reminderList,
+                R.layout.three_line_list_item,
+                new String[] {reminderName,reminderRepeat,reminderInterval},
+                new int[] {R.id.text1,R.id.text2,R.id.text3}
+        );
+        populateReminderList(getBaseContext());
+        reminderListView.setAdapter(reminderAdapter);
+
+        reminderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Intent intent=new Intent(getBaseContext(),ManageRemindersDetailsActivity.class);
+                Bundle extras=new Bundle();
+
+                ReminderHelper reminderHelper=new ReminderHelper();
+                HashMap<String,String> reminderData=(HashMap)adapterView.getItemAtPosition(pos);
+                final String reminderNameStr=reminderData.get(reminderName);
+                PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
+                try {
+                    ReminderVO reminderVO = reminderHelper.fetchReminderVOByName(personalAssistantDatabase,reminderNameStr);
+
+                    //TODO
+
+                }catch (InterruptedException ie){
+                    Log.e("InterruptedException",ie.getStackTrace().toString());
+                }
+                intent.putExtras(extras);
+                startActivity(intent);
+            }
+        });
+
     }
 
+    private void populateReminderList(Context context){
+        reminderList.clear();
+        try {
+            ReminderHelper reminderHelper = new ReminderHelper();
+            List<ReminderVO> reminderVOs=reminderHelper.fetchAllReminderVOs(DatabaseHelper.getDatabase(context));
+            for(ReminderVO reminderVO : reminderVOs){
+                Map<String, String> map = new HashMap();
+                map.put(reminderName, reminderVO.getReminderName());
+                map.put(reminderRepeat, "Repeat every(hh:mm:ss) : "+reminderVO.getRepeatEveryHH() +":" +reminderVO.getRepeatEveryMM()+":"+reminderVO.getRepeatEverySS());
+                map.put(reminderInterval, "Buzz for period : "+reminderVO.getInterval()+" secs");
+                reminderList.add(map);
+            }
+
+        }catch (InterruptedException ie){
+            Log.e(ManageRemindersListActivity.class.getName() , ie.getStackTrace().toString());
+        }
+    }
 
     public void addManageReminders(View view){
         Log.d("Called","addManageReminders");

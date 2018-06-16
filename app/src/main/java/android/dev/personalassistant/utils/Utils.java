@@ -127,6 +127,7 @@ public class Utils {
 
 
 
+
     public static void populateTimeField(EditText fieldToPopulate,Context context){
         int mHour, mMinute;
         // Get Current Time
@@ -146,6 +147,12 @@ public class Utils {
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();
+
+    }
+
+    public static int getValue(String val,String removeExtraString){
+        String intPart=val.substring(0,val.indexOf(removeExtraString));
+        return Integer.parseInt(intPart.trim());
 
     }
 

@@ -7,6 +7,12 @@ package android.dev.personalassistant.utils;
 public class Keys {
 
 
+    //Reminder
+    public static final String reminderName = "reminder_name";
+    public static final String reminderInterval = "reminder_interval";
+    public static final String reminderRepeat = "reminder_repeat";
+
+
 
 
     // Investment Summary keys

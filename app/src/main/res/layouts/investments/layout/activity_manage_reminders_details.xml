@@ -27,7 +27,7 @@
             <EditText
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/reminder_name"
+                android:id="@+id/reminderName"
                 android:hint="Reminder name"
                 />
         </android.support.design.widget.TextInputLayout>
@@ -530,6 +530,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:text="Done"
+        android:onClick="persistReminder"
     />
 
     </LinearLayout>
