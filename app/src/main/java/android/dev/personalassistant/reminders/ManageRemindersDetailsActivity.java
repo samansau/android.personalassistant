@@ -431,7 +431,7 @@ public class ManageRemindersDetailsActivity extends AppCompatActivity{
 
 
         reminderHelper.persistReminder(personalAssistantDatabase,reminderVO);
-        
+
         finish();
         startActivity(new Intent(this,ManageRemindersListActivity.class));
     }
