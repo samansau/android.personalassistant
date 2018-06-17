@@ -71,6 +71,20 @@
         android:orientation="horizontal"
         >
         <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reminders"
+            android:id="@+id/remindersToggle"
+            android:onClick="toggleReminders"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Switch
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:text="EveryDay"
@@ -534,6 +548,8 @@
     />
 
     </LinearLayout>
+
+
 
 
 

@@ -153,7 +153,14 @@ public class Utils {
     public static int getValue(String val,String removeExtraString){
         String intPart=val.substring(0,val.indexOf(removeExtraString));
         return Integer.parseInt(intPart.trim());
+    }
 
+    public static String padZeroes(int val,int totalSize){
+        String valStr=val+"";
+        for(int i=valStr.length();i<totalSize;i++){
+            valStr="0"+valStr;
+        }
+        return valStr;
     }
 
 

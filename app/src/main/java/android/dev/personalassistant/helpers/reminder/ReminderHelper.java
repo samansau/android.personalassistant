@@ -77,6 +77,7 @@ public class ReminderHelper {
 
 
                         reminderVO.setReminderName(reminder.getReminderName());
+                        reminderVO.setReminderId(reminder.getReminderId());
 
                         reminderVO.setFromDate(reminder.getFromDate());
                         reminderVO.setToDate(reminder.getToDate());
@@ -124,6 +125,8 @@ public class ReminderHelper {
                 if(reminders!=null){
                     for(Reminder reminder:reminders){
                         ReminderVO reminderVO=new ReminderVO();
+
+                        reminderVO.setReminderId(reminder.getReminderId());
                         reminderVO.setReminderName(reminder.getReminderName());
 
                         reminderVO.setFromDate(reminder.getFromDate());

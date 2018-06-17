@@ -8,9 +8,40 @@ public class Keys {
 
 
     //Reminder
+
+    public static final String reminderMinKey = "min";
+    public static final String reminderHHKey = "hr";
+    public static final String reminderSecKey = "sec";
+
+    public static final String reminderIdKey = "reminder_id";
     public static final String reminderName = "reminder_name";
+    public static final String reminderFromDate = "reminder_from_date";
+    public static final String reminderToDate = "reminder_to_date";
+    public static final String reminderFromTime = "reminder_from_time";
+    public static final String reminderToTime = "reminder_to_time";
+
+
+
+    public static final String reminderFromTimeSunday = "reminder_from_time_sunday";
+    public static final String reminderToTimeSunday = "reminder_to_time_sunday";
+    public static final String reminderFromTimeMonday = "reminder_from_time_monday";
+    public static final String reminderToTimeMonday = "reminder_to_time_monday";
+    public static final String reminderFromTimeTuesday = "reminder_from_time_tuesday";
+    public static final String reminderToTimeTuesday = "reminder_to_time_tuesday";
+    public static final String reminderFromTimeWednesday = "reminder_from_time_wednesday";
+    public static final String reminderToTimeWednesday = "reminder_to_time_wednesday";
+    public static final String reminderFromTimeThursday = "reminder_from_time_thursday";
+    public static final String reminderToTimeThursday = "reminder_to_time_thursday";
+    public static final String reminderFromTimeFriday = "reminder_from_time_friday";
+    public static final String reminderToTimeFriday = "reminder_to_time_friday";
+    public static final String reminderFromTimeSaturday = "reminder_from_time_saturday";
+    public static final String reminderToTimeSaturday = "reminder_to_time_saturday";
+    public static final String reminderRepeatHH = "reminder_repeat_HH";
+    public static final String reminderRepeatMM = "reminder_repeat_MM";
+    public static final String reminderRepeatSS = "reminder_repeat_SS";
+    public static final String reminderRepeatHHMMSS= "reminder_repeat_HH_MM_SS";
     public static final String reminderInterval = "reminder_interval";
-    public static final String reminderRepeat = "reminder_repeat";
+
 
 
 

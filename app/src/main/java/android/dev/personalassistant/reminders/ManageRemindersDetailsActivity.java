@@ -3,11 +3,14 @@ package android.dev.personalassistant.reminders;
 import android.app.DatePickerDialog;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.dao.PersonalAssistantDatabase;
 import android.dev.personalassistant.entities.reminder.Reminder;
 import android.dev.personalassistant.helpers.kym.DatabaseHelper;
 import android.dev.personalassistant.helpers.reminder.ReminderHelper;
+import android.dev.personalassistant.services.reminder.ReminderService;
 import android.dev.personalassistant.utils.Utils;
 import android.dev.personalassistant.vo.reminder.ReminderVO;
 import android.support.v7.app.AppCompatActivity;
@@ -27,9 +30,38 @@ import android.widget.ToggleButton;
 
 import java.util.Calendar;
 
+import static android.dev.personalassistant.utils.Keys.reminderFromDate;
+import static android.dev.personalassistant.utils.Keys.reminderFromTime;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeFriday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeMonday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeSaturday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeSunday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeThursday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeTuesday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeWednesday;
+import static android.dev.personalassistant.utils.Keys.reminderHHKey;
+import static android.dev.personalassistant.utils.Keys.reminderIdKey;
+import static android.dev.personalassistant.utils.Keys.reminderInterval;
+import static android.dev.personalassistant.utils.Keys.reminderMinKey;
+import static android.dev.personalassistant.utils.Keys.reminderName;
+import static android.dev.personalassistant.utils.Keys.reminderRepeatHH;
+import static android.dev.personalassistant.utils.Keys.reminderRepeatMM;
+import static android.dev.personalassistant.utils.Keys.reminderRepeatSS;
+import static android.dev.personalassistant.utils.Keys.reminderSecKey;
+import static android.dev.personalassistant.utils.Keys.reminderToDate;
+import static android.dev.personalassistant.utils.Keys.reminderToTime;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeFriday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeMonday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeSaturday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeSunday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeThursday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeTuesday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeWednesday;
+
 public class ManageRemindersDetailsActivity extends AppCompatActivity{
 
     int reminderId=-1;
+
 
     EditText fromDate,toDate,editReminderName,editFromReminder,editToReminder,editFromReminderSunday,editToReminderSunday,editFromReminderMonday,editToReminderMonday,
             editFromReminderTuesday,editToReminderTuesday,editToReminderWednesday,editFromReminderWednesday,
@@ -76,16 +108,65 @@ public class ManageRemindersDetailsActivity extends AppCompatActivity{
         editToReminderMonday=(EditText)findViewById(R.id.reminderToTimeMonday);
         editFromReminderTuesday=(EditText)findViewById(R.id.reminderFromTimeTuesday);
         editToReminderTuesday=(EditText)findViewById(R.id.reminderToTimeTuesday);
-        editToReminderWednesday=(EditText)findViewById(R.id.reminderToTimeWednesday);
         editFromReminderWednesday=(EditText)findViewById(R.id.reminderFromTimeWednesday);
-        editToReminderThursday=(EditText)findViewById(R.id.reminderToTimeThursday);
+        editToReminderWednesday=(EditText)findViewById(R.id.reminderToTimeWednesday);
         editFromReminderThursday=(EditText)findViewById(R.id.reminderFromTimeThursday);
-        editToReminderFriday=(EditText)findViewById(R.id.reminderToTimeFriday);
+        editToReminderThursday=(EditText)findViewById(R.id.reminderToTimeThursday);
         editFromReminderFriday=(EditText)findViewById(R.id.reminderFromTimeFriday);
-        editToReminderSaturday=(EditText)findViewById(R.id.reminderToTimeSaturday);
+        editToReminderFriday=(EditText)findViewById(R.id.reminderToTimeFriday);
         editFromReminderSaturday=(EditText)findViewById(R.id.reminderFromTimeSaturday);
+        editToReminderSaturday=(EditText)findViewById(R.id.reminderToTimeSaturday);
 
 
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null){
+            reminderId=bundle.getInt(reminderIdKey);
+            editReminderName.setText(bundle.getString(reminderName));
+            fromDate.setText(bundle.getString(reminderFromDate));
+            toDate.setText(bundle.getString(reminderToDate ));
+            editFromReminder.setText(bundle.getString(reminderFromTime));
+            editToReminder.setText(bundle.getString(reminderToTime));
+            editFromReminderSunday.setText(bundle.getString(reminderFromTimeSunday));
+            editToReminderSunday.setText(bundle.getString(reminderToTimeSunday));
+            editFromReminderMonday.setText(bundle.getString(reminderFromTimeMonday));
+            editToReminderMonday.setText(bundle.getString(reminderToTimeMonday));
+            editFromReminderTuesday.setText(bundle.getString(reminderFromTimeTuesday));
+            editToReminderTuesday.setText(bundle.getString(reminderToTimeTuesday));
+            editFromReminderWednesday.setText(bundle.getString(reminderFromTimeWednesday));
+            editToReminderWednesday.setText(bundle.getString(reminderToTimeWednesday));
+            editFromReminderThursday.setText(bundle.getString(reminderFromTimeThursday));
+            editToReminderThursday.setText(bundle.getString(reminderToTimeThursday));
+            editFromReminderFriday.setText(bundle.getString(reminderFromTimeFriday));
+            editToReminderFriday.setText(bundle.getString(reminderToTimeFriday));
+            editFromReminderSaturday.setText(bundle.getString(reminderFromTimeSaturday));
+            editToReminderSaturday.setText(bundle.getString(reminderToTimeSaturday));
+
+            int hhPosition =hhAdapter.getPosition(Utils.padZeroes(bundle.getInt(reminderRepeatHH),2)+" "+reminderHHKey);
+            hhSpinner.setSelection(hhPosition);
+
+            int mmPosition =mmAdapter.getPosition(Utils.padZeroes(bundle.getInt(reminderRepeatMM),2)+" "+reminderMinKey);
+            mmSpinner.setSelection(mmPosition);
+
+            int ssPosition =ssAdapter.getPosition(Utils.padZeroes(bundle.getInt(reminderRepeatSS),2)+" "+reminderSecKey);
+            ssSpinner.setSelection(ssPosition);
+
+            int ssIntervalPosition =ssReminderAdapter.getPosition(Utils.padZeroes(bundle.getInt(reminderInterval),2)+" "+reminderSecKey);
+            ssReminderInterval.setSelection(ssIntervalPosition);
+
+        }
+
+
+    }
+
+    public void toggleReminders(View view){
+        Switch reminderSwitch=view.findViewById(R.id.remindersToggle);
+        Intent serviceIntent=new Intent(getBaseContext(), ReminderService.class);
+        if(reminderSwitch.isChecked()){
+            startService(serviceIntent);
+        }else{
+
+            stopService(serviceIntent);
+        }
     }
 
     public void toggleTextInput(View view){
@@ -343,13 +424,16 @@ public class ManageRemindersDetailsActivity extends AppCompatActivity{
         reminderVO.setToTimeFriday(editToReminderFriday.getText().toString());
         reminderVO.setToTimeSaturday(editToReminderSaturday.getText().toString());
 
-        reminderVO.setRepeatEveryHH(Utils.getValue(hhSpinner.getSelectedItem().toString(),"hr"));
-        reminderVO.setRepeatEveryMM(Utils.getValue(mmSpinner.getSelectedItem().toString(),"min"));
-        reminderVO.setRepeatEverySS(Utils.getValue(ssSpinner.getSelectedItem().toString(),"sec"));
-        reminderVO.setInterval(Utils.getValue(ssReminderInterval.getSelectedItem().toString(),"sec"));
+        reminderVO.setRepeatEveryHH(Utils.getValue(hhSpinner.getSelectedItem().toString(),reminderHHKey));
+        reminderVO.setRepeatEveryMM(Utils.getValue(mmSpinner.getSelectedItem().toString(),reminderMinKey));
+        reminderVO.setRepeatEverySS(Utils.getValue(ssSpinner.getSelectedItem().toString(),reminderSecKey));
+        reminderVO.setInterval(Utils.getValue(ssReminderInterval.getSelectedItem().toString(),reminderSecKey));
 
 
         reminderHelper.persistReminder(personalAssistantDatabase,reminderVO);
+        
+        finish();
+        startActivity(new Intent(this,ManageRemindersListActivity.class));
     }
 
 

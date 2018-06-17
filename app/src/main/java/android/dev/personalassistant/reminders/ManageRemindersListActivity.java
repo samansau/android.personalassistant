@@ -25,9 +25,31 @@ import java.util.List;
 import java.util.Map;
 
 
+import static android.dev.personalassistant.utils.Keys.reminderFromDate;
+import static android.dev.personalassistant.utils.Keys.reminderFromTime;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeFriday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeMonday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeSaturday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeSunday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeThursday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeTuesday;
+import static android.dev.personalassistant.utils.Keys.reminderFromTimeWednesday;
+import static android.dev.personalassistant.utils.Keys.reminderIdKey;
 import static android.dev.personalassistant.utils.Keys.reminderName;
 import static android.dev.personalassistant.utils.Keys.reminderInterval;
-import static android.dev.personalassistant.utils.Keys.reminderRepeat;
+import static android.dev.personalassistant.utils.Keys.reminderRepeatHH;
+import static android.dev.personalassistant.utils.Keys.reminderRepeatHHMMSS;
+import static android.dev.personalassistant.utils.Keys.reminderRepeatMM;
+import static android.dev.personalassistant.utils.Keys.reminderRepeatSS;
+import static android.dev.personalassistant.utils.Keys.reminderToDate;
+import static android.dev.personalassistant.utils.Keys.reminderToTime;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeFriday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeMonday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeSaturday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeSunday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeThursday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeTuesday;
+import static android.dev.personalassistant.utils.Keys.reminderToTimeWednesday;
 import static java.security.AccessController.getContext;
 
 public class ManageRemindersListActivity extends AppCompatActivity {
@@ -44,7 +66,7 @@ public class ManageRemindersListActivity extends AppCompatActivity {
                 getBaseContext(),
                 reminderList,
                 R.layout.three_line_list_item,
-                new String[] {reminderName,reminderRepeat,reminderInterval},
+                new String[] {reminderName,reminderRepeatHHMMSS,reminderInterval},
                 new int[] {R.id.text1,R.id.text2,R.id.text3}
         );
         populateReminderList(getBaseContext());
@@ -62,6 +84,33 @@ public class ManageRemindersListActivity extends AppCompatActivity {
                 PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
                 try {
                     ReminderVO reminderVO = reminderHelper.fetchReminderVOByName(personalAssistantDatabase,reminderNameStr);
+                    extras.putInt(reminderIdKey, reminderVO.getReminderId());
+                    extras.putString(reminderName, reminderVO.getReminderName());
+                    extras.putString(reminderFromDate ,reminderVO.getFromDate());
+                    extras.putString(reminderToDate ,reminderVO.getToDate());
+                    extras.putString(reminderFromTime,reminderVO.getFromTime());
+                    extras.putString(reminderToTime,reminderVO.getToTime());
+                    extras.putString(reminderFromTimeSunday,reminderVO.getFromTimeSunday());
+                    extras.putString(reminderToTimeSunday,reminderVO.getToTimeSunday());
+                    extras.putString(reminderFromTimeMonday,reminderVO.getFromTimeMonday());
+                    extras.putString(reminderToTimeMonday,reminderVO.getToTimeMonday());
+                    extras.putString(reminderFromTimeTuesday,reminderVO.getFromTimeTuesday());
+                    extras.putString(reminderToTimeTuesday,reminderVO.getToTimeTuesday());
+                    extras.putString(reminderFromTimeWednesday,reminderVO.getFromTimeWednesday());
+                    extras.putString(reminderToTimeWednesday,reminderVO.getToTimeWednesday());
+                    extras.putString(reminderFromTimeThursday,reminderVO.getFromTimeThursday());
+                    extras.putString(reminderToTimeThursday,reminderVO.getToTimeThursday());
+                    extras.putString(reminderFromTimeFriday,reminderVO.getFromTimeFriday());
+                    extras.putString(reminderToTimeFriday,reminderVO.getToTimeFriday());
+                    extras.putString(reminderFromTimeSaturday,reminderVO.getFromTimeSaturday());
+                    extras.putString(reminderToTimeSaturday,reminderVO.getToTimeSaturday());
+
+                    extras.putInt(reminderRepeatHH,reminderVO.getRepeatEveryHH());
+                    extras.putInt(reminderRepeatMM,reminderVO.getRepeatEveryMM());
+                    extras.putInt(reminderRepeatSS,reminderVO.getRepeatEverySS());
+                    extras.putInt(reminderInterval,reminderVO.getInterval());
+
+
 
                     //TODO
 
@@ -83,7 +132,7 @@ public class ManageRemindersListActivity extends AppCompatActivity {
             for(ReminderVO reminderVO : reminderVOs){
                 Map<String, String> map = new HashMap();
                 map.put(reminderName, reminderVO.getReminderName());
-                map.put(reminderRepeat, "Repeat every(hh:mm:ss) : "+reminderVO.getRepeatEveryHH() +":" +reminderVO.getRepeatEveryMM()+":"+reminderVO.getRepeatEverySS());
+                map.put(reminderRepeatHHMMSS, "Repeat every(hh:mm:ss) : "+reminderVO.getRepeatEveryHH() +":" +reminderVO.getRepeatEveryMM()+":"+reminderVO.getRepeatEverySS());
                 map.put(reminderInterval, "Buzz for period : "+reminderVO.getInterval()+" secs");
                 reminderList.add(map);
             }
