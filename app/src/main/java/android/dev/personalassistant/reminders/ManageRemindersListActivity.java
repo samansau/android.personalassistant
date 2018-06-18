@@ -1,5 +1,6 @@
 package android.dev.personalassistant.reminders;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.dev.personalassistant.dao.PersonalAssistantDatabase;
 import android.dev.personalassistant.entities.reminder.Reminder;
 import android.dev.personalassistant.helpers.kym.DatabaseHelper;
 import android.dev.personalassistant.helpers.reminder.ReminderHelper;
+import android.dev.personalassistant.services.reminder.ReminderService;
 import android.dev.personalassistant.vo.kym.CardVO;
 import android.dev.personalassistant.vo.reminder.ReminderVO;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +27,9 @@ import java.util.List;
 import java.util.Map;
 
 
+import static android.dev.personalassistant.utils.Keys.everydayOn;
+import static android.dev.personalassistant.utils.Keys.fridayOn;
+import static android.dev.personalassistant.utils.Keys.mondayOn;
 import static android.dev.personalassistant.utils.Keys.reminderFromDate;
 import static android.dev.personalassistant.utils.Keys.reminderFromTime;
 import static android.dev.personalassistant.utils.Keys.reminderFromTimeFriday;
@@ -37,6 +42,7 @@ import static android.dev.personalassistant.utils.Keys.reminderFromTimeWednesday
 import static android.dev.personalassistant.utils.Keys.reminderIdKey;
 import static android.dev.personalassistant.utils.Keys.reminderName;
 import static android.dev.personalassistant.utils.Keys.reminderInterval;
+import static android.dev.personalassistant.utils.Keys.reminderOn;
 import static android.dev.personalassistant.utils.Keys.reminderRepeatHH;
 import static android.dev.personalassistant.utils.Keys.reminderRepeatHHMMSS;
 import static android.dev.personalassistant.utils.Keys.reminderRepeatMM;
@@ -50,6 +56,11 @@ import static android.dev.personalassistant.utils.Keys.reminderToTimeSunday;
 import static android.dev.personalassistant.utils.Keys.reminderToTimeThursday;
 import static android.dev.personalassistant.utils.Keys.reminderToTimeTuesday;
 import static android.dev.personalassistant.utils.Keys.reminderToTimeWednesday;
+import static android.dev.personalassistant.utils.Keys.saturdayOn;
+import static android.dev.personalassistant.utils.Keys.sundayOn;
+import static android.dev.personalassistant.utils.Keys.thursdayOn;
+import static android.dev.personalassistant.utils.Keys.tuesdayOn;
+import static android.dev.personalassistant.utils.Keys.wednesdayOn;
 import static java.security.AccessController.getContext;
 
 public class ManageRemindersListActivity extends AppCompatActivity {
@@ -71,6 +82,21 @@ public class ManageRemindersListActivity extends AppCompatActivity {
         );
         populateReminderList(getBaseContext());
         reminderListView.setAdapter(reminderAdapter);
+
+        reminderListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                ReminderHelper reminderHelper=new ReminderHelper();
+                HashMap<String,String> reminderData=(HashMap)adapterView.getItemAtPosition(pos);;
+                final String reminderNameValue=reminderData.get(reminderName);
+                PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(view.getContext());
+                reminderHelper.deleteReminder(personalAssistantDatabase,reminderNameValue);
+                Intent serviceIntent=new Intent(getBaseContext(), ReminderService.class);
+                stopService(serviceIntent);
+                ((Activity)view.getContext()).recreate();
+                return false;
+            }
+        });
 
         reminderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -109,6 +135,16 @@ public class ManageRemindersListActivity extends AppCompatActivity {
                     extras.putInt(reminderRepeatMM,reminderVO.getRepeatEveryMM());
                     extras.putInt(reminderRepeatSS,reminderVO.getRepeatEverySS());
                     extras.putInt(reminderInterval,reminderVO.getInterval());
+
+                    extras.putBoolean(reminderOn,reminderVO.isReminderOn());
+                    extras.putBoolean(everydayOn,reminderVO.isEveryDayOn());
+                    extras.putBoolean(sundayOn,reminderVO.isSundayOn());
+                    extras.putBoolean(mondayOn,reminderVO.isMondayOn());
+                    extras.putBoolean(tuesdayOn,reminderVO.isTuesdayOn());
+                    extras.putBoolean(wednesdayOn,reminderVO.isWednesdayOn());
+                    extras.putBoolean(thursdayOn,reminderVO.isThursdayOn());
+                    extras.putBoolean(fridayOn,reminderVO.isFridayOn());
+                    extras.putBoolean(saturdayOn,reminderVO.isSaturdayOn());
 
 
 

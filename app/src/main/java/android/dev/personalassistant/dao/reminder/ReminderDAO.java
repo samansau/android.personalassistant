@@ -1,6 +1,7 @@
 package android.dev.personalassistant.dao.reminder;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
@@ -30,6 +31,9 @@ public interface ReminderDAO {
 
     @Query("select * from Reminder where reminderName =:reminderName")
     public Reminder fetchReminderByReminderName(String reminderName);
+
+    @Delete
+    public void deleteReminder(Reminder reminder);
 
 
 }

@@ -75,7 +75,6 @@
             android:layout_height="wrap_content"
             android:text="Reminders"
             android:id="@+id/remindersToggle"
-            android:onClick="toggleReminders"
             />
     </LinearLayout>
 

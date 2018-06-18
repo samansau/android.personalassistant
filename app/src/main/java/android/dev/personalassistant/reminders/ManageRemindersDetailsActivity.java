@@ -30,6 +30,9 @@ import android.widget.ToggleButton;
 
 import java.util.Calendar;
 
+import static android.dev.personalassistant.utils.Keys.everydayOn;
+import static android.dev.personalassistant.utils.Keys.fridayOn;
+import static android.dev.personalassistant.utils.Keys.mondayOn;
 import static android.dev.personalassistant.utils.Keys.reminderFromDate;
 import static android.dev.personalassistant.utils.Keys.reminderFromTime;
 import static android.dev.personalassistant.utils.Keys.reminderFromTimeFriday;
@@ -44,6 +47,7 @@ import static android.dev.personalassistant.utils.Keys.reminderIdKey;
 import static android.dev.personalassistant.utils.Keys.reminderInterval;
 import static android.dev.personalassistant.utils.Keys.reminderMinKey;
 import static android.dev.personalassistant.utils.Keys.reminderName;
+import static android.dev.personalassistant.utils.Keys.reminderOn;
 import static android.dev.personalassistant.utils.Keys.reminderRepeatHH;
 import static android.dev.personalassistant.utils.Keys.reminderRepeatMM;
 import static android.dev.personalassistant.utils.Keys.reminderRepeatSS;
@@ -57,6 +61,11 @@ import static android.dev.personalassistant.utils.Keys.reminderToTimeSunday;
 import static android.dev.personalassistant.utils.Keys.reminderToTimeThursday;
 import static android.dev.personalassistant.utils.Keys.reminderToTimeTuesday;
 import static android.dev.personalassistant.utils.Keys.reminderToTimeWednesday;
+import static android.dev.personalassistant.utils.Keys.saturdayOn;
+import static android.dev.personalassistant.utils.Keys.sundayOn;
+import static android.dev.personalassistant.utils.Keys.thursdayOn;
+import static android.dev.personalassistant.utils.Keys.tuesdayOn;
+import static android.dev.personalassistant.utils.Keys.wednesdayOn;
 
 public class ManageRemindersDetailsActivity extends AppCompatActivity{
 
@@ -69,6 +78,10 @@ public class ManageRemindersDetailsActivity extends AppCompatActivity{
             editToReminderSaturday,editFromReminderSaturday;
 
     Spinner hhSpinner,mmSpinner,ssSpinner,ssReminderInterval;
+
+    Switch reminderSwitch,everydaySwitch,sundaySwitch,
+            mondaySwitch,tuesdaySwitch,wednesdaySwitch,
+            thursdaySwitch,fridaySwitch,saturdaySwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,24 +111,33 @@ public class ManageRemindersDetailsActivity extends AppCompatActivity{
         ssReminderInterval.setSelection(1);
 
 
-        fromDate=(EditText)findViewById(R.id.reminderFromTime);
-        toDate=(EditText)findViewById(R.id.reminderToTime);
-        editFromReminder=(EditText)findViewById(R.id.reminderFromTime);
-        editToReminder=(EditText)findViewById(R.id.reminderToTime);
-        editFromReminderSunday=(EditText)findViewById(R.id.reminderFromTimeSunday);
-        editToReminderSunday=(EditText)findViewById(R.id.reminderToTimeSunday);
-        editFromReminderMonday=(EditText)findViewById(R.id.reminderFromTimeMonday);
-        editToReminderMonday=(EditText)findViewById(R.id.reminderToTimeMonday);
-        editFromReminderTuesday=(EditText)findViewById(R.id.reminderFromTimeTuesday);
-        editToReminderTuesday=(EditText)findViewById(R.id.reminderToTimeTuesday);
-        editFromReminderWednesday=(EditText)findViewById(R.id.reminderFromTimeWednesday);
-        editToReminderWednesday=(EditText)findViewById(R.id.reminderToTimeWednesday);
-        editFromReminderThursday=(EditText)findViewById(R.id.reminderFromTimeThursday);
-        editToReminderThursday=(EditText)findViewById(R.id.reminderToTimeThursday);
-        editFromReminderFriday=(EditText)findViewById(R.id.reminderFromTimeFriday);
-        editToReminderFriday=(EditText)findViewById(R.id.reminderToTimeFriday);
-        editFromReminderSaturday=(EditText)findViewById(R.id.reminderFromTimeSaturday);
-        editToReminderSaturday=(EditText)findViewById(R.id.reminderToTimeSaturday);
+        fromDate=findViewById(R.id.reminderFromTime);
+        toDate=findViewById(R.id.reminderToTime);
+        editFromReminder=findViewById(R.id.reminderFromTime);
+        editToReminder=findViewById(R.id.reminderToTime);
+        editFromReminderSunday=findViewById(R.id.reminderFromTimeSunday);
+        editToReminderSunday=findViewById(R.id.reminderToTimeSunday);
+        editFromReminderMonday=findViewById(R.id.reminderFromTimeMonday);
+        editToReminderMonday=findViewById(R.id.reminderToTimeMonday);
+        editFromReminderTuesday=findViewById(R.id.reminderFromTimeTuesday);
+        editToReminderTuesday=findViewById(R.id.reminderToTimeTuesday);
+        editFromReminderWednesday=findViewById(R.id.reminderFromTimeWednesday);
+        editToReminderWednesday=findViewById(R.id.reminderToTimeWednesday);
+        editFromReminderThursday=findViewById(R.id.reminderFromTimeThursday);
+        editToReminderThursday=findViewById(R.id.reminderToTimeThursday);
+        editFromReminderFriday=findViewById(R.id.reminderFromTimeFriday);
+        editToReminderFriday=findViewById(R.id.reminderToTimeFriday);
+        editFromReminderSaturday=findViewById(R.id.reminderFromTimeSaturday);
+        editToReminderSaturday=findViewById(R.id.reminderToTimeSaturday);
+        reminderSwitch=findViewById(R.id.remindersToggle);
+        everydaySwitch=findViewById(R.id.everyDayToggle);
+        sundaySwitch=findViewById(R.id.sundayToggle);
+        mondaySwitch=findViewById(R.id.mondayToggle);
+        tuesdaySwitch=findViewById(R.id.tuesdayToggle);
+        wednesdaySwitch=findViewById(R.id.wednesdayToggle);
+        thursdaySwitch=findViewById(R.id.thursdayToggle);
+        fridaySwitch=findViewById(R.id.fridayToggle);
+        saturdaySwitch=findViewById(R.id.saturdayToggle);
 
 
         Bundle bundle=getIntent().getExtras();
@@ -153,18 +175,27 @@ public class ManageRemindersDetailsActivity extends AppCompatActivity{
             int ssIntervalPosition =ssReminderAdapter.getPosition(Utils.padZeroes(bundle.getInt(reminderInterval),2)+" "+reminderSecKey);
             ssReminderInterval.setSelection(ssIntervalPosition);
 
+            reminderSwitch.setChecked(bundle.getBoolean(reminderOn));
+            everydaySwitch.setChecked(bundle.getBoolean(everydayOn));
+            sundaySwitch.setChecked(bundle.getBoolean(sundayOn));
+            mondaySwitch.setChecked(bundle.getBoolean(mondayOn));
+            tuesdaySwitch.setChecked(bundle.getBoolean(tuesdayOn));
+            wednesdaySwitch.setChecked(bundle.getBoolean(wednesdayOn));
+            thursdaySwitch.setChecked(bundle.getBoolean(thursdayOn));
+            fridaySwitch.setChecked(bundle.getBoolean(fridayOn));
+            saturdaySwitch.setChecked(bundle.getBoolean(saturdayOn));
+
+
         }
 
 
     }
 
-    public void toggleReminders(View view){
-        Switch reminderSwitch=view.findViewById(R.id.remindersToggle);
+    public void toggleReminders(){
         Intent serviceIntent=new Intent(getBaseContext(), ReminderService.class);
         if(reminderSwitch.isChecked()){
             startService(serviceIntent);
         }else{
-
             stopService(serviceIntent);
         }
     }
@@ -395,6 +426,7 @@ public class ManageRemindersDetailsActivity extends AppCompatActivity{
     }
 
     public void persistReminder(View view){
+        toggleReminders();
         ReminderHelper reminderHelper=new ReminderHelper();
         PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(getApplicationContext());
 
@@ -428,6 +460,15 @@ public class ManageRemindersDetailsActivity extends AppCompatActivity{
         reminderVO.setRepeatEveryMM(Utils.getValue(mmSpinner.getSelectedItem().toString(),reminderMinKey));
         reminderVO.setRepeatEverySS(Utils.getValue(ssSpinner.getSelectedItem().toString(),reminderSecKey));
         reminderVO.setInterval(Utils.getValue(ssReminderInterval.getSelectedItem().toString(),reminderSecKey));
+
+        reminderVO.setReminderOn(reminderSwitch.isChecked());
+        reminderVO.setSundayOn(sundaySwitch.isChecked());
+        reminderVO.setMondayOn(mondaySwitch.isChecked());
+        reminderVO.setTuesdayOn(tuesdaySwitch.isChecked());
+        reminderVO.setWednesdayOn(wednesdaySwitch.isChecked());
+        reminderVO.setThursdayOn(thursdaySwitch.isChecked());
+        reminderVO.setFridayOn(fridaySwitch.isChecked());
+        reminderVO.setSaturdayOn(saturdaySwitch.isChecked());
 
 
         reminderHelper.persistReminder(personalAssistantDatabase,reminderVO);

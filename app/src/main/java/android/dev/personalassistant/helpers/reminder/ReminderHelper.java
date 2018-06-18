@@ -17,6 +17,23 @@ import java.util.List;
 
 public class ReminderHelper {
 
+    public void deleteReminder(final PersonalAssistantDatabase personalAssistantDatabase, final String reminderName) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Reminder reminder = new Reminder();
+                try {
+                    ReminderVO reminderVOOOld=fetchReminderVOByName(personalAssistantDatabase, reminderName);
+                    reminder.setReminderId(reminderVOOOld.getReminderId());
+                    personalAssistantDatabase.getReminderDAO().deleteReminder(reminder);
+                }catch (InterruptedException ie){
+                    Log.e("deleteCard",ie.getStackTrace().toString());
+                }
+
+            }
+        }).start();
+    }
+
     public void persistReminder(final PersonalAssistantDatabase personalAssistantDatabase, final ReminderVO reminderVO){
         new Thread(new Runnable() {
             @Override
@@ -52,6 +69,15 @@ public class ReminderHelper {
                 reminder.setRepeatEverySS(reminderVO.getRepeatEverySS());
                 reminder.setInterval(reminderVO.getInterval());
 
+                reminder.setReminderOn(reminderVO.isReminderOn());
+                reminder.setEveryDayOn(reminderVO.isEveryDayOn());
+                reminder.setSundayOn(reminderVO.isSundayOn());
+                reminder.setMondayOn(reminderVO.isMondayOn());
+                reminder.setTuesdayOn(reminderVO.isTuesdayOn());
+                reminder.setWednesdayOn(reminderVO.isWednesdayOn());
+                reminder.setThursdayOn(reminderVO.isThursdayOn());
+                reminder.setFridayOn(reminderVO.isFridayOn());
+                reminder.setSaturdayOn(reminderVO.isSaturdayOn());
 
 
 
@@ -106,6 +132,17 @@ public class ReminderHelper {
                         reminderVO.setRepeatEverySS(reminder.getRepeatEverySS());
                         reminderVO.setInterval(reminder.getInterval());
 
+                        reminderVO.setReminderOn(reminder.isReminderOn());
+                        reminderVO.setEveryDayOn(reminder.isEveryDayOn());
+                        reminderVO.setSundayOn(reminder.isSundayOn());
+                        reminderVO.setMondayOn(reminder.isMondayOn());
+                        reminderVO.setTuesdayOn(reminder.isTuesdayOn());
+                        reminderVO.setWednesdayOn(reminder.isWednesdayOn());
+                        reminderVO.setThursdayOn(reminder.isThursdayOn());
+                        reminderVO.setFridayOn(reminder.isFridayOn());
+                        reminderVO.setSaturdayOn(reminder.isSaturdayOn());
+
+
 
                 }
             }
@@ -155,6 +192,16 @@ public class ReminderHelper {
                         reminderVO.setRepeatEveryMM(reminder.getRepeatEveryMM());
                         reminderVO.setRepeatEverySS(reminder.getRepeatEverySS());
                         reminderVO.setInterval(reminder.getInterval());
+
+                        reminderVO.setReminderOn(reminder.isReminderOn());
+                        reminderVO.setEveryDayOn(reminder.isEveryDayOn());
+                        reminderVO.setSundayOn(reminder.isSundayOn());
+                        reminderVO.setMondayOn(reminder.isMondayOn());
+                        reminderVO.setTuesdayOn(reminder.isTuesdayOn());
+                        reminderVO.setWednesdayOn(reminder.isWednesdayOn());
+                        reminderVO.setThursdayOn(reminder.isThursdayOn());
+                        reminderVO.setFridayOn(reminder.isFridayOn());
+                        reminderVO.setSaturdayOn(reminder.isSaturdayOn());
 
 
                         reminderVOs.add(reminderVO);

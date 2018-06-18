@@ -39,6 +39,16 @@ public class ReminderVO {
         private int repeatEverySS;
         private int interval;
 
+        private boolean isReminderOn;
+        private boolean isEveryDayOn;
+        private boolean isSundayOn;
+        private boolean isMondayOn;
+        private boolean isTuesdayOn;
+        private boolean isWednesdayOn;
+        private boolean isThursdayOn;
+        private boolean isFridayOn;
+        private boolean isSaturdayOn;
+
 
         public int getReminderId() {
             return reminderId;
@@ -231,6 +241,80 @@ public class ReminderVO {
         public void setInterval(int interval) {
             this.interval = interval;
         }
+
+
+    public boolean isReminderOn() {
+        return isReminderOn;
+    }
+
+    public void setReminderOn(boolean reminderOn) {
+        isReminderOn = reminderOn;
+    }
+
+    public boolean isEveryDayOn() {
+        return isEveryDayOn;
+    }
+
+    public void setEveryDayOn(boolean everyDayOn) {
+        isEveryDayOn = everyDayOn;
+    }
+
+    public boolean isSundayOn() {
+        return isSundayOn;
+    }
+
+    public void setSundayOn(boolean sundayOn) {
+        isSundayOn = sundayOn;
+    }
+
+    public boolean isMondayOn() {
+        return isMondayOn;
+    }
+
+    public void setMondayOn(boolean mondayOn) {
+        isMondayOn = mondayOn;
+    }
+
+    public boolean isTuesdayOn() {
+        return isTuesdayOn;
+    }
+
+    public void setTuesdayOn(boolean tuesdayOn) {
+        isTuesdayOn = tuesdayOn;
+    }
+
+    public boolean isWednesdayOn() {
+        return isWednesdayOn;
+    }
+
+    public void setWednesdayOn(boolean wednesdayOn) {
+        isWednesdayOn = wednesdayOn;
+    }
+
+    public boolean isThursdayOn() {
+        return isThursdayOn;
+    }
+
+    public void setThursdayOn(boolean thursdayOn) {
+        isThursdayOn = thursdayOn;
+    }
+
+    public boolean isFridayOn() {
+        return isFridayOn;
+    }
+
+    public void setFridayOn(boolean fridayOn) {
+        isFridayOn = fridayOn;
+    }
+
+    public boolean isSaturdayOn() {
+        return isSaturdayOn;
+    }
+
+    public void setSaturdayOn(boolean saturdayOn) {
+        isSaturdayOn = saturdayOn;
+    }
+
     }
 
 

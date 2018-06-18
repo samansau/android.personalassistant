@@ -43,6 +43,16 @@ public class Keys {
     public static final String reminderInterval = "reminder_interval";
 
 
+    public static final String reminderOn = "reminder_on";
+    public static final String everydayOn = "everyday_on";
+    public static final String sundayOn = "sunday_on";
+    public static final String mondayOn = "monday_on";
+    public static final String tuesdayOn = "tuesday_on";
+    public static final String wednesdayOn = "wednesday_on";
+    public static final String thursdayOn = "thursday_on";
+    public static final String fridayOn = "friday_on";
+    public static final String saturdayOn = "saturday_on";
+
 
 
 
