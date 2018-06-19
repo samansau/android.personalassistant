@@ -1,6 +1,7 @@
 package android.dev.personalassistant.expenses;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.main.BaseActivity;
@@ -9,6 +10,7 @@ import android.dev.personalassistant.tags.TaggingUtility;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.GridLayout;
 
 import java.util.ArrayList;
@@ -19,6 +21,11 @@ public class AddEditExpensesActivity extends BaseActivity implements Constants {
     String [] mExpenseTags=new String[]{};
     SharedPreferences mSharedPref= null;
 
+
+    public  void openManageExpenseTags(View view){
+        Intent intent=new Intent(this,ManageExpenseTagsActivity.class);
+        startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         savedInstanceState=new Bundle();

@@ -3,6 +3,7 @@ package android.dev.personalassistant.main;
 import android.content.Intent;
 import android.dev.personalassistant.MyInformationActivity;
 import android.dev.personalassistant.R;
+import android.dev.personalassistant.expenses.AddEditExpensesActivity;
 import android.dev.personalassistant.investments.InvestmentsActivity;
 import android.dev.personalassistant.reminders.ManageRemindersListActivity;
 import android.dev.personalassistant.tabs.TabAdapter;
@@ -25,6 +26,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 /**
  * Created by saurabh on 3/31/18.
@@ -177,9 +180,15 @@ public class BaseActivity  extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    public void addManualExpensesDetails(View view){
+        Intent intent=new Intent(view.getContext(),AddEditExpensesActivity.class);
+        startActivity(intent);
+
+    }
     private void populateFinancialTransactionsTabs(){
         viewPager = (ViewPager) findViewById(R.id.expenseViewPager);
-        String expenseTitles[]=new String[]{"All", "Electronic", "Manual"};
+        String expenseTitles[]=new String[]{"Manual", "Electronic","All" };
         TabFragment expenseTabFragment=new ExpenseTabFragment();
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),expenseTitles,expenseTabFragment);
         viewPager.setAdapter(adapter);

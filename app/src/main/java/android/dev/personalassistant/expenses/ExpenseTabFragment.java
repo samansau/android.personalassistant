@@ -52,12 +52,21 @@ public class ExpenseTabFragment extends TabFragment {
         View view =null;
         switch(position) {
             case 0:
+                view =getManualExpensesView(inflater, container);
+                break;
+            case 2:
                 view = getAllExpensesView(inflater, container);
                 break;
+
         }
         return view;
 
         //return inflater.inflate(R.layout.expense_tabs, container, false);
+    }
+
+    private View getManualExpensesView(LayoutInflater inflater, ViewGroup container){
+        View view=inflater.inflate(R.layout.activity_expenses_show_manual,container,false);
+        return view;
     }
 
 
@@ -80,6 +89,12 @@ public class ExpenseTabFragment extends TabFragment {
     private void populateAllExpensesList(Context context){
         Utils.populateListOf4Items(allExpensesList);
     }
+    public void addManualExpensesDetails(View view){
+        Intent intent=new Intent(view.getContext(),AddEditExpensesActivity.class);
+        startActivity(intent);
+
+    }
+
 
 //    @Override
 //    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
