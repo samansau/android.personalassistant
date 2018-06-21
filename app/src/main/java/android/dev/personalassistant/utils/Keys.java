@@ -64,6 +64,8 @@ public class Keys {
     //Personal keys
     public static final String personId="person_id";
     public static final String fullName="full_name";
+    public static final String expenseTag="expense_tag";
+    public static final String expenseTagId="expense_tag_id";
     public static final String relation="relation";
     public static final String dob="dob";
     public static final String panCardNumber="pan_card_number";

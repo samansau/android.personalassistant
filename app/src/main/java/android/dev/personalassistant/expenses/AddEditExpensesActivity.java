@@ -44,7 +44,7 @@ public class AddEditExpensesActivity extends BaseActivity implements Constants {
 
 
 
-        final GridLayout mGridLayout=(GridLayout)findViewById(R.id.selectedExpensesTags);
+        final GridLayout mGridLayout=(GridLayout)findViewById(R.id.selectedExpensedForTags);
         final TaggingUtility taggingUtilitySelected=new TaggingUtility(this,mGridLayout);
         taggingUtilitySelected.populateTagView(mSharedPref, SELECTED_TAG_KEYS, null);
         mSharedPref.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {

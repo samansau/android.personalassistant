@@ -52,6 +52,8 @@ import static android.dev.personalassistant.utils.Keys.cardType;
 import static android.dev.personalassistant.utils.Keys.dob;
 import static android.dev.personalassistant.utils.Keys.drivingLisenceExpiry;
 import static android.dev.personalassistant.utils.Keys.drivingLisenceNumber;
+import static android.dev.personalassistant.utils.Keys.expenseTag;
+import static android.dev.personalassistant.utils.Keys.expenseTagId;
 import static android.dev.personalassistant.utils.Keys.fullName;
 import static android.dev.personalassistant.utils.Keys.netBankingCustomerId;
 import static android.dev.personalassistant.utils.Keys.netBankingPassword;
@@ -203,6 +205,8 @@ public class KymTabFragment extends TabFragment {
                     PersonVO personVO = personHelper.fetchPersonVOByPersonName(personalAssistantDatabase,personFullName);
                     extras.putInt(personId,personVO.getPersonId());
                     extras.putString(fullName, personVO.getFullName());
+                    extras.putString(expenseTag,personVO.getExpenseTag());
+                    extras.putInt(expenseTagId,personVO.getExpenseTagId());
                     extras.putString(relation, personVO.getRelation());
                     extras.putString(dob, personVO.getDob());
                     extras.putString(panCardNumber, personVO.getPanCardNumber());

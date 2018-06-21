@@ -19,6 +19,9 @@ public class PersonVO {
     private String passportExpiry;
     private String drivingLisenceNumber;
     private String drivingLisenceExpiry;
+    private String expenseTag;
+    private int expenseTagId;
+
 
 
     public boolean isNew() {
@@ -107,6 +110,22 @@ public class PersonVO {
 
     public void setDrivingLisenceExpiry(String drivingLisenceExpiry) {
         this.drivingLisenceExpiry = drivingLisenceExpiry;
+    }
+
+    public String getExpenseTag() {
+        return expenseTag;
+    }
+
+    public void setExpenseTag(String expenseTag) {
+        this.expenseTag = expenseTag;
+    }
+
+    public int getExpenseTagId() {
+        return expenseTagId;
+    }
+
+    public void setExpenseTagId(int expenseTagId) {
+        this.expenseTagId = expenseTagId;
     }
 
     @Override

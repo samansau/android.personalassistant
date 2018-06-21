@@ -19,6 +19,8 @@ import static android.dev.personalassistant.utils.Keys.aadharCardNumber;
 import static android.dev.personalassistant.utils.Keys.dob;
 import static android.dev.personalassistant.utils.Keys.drivingLisenceExpiry;
 import static android.dev.personalassistant.utils.Keys.drivingLisenceNumber;
+import static android.dev.personalassistant.utils.Keys.expenseTag;
+import static android.dev.personalassistant.utils.Keys.expenseTagId;
 import static android.dev.personalassistant.utils.Keys.fullName;
 import static android.dev.personalassistant.utils.Keys.panCardNumber;
 import static android.dev.personalassistant.utils.Keys.passportExpiry;
@@ -29,6 +31,7 @@ import static android.dev.personalassistant.utils.Keys.relation;
 public class KymShowPersonalDetailsActivity extends AppCompatActivity {
 
     TextView fullNameObj;
+    TextView expenseTagObj;
     Spinner spinnerRelations;
     TextView dobObj;
     TextView panCardNumberObj;
@@ -39,12 +42,14 @@ public class KymShowPersonalDetailsActivity extends AppCompatActivity {
     TextView drivingLisenceExpiryObj;
     boolean isNew=true;
     int personIdVal=0;
+    int tagId=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kym_show_personal_details);
         fullNameObj=findViewById(R.id.fullNameField);
+        expenseTagObj =findViewById(R.id.personalTagField);
         spinnerRelations = (Spinner) findViewById(R.id.relations);
         dobObj=findViewById(R.id.dobField);
         panCardNumberObj=findViewById(R.id.panNumberField);
@@ -66,6 +71,7 @@ public class KymShowPersonalDetailsActivity extends AppCompatActivity {
             personIdVal=bundle.getInt(personId);
 
             fullNameObj.setText(bundle.getString(fullName));
+            expenseTagObj.setText(bundle.getString(expenseTag));
             dobObj.setText(bundle.getString(dob));
             panCardNumberObj.setText(bundle.getString(panCardNumber));
             aadharCardNumberObj.setText(bundle.getString(aadharCardNumber));
@@ -73,6 +79,7 @@ public class KymShowPersonalDetailsActivity extends AppCompatActivity {
             passportExpiryObj.setText(bundle.getString(passportExpiry));
             drivingLisenceNumberObj.setText(bundle.getString(drivingLisenceNumber));
             drivingLisenceExpiryObj.setText(bundle.getString(drivingLisenceExpiry));
+            tagId=bundle.getInt(expenseTagId);
             isNew=false;
         }
 
@@ -85,6 +92,7 @@ public class KymShowPersonalDetailsActivity extends AppCompatActivity {
 
 
         personVO.setFullName(fullNameObj.getText().toString());
+        personVO.setExpenseTag(expenseTagObj.getText().toString());
         personVO.setRelation(spinnerRelations.getSelectedItem().toString());
         personVO.setDob(dobObj.getText().toString());
         personVO.setPanCardNumber(panCardNumberObj.getText().toString());
@@ -96,6 +104,7 @@ public class KymShowPersonalDetailsActivity extends AppCompatActivity {
 
         personVO.setNew(isNew);
         personVO.setPersonId(personIdVal);
+        personVO.setExpenseTagId(tagId);
         PersonHelper personHelper=new PersonHelper();
 
         Log.d("Person VO: ",personVO.toString());

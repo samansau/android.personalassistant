@@ -1,8 +1,10 @@
 package android.dev.personalassistant.entities.kym;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.dev.personalassistant.entities.expense.ExpenseTag;
 import android.dev.personalassistant.enums.Relations;
 import android.support.annotation.NonNull;
 
@@ -10,7 +12,14 @@ import android.support.annotation.NonNull;
  * Created by saurabh on 5/8/18.
  */
 
-@Entity(indices = @Index(value="fullName",unique = true))
+@Entity(foreignKeys = {@ForeignKey(entity = ExpenseTag.class,
+                                            parentColumns = "tagId",
+                                            childColumns = "tagId")
+
+                        },
+
+
+        indices = @Index(value="fullName",unique = true))
 public class Person {
     @PrimaryKey(autoGenerate = true)
     private int personId;
@@ -24,6 +33,7 @@ public class Person {
     private String passportExpiry;
     private String drivingLisenceNumber;
     private String drivingLisenceExpiry;
+    private int tagId;
 
     public int getPersonId() {
         return personId;
@@ -103,5 +113,13 @@ public class Person {
 
     public void setDrivingLisenceExpiry(String drivingLisenceExpiry) {
         this.drivingLisenceExpiry = drivingLisenceExpiry;
+    }
+
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
     }
 }
