@@ -69,7 +69,9 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".expenses.ExpensesShowManualActivity"></activity>
+        <activity android:name=".expenses.ExpensesShowManualActivity" />
+        <activity android:name=".expenses.ManageExpensedOnTagsActivity" />
+        <activity android:name=".expenses.ManageExpensedOnTagsDetailsActivity"></activity>
     </application>
 
 </manifest>

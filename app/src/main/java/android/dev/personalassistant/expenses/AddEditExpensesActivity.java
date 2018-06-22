@@ -26,6 +26,13 @@ public class AddEditExpensesActivity extends BaseActivity implements Constants {
         Intent intent=new Intent(this,ManageExpenseTagsActivity.class);
         startActivity(intent);
     }
+
+    public void openManageExpensedOnTags(View view){
+        Intent intent=new Intent(this,ManageExpensedOnTagsActivity.class);
+        startActivity(intent);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         savedInstanceState=new Bundle();
