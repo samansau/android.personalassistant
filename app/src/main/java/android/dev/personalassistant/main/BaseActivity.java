@@ -1,9 +1,19 @@
 package android.dev.personalassistant.main;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.dev.personalassistant.MyInformationActivity;
 import android.dev.personalassistant.R;
+import android.dev.personalassistant.dao.PersonalAssistantDatabase;
 import android.dev.personalassistant.expenses.AddEditExpensesActivity;
+import android.dev.personalassistant.expenses.ConfigureExpenseSummaryActivity;
+import android.dev.personalassistant.expenses.ConfigureScanSMSActivity;
+import android.dev.personalassistant.helpers.expenses.ExpensesHelper;
+import android.dev.personalassistant.helpers.kym.DatabaseHelper;
 import android.dev.personalassistant.investments.InvestmentsActivity;
 import android.dev.personalassistant.reminders.ManageRemindersListActivity;
 import android.dev.personalassistant.tabs.TabAdapter;
@@ -13,10 +23,14 @@ import android.dev.personalassistant.documents.ShowDocumentsListActivity;
 import android.dev.personalassistant.expenses.ManageExpenseTagsActivity;
 import android.dev.personalassistant.expenses.TrackElectronicExpensesActivity;
 import android.dev.personalassistant.kym.KnowYourMasterActivity;
+import android.dev.personalassistant.utils.Utils;
+import android.dev.personalassistant.vo.expenses.ExpenseVO;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -24,10 +38,23 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static android.dev.personalassistant.utils.Constants.EXPENSED_SMS_FILTER_SHARED_PREFERENCE;
+import static android.dev.personalassistant.utils.Constants.EXPENSED_SMS_FILTER_SHARED_PREFERENCE_KEY;
+import static android.dev.personalassistant.utils.Constants.SMS_READ_PERMISSION;
 
 /**
  * Created by saurabh on 3/31/18.
@@ -188,13 +215,88 @@ public class BaseActivity  extends AppCompatActivity {
     }
     private void populateFinancialTransactionsTabs(){
         viewPager = (ViewPager) findViewById(R.id.expenseViewPager);
-        String expenseTitles[]=new String[]{"Manual", "Electronic","All" };
+        String expenseTitles[]=new String[]{"Manual", "Electronic","Summary" };
         TabFragment expenseTabFragment=new ExpenseTabFragment();
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),expenseTitles,expenseTabFragment);
         viewPager.setAdapter(adapter);
 
         tabLayout = (TabLayout) findViewById(R.id.expenseTabs);
         tabLayout.setupWithViewPager(viewPager);
+
+    }
+
+    public void configureScanSMS(View view){
+        Intent intent= new Intent(view.getContext(),ConfigureScanSMSActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void configureExpenseSummary(View view){
+        Intent intent= new Intent(view.getContext(),ConfigureExpenseSummaryActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void scanSMSForExpenses(View view){
+        SharedPreferences expenseSmsFilterSharedPref=getSharedPreferences(EXPENSED_SMS_FILTER_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+        Set<String> expenseSmsFilterSet=expenseSmsFilterSharedPref.getStringSet(EXPENSED_SMS_FILTER_SHARED_PREFERENCE_KEY,new HashSet<>());
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_SMS},SMS_READ_PERMISSION);
+        Cursor cursor = getContentResolver().query(Uri.parse("content://sms/inbox"), null, null, null, null);
+        List<Map<String,String>> smsData=new ArrayList<>();
+        if (cursor.moveToFirst()) { // must check the result to prevent exception
+            int i=0;
+            do {
+                Map<String,String> smsRowMap=new HashMap<>();
+                String msgData = "";
+                for(int idx=0;idx<cursor.getColumnCount();idx++)
+                {
+                    smsRowMap.put(cursor.getColumnName(idx),cursor.getString(idx));
+                }
+                smsData.add(smsRowMap);
+            } while (cursor.moveToNext());
+        } else {
+            // empty box, no SMS
+        }
+        ExpensesHelper expensesHelper=new ExpensesHelper();
+        PersonalAssistantDatabase personalAssistantDatabase= DatabaseHelper.getDatabase(this);
+        List<ExpenseVO> existingExpenseVOs=new ArrayList<>();
+        try {
+            existingExpenseVOs=expensesHelper.fetchAllExpenseVOs(personalAssistantDatabase);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        for(Map<String ,String> smsRow:smsData){
+            Log.d("smsRow " ,smsRow.toString());
+            String smsMessage=smsRow.get("body");
+            String smsDateSent=smsRow.get("date_sent");
+            List<Long> existingTimestamps=existingExpenseVOs.stream().map( x-> x.getExpenseTimeStamp()).collect(Collectors.toList());
+            for(Long l:existingTimestamps){
+                Log.d("existingTimestamps ",l+"");
+            }
+            for(String smsFilterKeyword:expenseSmsFilterSet) {
+                String[] smsWords=smsMessage.split(" ");
+                for(String smsWord:smsWords) {
+                    if (smsWord.equals(smsFilterKeyword)) {
+                        ExpenseVO expenseVO=Utils.extractExpenseFromMessage(smsMessage);
+                        expenseVO.setManuallyEntered(false);
+                        long timeStamp=Long.parseLong(smsDateSent);
+                        expenseVO.setExpenseTimeStamp(timeStamp);
+                        expenseVO.setExpenseDate(timeStamp);
+
+                        expenseVO.setExpenseId(-1);
+                        try{
+                            if(!existingTimestamps.contains(expenseVO.getExpenseTimeStamp()))
+                                expensesHelper.persistExpense(personalAssistantDatabase,expenseVO);
+                            Log.d("expenseVO timestamp : ",expenseVO.getExpenseTimeStamp()+"");
+                        }catch (SQLException ex){
+                            ex.printStackTrace();
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
 
     }
 }

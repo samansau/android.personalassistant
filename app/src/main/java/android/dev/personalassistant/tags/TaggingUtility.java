@@ -1,6 +1,7 @@
 package android.dev.personalassistant.tags;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.dev.personalassistant.R;
 import android.graphics.Color;
@@ -9,9 +10,14 @@ import android.widget.GridLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -23,6 +29,7 @@ import static android.dev.personalassistant.utils.Constants.DOCUMENTS_TAG_KEYS;
 import static android.dev.personalassistant.utils.Constants.DOCUMENTS_TAG_MAX_KEY;
 import static android.dev.personalassistant.utils.Constants.EXPENSE_TAG_KEYS;
 import static android.dev.personalassistant.utils.Constants.EXPENSE_TAG_MAX_KEY;
+import static android.dev.personalassistant.utils.Constants.SELECTED_TAG_KEY;
 import static android.dev.personalassistant.utils.Constants.SELECTED_TAG_KEYS;
 import static android.support.design.R.id.center;
 
@@ -99,7 +106,34 @@ public class TaggingUtility {
 
 
     }
+    public static void addTagRows(String tag,
+                                  TableRow tagRow,
+                                  TextView textView,
+                                  GridLayout mGridLayout,
+                                  SharedPreferences mSharedPref
+                                  ,boolean isNewRow){
+        tagRow.setGravity(center);
+        textView.setTextSize(20);
 
+        textView.setTextColor(Color.BLACK);
+        textView.setPadding(30,10,30,10);
+        textView.setText(tag);
+
+        if(mSharedPref!=null) {
+            if (!mSharedPref.getStringSet(SELECTED_TAG_KEY, new HashSet<>()).contains(tag)) {
+                textView.setBackgroundResource(R.drawable.rounded_border_layout);
+            } else {
+                textView.setBackgroundResource(R.drawable.rounded_border_layout_selected);
+            }
+        }
+        tagRow.addView(textView);
+        if(isNewRow) {
+            mGridLayout.addView(tagRow);
+        }
+        TaggingView taggingView=new TaggingView(mSharedPref);
+        textView.setOnClickListener(taggingView);
+        textView.setOnLongClickListener(taggingView);
+    }
 
 
     public static void addTagRows(String tag,
@@ -129,12 +163,13 @@ public class TaggingUtility {
                                         if(isNewRow) {
                                             mGridLayout.addView(tagRow);
                                         }
-                                        TaggingView tView=new TaggingView(mGridLayout,mSharedPref,editTag,tagKey);
+                                        TaggingView tView=new TaggingView(mSharedPref);
                                         if((mGridLayout.getId()==R.id.listDocumentsTags )|| (mGridLayout.getId()==R.id.listExpenseTags)) {
                                             textView.setOnClickListener(tView);
                                             textView.setOnLongClickListener(tView);
                                         }
                                 }
+
 
 
 
@@ -191,6 +226,63 @@ public class TaggingUtility {
             }
 
 
+        }
+    }
+
+    public List<List<String>> getTagsArrangedForGridView(List<String> tags, int maxRowLength){
+        List<List<String>> arrangedTags=new ArrayList<>();
+        Stack<String> tagStack=new Stack<>();
+        tagStack.addAll(tags);
+        Collections.sort(tagStack, new Comparator<String>() {
+            @Override
+            public int compare(String elem1, String elem2) {
+                return (elem1.length()-elem2.length());
+            }
+        });
+        int allocatedLength=0;
+        arrangedTags.add(new ArrayList<>());
+        List<String> leftOver=new ArrayList<>();
+        while(true){
+            String tag=tagStack.pop();
+            int tagLength=tag.length();
+            int remainingLength=maxRowLength-allocatedLength;
+            if(remainingLength>=tagLength){
+                List<String> row=arrangedTags.get(arrangedTags.size()-1);
+                row.add(tag);
+                allocatedLength=allocatedLength+tagLength;
+            }else{
+                leftOver.add(tag);
+            }
+            if(tagStack.size()==0){// One iteration complete
+                Collections.reverse(leftOver);
+                tagStack.addAll(leftOver);
+                leftOver.clear();
+                allocatedLength=0;
+                arrangedTags.add(new ArrayList<>());
+            }
+            if(tagStack.size()==0 && leftOver.size()==0) break;
+        }
+
+        return arrangedTags;
+
+    }
+
+    public void arrangeTagsOnGridLayout(Activity activity,GridLayout gridLayout,List<String> tags,SharedPreferences mSharedPref) {
+        if (tags != null && !tags.isEmpty()) {
+            List<List<String>> arrangedTags = getTagsArrangedForGridView(tags, 15);
+            boolean isNewRow = true;
+            TableRow tableRow = null;
+            for (List<String> rows : arrangedTags) {
+                for (String tag : rows) {
+                    TextView textView = new TextView(activity);
+                    textView.setText(tag);
+                    if (isNewRow)
+                        tableRow = new TableRow(activity);
+                    addTagRows(tag, tableRow, textView, gridLayout,mSharedPref, isNewRow);
+                    isNewRow = false;
+                }
+                isNewRow = true;
+            }
         }
     }
 }

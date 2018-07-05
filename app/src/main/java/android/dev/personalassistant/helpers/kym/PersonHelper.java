@@ -70,7 +70,7 @@ public class PersonHelper {
                         personalAssistantDatabase.getPersonDAO().updatePersons(person);
                     } else {
                         tag.setTagName(personVO.getExpenseTag());
-                        tag.setTagCategory(ExpenseTagCategory.Personal.getVal());
+                        tag.setTagCategory(ExpenseTagCategory.ExpensedFor.getVal());
                         personalAssistantDatabase.getExpenseTagDAO().insertExpenseTag(tag);
 
                         ExpenseTag insertedTag=personalAssistantDatabase.getExpenseTagDAO().fetchExpenseTagByName(tag.getTagName());

@@ -10,6 +10,7 @@
     <ListView android:id="@+id/listManualExpenses"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="110dp"
         android:layout_weight="1"
         android:drawSelectorOnTop="false"/>
 

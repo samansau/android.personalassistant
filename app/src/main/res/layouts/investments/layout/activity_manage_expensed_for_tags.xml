@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    tools:context=".expenses.ManageExpensedOnTagsActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/expensedForElementalTagNameLabel"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/expensedForElementalTagNameField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tag Name"
+                android:maxLines="1"
+
+                />
+        </android.support.design.widget.TextInputLayout>
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/manageExpensedForElementalTagsEditScrollView"
+        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        >
+        <GridLayout
+            android:id="@+id/manageExpensedForElementalTagsEdit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="1"
+            />
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

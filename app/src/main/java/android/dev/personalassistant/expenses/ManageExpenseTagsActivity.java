@@ -18,17 +18,7 @@ public class ManageExpenseTagsActivity extends BaseActivity implements Constants
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_expense_tags);
-        final TextInputEditText editExpenseTag=(TextInputEditText)findViewById(R.id.editExpenseTags);
-        SharedPreferences mSharedPref = this.getSharedPreferences(EXPENSE_TAG_SHARED_PREFERENCE,Context.MODE_PRIVATE);
-        TaggingInput taggingInput=new TaggingInput(this,mSharedPref,editExpenseTag,EXPENSE_TAG_KEYS,EXPENSE_TAG_MAX_KEY);
-        editExpenseTag.setOnKeyListener(taggingInput);
-        int mExpensesTagMaxKey= mSharedPref.getInt(EXPENSE_TAG_MAX_KEY, 0);
-        if(mExpensesTagMaxKey==0){
-            TaggingUtility.populateExpensesTagSharedPrefs(mSharedPref);
-        }
-        GridLayout mtableLayout=(GridLayout)findViewById(R.id.listExpenseTags);
-        TaggingUtility taggingUtility=new TaggingUtility(this,mtableLayout);
-        taggingUtility.populateTagView(mSharedPref,EXPENSE_TAG_KEYS,editExpenseTag);
+
     }
 
 

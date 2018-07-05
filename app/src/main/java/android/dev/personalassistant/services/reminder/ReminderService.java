@@ -3,11 +3,19 @@ package android.dev.personalassistant.services.reminder;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.dev.personalassistant.R;
 import android.dev.personalassistant.helpers.kym.DatabaseHelper;
 import android.dev.personalassistant.helpers.reminder.ReminderHelper;
 import android.dev.personalassistant.vo.reminder.ReminderVO;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.media.ToneGenerator;
+import android.net.Uri;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
 
@@ -27,6 +35,7 @@ public class ReminderService extends Service {
     private final Map<String,List<Integer>> reminderMap=new HashMap();
     private final Map<String,Timer> timerMap=new HashMap();
     private PowerManager.WakeLock wakeLock =null;
+    Context context;
     public ReminderService() {
     }
 
@@ -43,16 +52,21 @@ public class ReminderService extends Service {
         super.onCreate();
     }
 
-    public int onStartCommand(Intent intent,int flags,int startId){
-        //mainTimer.scheduleAtFixedRate(new TimerTask() {
-//            @Override
-//            public void run() {
+    private void acquireWakeLock(){
         PowerManager powerManager=(PowerManager) getBaseContext().getSystemService(Context.POWER_SERVICE);
-
         if(wakeLock == null)
             wakeLock= powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"MyWakeLock");
         if(!wakeLock.isHeld())
             wakeLock.acquire();
+
+    }
+
+    public int onStartCommand(Intent intent,int flags,int startId){
+        //mainTimer.scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+        context=this;
+        acquireWakeLock();
         Log.d("Running.." ,"xyz");
         ReminderHelper reminderHelper = new ReminderHelper();
         try {
@@ -112,9 +126,13 @@ public class ReminderService extends Service {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                acquireWakeLock();
                 Log.d("Timer running.. every",reminderInterval+" ms"+" for a period of : " +interval);
                 Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
                 vibrator.vibrate(interval);
+                ToneGenerator tg =new ToneGenerator(AudioManager.STREAM_NOTIFICATION,200);
+                tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
 
             }
         },delay,reminderInterval);

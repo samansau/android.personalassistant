@@ -104,8 +104,12 @@ public class Keys {
     // Expenses keys
     public static final String expenseDate="expense_date";
     public static final String expenseAmount="expense_amount";
-    public static final String expenseTags="expense_tags";
+    public static final String expenseAllTags="expense_all_tags";
+    public static final String expenseForTags="expense_for_tags";
+    public static final String expenseOnTags="expense_on_tags";
+
     public static final String expenseDescription="expense_description";
+    public static final String expenseId="expense_id";
 
 
 

@@ -6,19 +6,25 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.dev.personalassistant.main.MainActivity;
+import android.dev.personalassistant.vo.expenses.ExpenseVO;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.dev.personalassistant.utils.Keys.expenseAllTags;
 import static android.dev.personalassistant.utils.Keys.expenseAmount;
 import static android.dev.personalassistant.utils.Keys.expenseDate;
 import static android.dev.personalassistant.utils.Keys.expenseDescription;
-import static android.dev.personalassistant.utils.Keys.expenseTags;
+
+
 
 /**
  * Created by saurabh on 5/6/18.
@@ -57,20 +63,63 @@ public class Utils {
         list.add(map);
 
     }
+
+    public static ExpenseVO extractExpenseFromMessage(String expenseMessage){
+        String []tokens={"Rs.","INR","₹"};
+        int indx=-1;
+        int indxIndx=0;
+        for(String token:tokens) {
+             indx= expenseMessage.indexOf(token);
+             if (indx > -1) break;
+            indxIndx++;
+        }
+        Log.d("indx ",indx+"");
+        ExpenseVO expenseVO=new ExpenseVO();
+        expenseVO.setExpensedForTags(new ArrayList<>());
+        expenseVO.setExpensedOnTags(new ArrayList<>());
+        expenseVO.setBriefDescription(expenseMessage);
+        if(indx>-1){
+            String amountStartMsg=expenseMessage.substring(indx+tokens[indxIndx].length());
+            Log.d("amountStartMsg ",amountStartMsg);
+            amountStartMsg=amountStartMsg.trim();
+            String amount=amountStartMsg.substring(0,amountStartMsg.indexOf(" "));
+
+
+            Log.d("amount ",amount);
+            try {
+                amount=amount.trim();
+                amount=amount.replace(",","");
+                double expenseAmount = Double.parseDouble(amount);
+                expenseVO.setExpenseAmount(expenseAmount);
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+
+        }
+
+        return expenseVO;
+    }
+
+    public static Date getDateFromDatePicker(DatePicker datePicker){
+        Calendar cal=Calendar.getInstance();
+        cal.set(datePicker.getYear(),datePicker.getMonth(),datePicker.getDayOfMonth());
+        return cal.getTime();
+
+    }
+
+
     public static void populateListOf4Items(List list) {
         HashMap map = new HashMap();
-        map.put(expenseTags, "Education,Kids");
+        map.put(expenseAllTags, "Education");
         map.put(expenseDate, "2018-06-05");
         map.put(expenseAmount, "12345");
-        map.put(expenseDescription, "xyz");
 
         list.add(map);
 
         map = new HashMap();
-        map.put(expenseTags, "Health");
+        map.put(expenseAllTags, "Health");
         map.put(expenseDate, "2018-06-02");
         map.put(expenseAmount, "1234");
-        map.put(expenseDescription, "xyz");
         list.add(map);
 
 

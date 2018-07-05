@@ -14,7 +14,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/genie"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -70,8 +70,20 @@
             android:exported="true" />
 
         <activity android:name=".expenses.ExpensesShowManualActivity" />
-        <activity android:name=".expenses.ManageExpensedOnTagsActivity" />
-        <activity android:name=".expenses.ManageExpensedOnTagsDetailsActivity"></activity>
+        <activity
+            android:name=".expenses.ManageExpensedOnTagsActivity"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+        <activity
+            android:name=".expenses.ManageExpensedForTagsActivity"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+        <activity
+            android:name=".expenses.ConfigureScanSMSActivity"
+            android:label= "@string/title_activity_configure_scan_sms"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+        <activity
+            android:name=".expenses.ConfigureExpenseSummaryActivity"
+            android:label= "Configure Expense Summary"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
     </application>
 
 </manifest>

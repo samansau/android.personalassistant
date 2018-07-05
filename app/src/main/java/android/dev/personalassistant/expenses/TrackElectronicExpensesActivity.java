@@ -1,11 +1,14 @@
 package android.dev.personalassistant.expenses;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.dev.personalassistant.R;
 import android.dev.personalassistant.tags.TaggingUtility;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +19,7 @@ import java.util.Set;
 
 import static android.dev.personalassistant.utils.Constants.SMS_KEYWORDS;
 import static android.dev.personalassistant.utils.Constants.SMS_KEYWORDS_SET;
+import static android.dev.personalassistant.utils.Constants.SMS_READ_PERMISSION;
 
 public class TrackElectronicExpensesActivity extends AppCompatActivity {
 
@@ -27,6 +31,7 @@ public class TrackElectronicExpensesActivity extends AppCompatActivity {
     }
 
     public void scanSMS(View view){
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_SMS},SMS_READ_PERMISSION);
         final GridLayout mGridLayout=(GridLayout)findViewById(R.id.smsKeywordTagsGridLayout);
         final TaggingUtility taggingUtilitySelected=new TaggingUtility(this,mGridLayout);
         final SharedPreferences mSharedPref = this.getSharedPreferences(SMS_KEYWORDS, Context.MODE_PRIVATE);
