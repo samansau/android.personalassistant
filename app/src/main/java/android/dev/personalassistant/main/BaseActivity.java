@@ -42,9 +42,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalField;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -55,6 +65,10 @@ import java.util.stream.Collectors;
 import static android.dev.personalassistant.utils.Constants.EXPENSED_SMS_FILTER_SHARED_PREFERENCE;
 import static android.dev.personalassistant.utils.Constants.EXPENSED_SMS_FILTER_SHARED_PREFERENCE_KEY;
 import static android.dev.personalassistant.utils.Constants.SMS_READ_PERMISSION;
+import static android.dev.personalassistant.utils.Keys.expenseAllTags;
+import static android.dev.personalassistant.utils.Keys.expenseAmount;
+import static android.dev.personalassistant.utils.Keys.expenseDate;
+import static android.dev.personalassistant.utils.Keys.expenseId;
 
 /**
  * Created by saurabh on 3/31/18.
@@ -68,10 +82,35 @@ public class BaseActivity  extends AppCompatActivity {
     protected ActionBarDrawerToggle mActionBarDrawerToggle;
     protected DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
+    private RadioButton expenseSummaryFilterOnOption;
+    private RadioButton expenseSummaryGroupOnOption;
+    private RadioButton expenseSummaryDailyOption;
+    private RadioButton expenseSummaryWeeklyOption;
+    private RadioButton expenseSummaryMonthlyOption;
+    private RadioButton expenseSummaryQuarterlyOption;
+    private RadioButton expenseSummaryAnnuallyOption;
+    private RadioGroup expenseSummaryRadioGroup1;
+    private RadioGroup expenseSummaryRadioGroup2;
+
+    static final ArrayList<Map<String,String>> summaryExpensesList  =
+            new ArrayList<Map<String,String>>();
+
+
+    private void init(){
+        expenseSummaryFilterOnOption=findViewById(R.id.expenseSummaryFilterOn);
+        expenseSummaryGroupOnOption=findViewById(R.id.expenseSummaryGroupOn);
+        expenseSummaryQuarterlyOption=findViewById(R.id.expenseSummaryWeeklyOption);
+        expenseSummaryWeeklyOption=findViewById(R.id.expenseSummaryMonthlyOption);
+        expenseSummaryMonthlyOption=findViewById(R.id.expenseSummaryQuarterlyOption);
+        expenseSummaryAnnuallyOption=findViewById(R.id.expenseSummaryAnnuallyOption);
+        expenseSummaryRadioGroup1 =findViewById(R.id.expenseSummaryRadioGroup1);
+        expenseSummaryRadioGroup2=findViewById(R.id.expenseSummaryRadioGroup2);
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         initDrawer();
         createExpenseToolBar();
@@ -231,11 +270,105 @@ public class BaseActivity  extends AppCompatActivity {
 
     }
 
-    public void configureExpenseSummary(View view){
+    public void displayTagsForExpenseSummary(View view){
         Intent intent= new Intent(view.getContext(),ConfigureExpenseSummaryActivity.class);
         startActivity(intent);
 
     }
+
+    public void displayExpenseSummary(View view){
+        init();
+        int id=expenseSummaryRadioGroup1.getCheckedRadioButtonId();
+        int id1=expenseSummaryRadioGroup2.getCheckedRadioButtonId();
+        int [][] quarterArray=new int [][]{{0,2},{3,5},{6,8},{9,11}};
+        if(id==R.id.expenseSummaryFilterOn) {
+            Calendar now = Calendar.getInstance();
+            Calendar start = Calendar.getInstance();
+            Calendar end = Calendar.getInstance();
+            switch (id1) {
+                case R.id.expenseSummaryWeeklyOption:
+                    int dayInWeek = now.get(Calendar.DAY_OF_WEEK);
+                    int daysAfter = 7 - dayInWeek;
+                    start.add(Calendar.DATE, -dayInWeek);
+                    end.add(Calendar.DATE, daysAfter);
+                    break;
+
+                case R.id.expenseSummaryMonthlyOption:
+                    Log.d("option", "monthly");
+                    int month = now.get(Calendar.MONTH);
+                    Log.d("month ", month + "");
+                    start.set(now.get(Calendar.YEAR), month, 1);
+                    if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11)
+                        end.set(now.get(Calendar.YEAR), month, 31);
+                    if (month == 3 || month == 5 || month == 8 || month == 10)
+                        end.set(now.get(Calendar.YEAR), month, 30);
+                    if (month == 1)
+                        end.set(now.get(Calendar.YEAR), month, 28);
+                    break;
+
+
+                case R.id.expenseSummaryQuarterlyOption:
+                    Log.d("option", "quarterly");
+                    int quarter = (now.get(Calendar.MONTH) / 3) + 1;
+                    int[] months = quarterArray[quarter - 1];
+                    start.set(now.get(Calendar.YEAR), months[0], 1);
+                    if (quarter == 1 || quarter == 4)
+                        end.set(now.get(Calendar.YEAR), months[1], 31);
+                    else
+                        end.set(now.get(Calendar.YEAR), months[1], 30);
+
+                    break;
+
+                case R.id.expenseSummaryAnnuallyOption:
+                    Log.d("option", "annually");
+                    int year = now.get(Calendar.YEAR);
+                    start.set(now.get(Calendar.YEAR), Calendar.JANUARY, 1);
+                    end.set(now.get(Calendar.YEAR), Calendar.DECEMBER, 31);
+                    break;
+            }
+
+            Log.d("start date ", start.getTime().toString());
+            Log.d("end date ", end.getTime().toString());
+            ExpensesHelper expensesHelper = new ExpensesHelper();
+            PersonalAssistantDatabase personalAssistantDatabase = DatabaseHelper.getDatabase(this);
+            try {
+                List<ExpenseVO> expenseVOS=expensesHelper.fetchExpenseVOsBetweenDates(personalAssistantDatabase, start.getTime(), end.getTime());
+                Log.d("expenseVOS between date ",expenseVOS.toString());
+                populateExpensesList(this,expenseVOS);
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+        }
+
+
+
+    }
+
+    private void populateExpensesList(Context context,List<ExpenseVO> expenseVOs) {
+        ListView summaryExpensesListView = (ListView) findViewById(R.id.listSummaryExpenses);
+        ListAdapter summaryExpensesAdapter = new SimpleAdapter(
+                this,
+                summaryExpensesList,
+                R.layout.three_line_list_item_expenses,
+                new String[] {expenseAllTags,expenseDate,expenseAmount},
+                new int[] {R.id.text1,R.id.text2,R.id.text3}
+        );
+        summaryExpensesList.clear();
+        for (ExpenseVO expenseVO : expenseVOs) {
+            HashMap map = new HashMap();
+            List<String> expenseTags = new ArrayList<>();
+            expenseTags.addAll(expenseVO.getExpensedForTags());
+            expenseTags.addAll(expenseVO.getExpensedOnTags());
+            map.put(expenseAllTags, expenseTags);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
+            map.put(expenseDate, sdf.format(expenseVO.getExpenseDate()));
+            map.put(expenseAmount, "₹ " + expenseVO.getExpenseAmount());
+            summaryExpensesList.add(map);
+        }
+        summaryExpensesListView.setAdapter(summaryExpensesAdapter);
+    }
+
+
 
     public void scanSMSForExpenses(View view){
         SharedPreferences expenseSmsFilterSharedPref=getSharedPreferences(EXPENSED_SMS_FILTER_SHARED_PREFERENCE, Context.MODE_PRIVATE);

@@ -46,6 +46,53 @@ public class ExpensesHelper {
         return expenseVO;
     }
 
+    public List<ExpenseVO> fetchExpenseVOsBetweenDates(final PersonalAssistantDatabase personalAssistantDatabase,Date startDate,Date endDate) throws InterruptedException{
+        final List<ExpenseVO> expenseVOS=new ArrayList<>();
+        Thread fetchThread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<Expense> expenses = personalAssistantDatabase.getExpenseDAO().fetchAllExpensesBetweenDates(startDate.getTime(),endDate.getTime());
+                if(expenses!=null){
+                    for(Expense expense:expenses){
+                        Log.d(ExpensesHelper.class.getName()+" Expense Object : ",expense.toString());
+                        ExpenseVO expenseVO=new ExpenseVO();
+                        expenseVO.setExpenseId(expense.getExpenseId());
+                        expenseVO.setExpenseAmount(expense.getExpenseAmount());
+
+                        List<String> expensedForTag=new ArrayList<>();
+                        List<ExpenseTag> expenseForTags=expense.getExpensedForTags();
+                        if(expenseForTags!=null) {
+                            for (ExpenseTag expensedFor : expenseForTags) {
+                                expensedForTag.add(expensedFor.getTagName());
+                                Log.d("expensedForTag : ",expensedFor.getTagName());
+                            }
+                        }
+                        expenseVO.setExpensedForTags(expensedForTag);
+
+                        List<String> expensedOnTag=new ArrayList<>();
+                        List<ExpenseTag> expenseOnTags=expense.getExpensedOnTags();
+                        if(expenseOnTags!=null){
+                            for(ExpenseTag expensedOn:expenseOnTags){
+                                expensedOnTag.add(expensedOn.getTagName());
+                                Log.d("expensedOnTag : ",expensedOn.getTagName());
+                            }
+                        }
+                        expenseVO.setExpensedOnTags(expensedOnTag);
+
+                        expenseVO.setBriefDescription(expense.getBriefDescription());
+                        expenseVO.setExpenseDate(expense.getExpenseDate());
+                        expenseVO.setExpenseTimeStamp(expense.getExpenseTimeStamp());
+
+                        expenseVOS.add(expenseVO);
+                    }
+                }
+            }
+        });
+        fetchThread.start();
+        fetchThread.join();
+        return expenseVOS;
+    }
+
 
     public List<ExpenseVO> fetchAllExpenseVOs(final PersonalAssistantDatabase personalAssistantDatabase) throws InterruptedException{
         final List<ExpenseVO> expenseVOS=new ArrayList<>();

@@ -9,7 +9,7 @@ public class ExpensesShowAllListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expenses_show_all_list);
+        setContentView(R.layout.activity_expenses_show_summary);
     }
 
 }

@@ -8,6 +8,7 @@ import android.arch.persistence.room.Update;
 import android.dev.personalassistant.entities.expense.Expense;
 import android.dev.personalassistant.entities.expense.ExpenseTag;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +30,9 @@ public interface ExpenseDAO {
 
     @Query("select * from Expense order by expenseDate desc")
     public List<Expense> fetchAllExpenses();
+
+    @Query("select * from Expense where expenseDate >= :startDate and expenseDate<=:endDate order by expenseDate desc")
+    public List<Expense> fetchAllExpensesBetweenDates( Long startDate,Long endDate);
 
     @Query("select * from Expense where expenseId =:expenseId")
     public Expense fetchExpenseById(int expenseId);

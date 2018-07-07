@@ -20,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -177,7 +176,7 @@ public class ExpenseTabFragment extends TabFragment {
 
     private View getAllExpensesView(LayoutInflater inflater, ViewGroup container){
         View view;
-        view= inflater.inflate(R.layout.activity_expenses_show_all_list, container, false);
+        view= inflater.inflate(R.layout.activity_expenses_show_summary, container, false);
 
         return view;
     }
