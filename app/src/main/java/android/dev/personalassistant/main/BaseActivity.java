@@ -47,8 +47,12 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalField;
@@ -64,6 +68,8 @@ import java.util.stream.Collectors;
 
 import static android.dev.personalassistant.utils.Constants.EXPENSED_SMS_FILTER_SHARED_PREFERENCE;
 import static android.dev.personalassistant.utils.Constants.EXPENSED_SMS_FILTER_SHARED_PREFERENCE_KEY;
+import static android.dev.personalassistant.utils.Constants.EXPENSED_TAGS_SHARED_PREFERENCE_KEY;
+import static android.dev.personalassistant.utils.Constants.SELECTED_TAG_KEY;
 import static android.dev.personalassistant.utils.Constants.SMS_READ_PERMISSION;
 import static android.dev.personalassistant.utils.Keys.expenseAllTags;
 import static android.dev.personalassistant.utils.Keys.expenseAmount;
@@ -91,6 +97,11 @@ public class BaseActivity  extends AppCompatActivity {
     private RadioButton expenseSummaryAnnuallyOption;
     private RadioGroup expenseSummaryRadioGroup1;
     private RadioGroup expenseSummaryRadioGroup2;
+    private ListView summaryExpensesListView;
+    private ListAdapter summaryExpensesAdapter;
+    private TextView expenseSummaryTotalObj;
+    private SharedPreferences mSharedPrefSummaryTags;
+    private ToggleButton expenseSummarySelectToggleTagsObj;
 
     static final ArrayList<Map<String,String>> summaryExpensesList  =
             new ArrayList<Map<String,String>>();
@@ -105,6 +116,9 @@ public class BaseActivity  extends AppCompatActivity {
         expenseSummaryAnnuallyOption=findViewById(R.id.expenseSummaryAnnuallyOption);
         expenseSummaryRadioGroup1 =findViewById(R.id.expenseSummaryRadioGroup1);
         expenseSummaryRadioGroup2=findViewById(R.id.expenseSummaryRadioGroup2);
+        expenseSummaryTotalObj=findViewById(R.id.expenseSummaryTotal);
+        mSharedPrefSummaryTags = this.getSharedPreferences(EXPENSED_TAGS_SHARED_PREFERENCE_KEY,Context.MODE_PRIVATE);
+        expenseSummarySelectToggleTagsObj=findViewById(R.id.expenseSummarySelectToggleTags);
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +129,8 @@ public class BaseActivity  extends AppCompatActivity {
         initDrawer();
         createExpenseToolBar();
         populateFinancialTransactionsTabs();
+
+
 
 
     }
@@ -333,8 +349,10 @@ public class BaseActivity  extends AppCompatActivity {
             PersonalAssistantDatabase personalAssistantDatabase = DatabaseHelper.getDatabase(this);
             try {
                 List<ExpenseVO> expenseVOS=expensesHelper.fetchExpenseVOsBetweenDates(personalAssistantDatabase, start.getTime(), end.getTime());
-                Log.d("expenseVOS between date ",expenseVOS.toString());
-                populateExpensesList(this,expenseVOS);
+                Log.d("expenseVOS size between date ",expenseVOS.size()+"");
+
+                populateSummaryExpensesList(this,expenseVOS);
+
             }catch (Exception ex){
                 ex.printStackTrace();
             }
@@ -344,28 +362,49 @@ public class BaseActivity  extends AppCompatActivity {
 
     }
 
-    private void populateExpensesList(Context context,List<ExpenseVO> expenseVOs) {
-        ListView summaryExpensesListView = (ListView) findViewById(R.id.listSummaryExpenses);
-        ListAdapter summaryExpensesAdapter = new SimpleAdapter(
+    private void populateSummaryExpensesList(Context context,List<ExpenseVO> expenseVOs) {
+        summaryExpensesListView = (ListView) findViewById(R.id.listSummaryExpenses);
+        summaryExpensesAdapter= new SimpleAdapter(
                 this,
                 summaryExpensesList,
                 R.layout.three_line_list_item_expenses,
                 new String[] {expenseAllTags,expenseDate,expenseAmount},
                 new int[] {R.id.text1,R.id.text2,R.id.text3}
         );
+        summaryExpensesListView.setAdapter(summaryExpensesAdapter);
         summaryExpensesList.clear();
+        double expense=0.0;
+        Set<String> summaryTags=mSharedPrefSummaryTags.getStringSet(SELECTED_TAG_KEY, new HashSet<>());
+
         for (ExpenseVO expenseVO : expenseVOs) {
+
             HashMap map = new HashMap();
             List<String> expenseTags = new ArrayList<>();
-            expenseTags.addAll(expenseVO.getExpensedForTags());
-            expenseTags.addAll(expenseVO.getExpensedOnTags());
+            List<String> expensedFor=expenseVO.getExpensedForTags();
+            List<String> expensedOn=expenseVO.getExpensedOnTags();
+            expenseTags.addAll(expensedFor);
+            expenseTags.addAll(expensedOn);
+            boolean isTagPresent=false;
+            for(String expenseTag:expenseTags){
+                if(summaryTags.contains(expenseTag)) {
+                    isTagPresent=true;
+                    break;
+                }
+            }
+            if(!isTagPresent && expenseSummarySelectToggleTagsObj.isChecked()) continue;
             map.put(expenseAllTags, expenseTags);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
             map.put(expenseDate, sdf.format(expenseVO.getExpenseDate()));
             map.put(expenseAmount, "₹ " + expenseVO.getExpenseAmount());
+            expense=expense+expenseVO.getExpenseAmount();
             summaryExpensesList.add(map);
         }
-        summaryExpensesListView.setAdapter(summaryExpensesAdapter);
+
+        DecimalFormat format=new DecimalFormat();
+        format.applyPattern("###.##");
+        expenseSummaryTotalObj.setText("Total : ₹ "+format.format(expense));
+
+
     }
 
 
